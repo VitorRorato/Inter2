@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e7f0f8ba1c6403dba42dc3b87c61340" Name="Diagram1">
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.ABASTECIMENTO" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.CARGO" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.FUNCIONARIO" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.LOGIN" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.MANUTENCAO" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.QUANTIDADE_TANQUE" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.TANQUE" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.VEICULO" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_ABASTECIMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_ABASTECIMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_ABASTECIMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_CARGO_FUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_LOGIN" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_MANUTENCAO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_QUANTIDADE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

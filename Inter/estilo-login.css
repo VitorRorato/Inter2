@@ -1,0 +1,57 @@
+﻿*{
+    margin:0;
+    padding:0;
+}
+
+body {
+
+}
+
+#login {
+    padding: 10px;
+    width: 50%;
+    margin: auto;
+}
+
+.botao {
+    width: 130px;
+    height:30px;
+    color:white;
+    border-radius: 10px;
+    border-style: none;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: blue;
+    padding: 2px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
+    padding:5px;
+}
+
+.centro {
+    text-align: center;
+}
+
+.distanciamento-top {
+    margin-top: 20px;
+}
+
+.caixa{
+    width:180px;
+    text-align:center;
+}
+
+.conteudo{
+    position:relative;
+    top:-50px;
+}
+
+.fonte{
+    font-family:Arial;
+}
+
+#fundo {
+    height:100vh;
+    background: linear-gradient(lightblue, white) no-repeat;
+}

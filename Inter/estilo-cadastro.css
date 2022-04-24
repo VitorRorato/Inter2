@@ -1,0 +1,38 @@
+﻿*{
+    margin:0;
+    padding:0;
+}
+.caixa{
+    width:200px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+#centro{
+    margin-top:20px;
+    border:1px solid gray;
+    padding:10px;
+    border-radius:15px;
+    width:50%;
+}
+
+.botao {
+    width: 130px;
+    height: 30px;
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: blue;
+    padding: 2px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+}
+
+body {
+    height: 90vh;
+    background: linear-gradient(lightblue, white) no-repeat;
+}
