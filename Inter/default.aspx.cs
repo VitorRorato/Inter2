@@ -18,5 +18,35 @@ namespace Inter
         {
             Response.Redirect("cadastro.aspx");
         }
+
+        protected void btnEntrar_Click(object sender, EventArgs e)
+        {
+            VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities();
+            LOGIN login = new LOGIN();
+            if (string.IsNullOrEmpty(txtUsuario.Text))
+            {
+                txtUsuario.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(txtSenha.Text))
+            {
+                txtSenha.Focus();
+                return;
+            }
+
+            string user = txtUsuario.Text;
+            string password = txtSenha.Text;
+
+
+            login = conexao.LOGIN.FirstOrDefault(
+                linha => linha.USUARIO.Equals(user) && linha.SENHA.Equals(password)
+                );
+
+            if (login != null)
+            {
+                Session["usuario"] = login.USUARIO;
+                Response.Redirect("principal.aspx");
+            }
+        }
     }
 }
