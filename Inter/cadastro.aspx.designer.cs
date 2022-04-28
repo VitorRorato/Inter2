@@ -51,13 +51,13 @@ namespace Inter
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// Controle TextBox2.
+        /// Controle txtUsuario.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
 
         /// <summary>
         /// Controle Label3.
@@ -69,13 +69,13 @@ namespace Inter
         protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
-        /// Controle TextBox4.
+        /// Controle txtSenha.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtSenha;
 
         /// <summary>
         /// Controle Label4.
@@ -87,13 +87,13 @@ namespace Inter
         protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
-        /// Controle TextBox3.
+        /// Controle txtConfirmaSenha.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmaSenha;
 
         /// <summary>
         /// Controle btnCadastrar.

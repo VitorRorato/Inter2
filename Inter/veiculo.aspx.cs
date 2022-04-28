@@ -118,7 +118,18 @@ namespace Inter
 
         protected void btnExcluirManutencao_Click(object sender, EventArgs e)
         {
+            if (gridManutencao.SelectedValue != null)
+            {
+                MANUTENCAO m = conexao.MANUTENCAO.FirstOrDefault(
+                    linha=>linha.ID.ToString().Equals(gridManutencao.SelectedValue.ToString()));
 
+                conexao.MANUTENCAO.Remove(m);
+
+                gridManutencao.SelectedIndex = -1;
+
+            }
+            carregarGridManutencao();
+            conexao.SaveChanges();
         }
 
         protected void btnSalvarManutencao_Click(object sender, EventArgs e)
