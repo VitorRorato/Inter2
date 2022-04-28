@@ -13,7 +13,7 @@
                 
             </div>
 
-                 <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
+            <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
                     <asp:GridView id="gridVeiculo" CssClass="w-100" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellPadding="3" CellSpacing="1" GridLines="None" DataKeyNames="ID,PREFIXO,PLACA,KM_ATUAL,KM_COMPRA" OnSelectedIndexChanged="gridVeiculo_SelectedIndexChanged">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
@@ -111,26 +111,8 @@
                 
             </div>
 
-                 <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
-                    <asp:GridView id="GridView1" CssClass="w-100" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellPadding="3" CellSpacing="1" GridLines="None" DataKeyNames="ID,PREFIXO,PLACA,KM_ATUAL,KM_COMPRA" OnSelectedIndexChanged="gridVeiculo_SelectedIndexChanged">
-                    <Columns>
-                        <asp:CommandField ShowSelectButton="True" />
-                        <asp:BoundField DataField="ID" HeaderText="Cód." Visible="False" />
-                        <asp:BoundField DataField="PREFIXO" HeaderText="Prefixo" />
-                        <asp:BoundField DataField="PLACA" HeaderText="Placa" />
-                        <asp:BoundField DataField="KM_ATUAL" HeaderText="Km" />
-                        <asp:BoundField DataField="KM_COMPRA" HeaderText="km Compra" Visible="False" />
-                    </Columns>
-                    <FooterStyle BackColor="#C6C3C6" ForeColor="Black" />
-                    <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#E7E7FF" />
-                    <PagerStyle BackColor="#C6C3C6" ForeColor="Black" HorizontalAlign="Right" />
-                    <RowStyle BackColor="#DEDFDE" ForeColor="Black" />
-                    <SelectedRowStyle BackColor="#9471DE" Font-Bold="True" ForeColor="White" />
-                    <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                    <SortedAscendingHeaderStyle BackColor="#594B9C" />
-                    <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                    <SortedDescendingHeaderStyle BackColor="#33276A" />
-                </asp:GridView>
+            <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
+                <asp:GridView ID="gridManutencao" runat="server"></asp:GridView>
             </div>
 
             <div class="modal fade" id="modalmanutencao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,14 +135,14 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <div class="p-1"><asp:TextBox Id="TextBox2" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox3" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox7" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox8" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox9" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox10" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox11" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox12" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtKmManutencao" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtkmProximaManutencao" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroAr" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroCombustivel" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroRacor" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroOleoMotor" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtQtdOleoMotor" runat="server" /></div>
+                                    <div class="p-1"><asp:dropdownlist Id="ddlPrefixo" runat="server" /></div>
                                 </div>
                             </div>
                         </div>

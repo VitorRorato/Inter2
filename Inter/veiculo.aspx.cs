@@ -15,8 +15,18 @@ namespace Inter
         {
             if (!IsPostBack)
             {
+                carregarPrefixo();
                 carregarGrid();
+                carregarGridManutencao();
             }
+        }
+
+        private void carregarGridManutencao()
+        {
+            var lista = conexao.MANUTENCAO.ToList();
+            gridManutencao.DataSource = lista;
+            gridManutencao.DataBind();
+
         }
 
         private void carregarGrid()
@@ -24,6 +34,16 @@ namespace Inter
             var lista = conexao.VEICULO.ToList();
             gridVeiculo.DataSource = lista;
             gridVeiculo.DataBind();
+        }
+
+        private void carregarPrefixo()
+        {
+            var lista = conexao.VEICULO.ToList();
+            ddlPrefixo.DataSource = lista;
+            ddlPrefixo.DataValueField = "ID";
+            ddlPrefixo.DataTextField = "PREFIXO";
+            ddlPrefixo.DataBind();
+
         }
 
         protected void btnSalvarVeiculo_Click(object sender, EventArgs e)
@@ -103,6 +123,27 @@ namespace Inter
 
         protected void btnSalvarManutencao_Click(object sender, EventArgs e)
         {
+            MANUTENCAO m = new MANUTENCAO();
+            VEICULO v = conexao.VEICULO.FirstOrDefault(linha => linha.ID.ToString().Equals(ddlPrefixo.SelectedValue.ToString()));
+
+            v.KM_ATUAL = Convert.ToDouble(txtKmManutencao.Text);
+            m.KM_ATUAL = Convert.ToDouble(txtKmManutencao.Text);
+            m.KM_PROXIMA_TROCA = Convert.ToDouble(txtkmProximaManutencao.Text);
+            m.FILTRO_AR=txtFiltroAr.Text;
+            m.FILTRO_COMBUSTIVEL = txtFiltroCombustivel.Text;
+            m.FILTRO_RACOR = txtFiltroCombustivel.Text;
+            m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotor.Text;
+            m.QUANTIDADE_OLEO_MOTOR =Convert.ToDouble(txtQtdOleoMotor.Text);
+            m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
+
+            conexao.MANUTENCAO.Add(m);
+            conexao.Entry(v);
+            conexao.SaveChanges();
+
+            carregarGridManutencao();
+            carregarGrid();
+
+
 
         }
     }
