@@ -7,14 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace Inter
 {
-    public partial class veiculo : System.Web.UI.Page
+    public partial class combustivel : System.Web.UI.Page
     {
-        VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities();
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
     }
 }

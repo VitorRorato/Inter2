@@ -11,7 +11,23 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+         /*   if (Session["usuario"] == null)
+                Response.Redirect("default.aspx");
+            else
+                lblUsuario.Text = "Olá " + Session["usuario"].ToString() + " !";*/
 
+        }
+
+        protected void btnSair_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("default.aspx");
+        }
+
+        protected void btnSair_Click1(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("default.aspx");
         }
     }
 }

@@ -77,6 +77,7 @@
   <ItemGroup>
     <Content Include="cadastro.aspx" />
     <Content Include="colaborador.aspx" />
+    <Content Include="combustivel.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -117,6 +118,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="veiculo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +141,13 @@
     </Compile>
     <Compile Include="colaborador.aspx.designer.cs">
       <DependentUpon>colaborador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="combustivel.aspx.cs">
+      <DependentUpon>combustivel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="combustivel.aspx.designer.cs">
+      <DependentUpon>combustivel.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -191,6 +200,13 @@
     </Compile>
     <Compile Include="TANQUE.cs">
       <DependentUpon>ModeloData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="veiculo.aspx.cs">
+      <DependentUpon>veiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="veiculo.aspx.designer.cs">
+      <DependentUpon>veiculo.aspx</DependentUpon>
     </Compile>
     <Compile Include="VEICULO.cs">
       <DependentUpon>ModeloData.tt</DependentUpon>

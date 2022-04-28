@@ -94,11 +94,11 @@ namespace Inter
         }
 
 
-        protected void btnEditar_Click(object sender, EventArgs e)
+        protected void btnEditar_Click (object sender, EventArgs e)
         {
             if (gridColaborador.SelectedValue != null)
             {
-                FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
+                FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha=>linha.ID.ToString().Equals(
                     gridColaborador.SelectedValue.ToString()));
 
                 f.NOME = txtNome.Text.ToUpper();

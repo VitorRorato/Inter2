@@ -67,6 +67,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QUANTIDADE" Type="float" Nullable="false" />
           <Property Name="FK_TANQUE" Type="int" Nullable="false" />
+          <Property Name="DATA" Type="date" Nullable="false" />
           <Property Name="TOTAL" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TANQUE">
@@ -285,6 +286,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
           <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TOTAL" Type="Double" Nullable="false" />
           <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE_QUANTIDADE" FromRole="QUANTIDADE_TANQUE" ToRole="TANQUE" />
         </EntityType>
@@ -504,6 +506,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
                 <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
                 <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
               </MappingFragment>
             </EntityTypeMapping>

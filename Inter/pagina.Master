@@ -18,13 +18,13 @@
                 <div class="nav-item">
                     <a class="navegacao p-2 m-3" href="principal.aspx">Inicio</a>
                     <a class="navegacao p-2 m-3" href="colaborador.aspx">Colaborador</a>
-                    <a class="navegacao p-2 m-3" href="principal.aspx">Veiculo</a>
-                    <a class="navegacao p-2 m-3" href="principal.aspx">Combustivel</a>
+                    <a class="navegacao p-2 m-3" href="veiculo.aspx">Veiculo</a>
+                    <a class="navegacao p-2 m-3" href="combustivel.aspx">Combustivel</a>
                 </div>
 
                 <div>
-                    <asp:Label ID="label1" Text="[user]" runat="server" CssClass="user" />
-                    <a class="navegacao p-2 m-3" href="default.aspx">Sair</a>
+                    <asp:Label ID="lblUsuario" Text="[user]" runat="server" CssClass="user" />
+                    <asp:Button ID="btnSair" CssClass="navegacao" Text="SAIR" runat="server" OnClick="btnSair_Click1" />
                 </div>
             </div>
 

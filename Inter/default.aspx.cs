@@ -11,7 +11,7 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)

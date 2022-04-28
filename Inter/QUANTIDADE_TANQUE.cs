@@ -17,6 +17,7 @@ namespace Inter
         public int ID { get; set; }
         public double QUANTIDADE { get; set; }
         public int FK_TANQUE { get; set; }
+        public System.DateTime DATA { get; set; }
         public double TOTAL { get; set; }
     
         public virtual TANQUE TANQUE { get; set; }
