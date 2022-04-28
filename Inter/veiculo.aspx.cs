@@ -131,7 +131,7 @@ namespace Inter
             m.KM_PROXIMA_TROCA = Convert.ToDouble(txtkmProximaManutencao.Text);
             m.FILTRO_AR=txtFiltroAr.Text;
             m.FILTRO_COMBUSTIVEL = txtFiltroCombustivel.Text;
-            m.FILTRO_RACOR = txtFiltroCombustivel.Text;
+            m.FILTRO_RACOR = txtFiltroRacor.Text;
             m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotor.Text;
             m.QUANTIDADE_OLEO_MOTOR =Convert.ToDouble(txtQtdOleoMotor.Text);
             m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);

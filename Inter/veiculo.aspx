@@ -112,7 +112,28 @@
             </div>
 
             <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
-                <asp:GridView ID="gridManutencao" runat="server"></asp:GridView>
+                <asp:GridView ID="gridManutencao" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="w-100 text-center" Font-Size="10pt" HorizontalAlign="Center" CellSpacing="2">
+                    <Columns>
+                        <asp:CommandField ShowSelectButton="True"></asp:CommandField>
+                        <asp:BoundField DataField="KM_ATUAL" HeaderText="Km"></asp:BoundField>
+                        <asp:BoundField DataField="KM_PROXIMA_TROCA" HeaderText="Prox. Manutenção"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_AR" HeaderText="Filtro AR"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_COMBUSTIVEL" HeaderText="Filtro Combustivel"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_RACOR" HeaderText="Filtro Racor"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_OLEO_MOTOR" HeaderText="Filtro Oleo Motor"></asp:BoundField>
+                        <asp:BoundField DataField="QUANTIDADE_OLEO_MOTOR" HeaderText="Qtd(L). Oleo Motor"></asp:BoundField>
+                        <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
+                    </Columns>
+                    <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+                    <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                    <RowStyle ForeColor="#8C4510" BackColor="#FFF7E7" />
+                    <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                    <sortedascendingcellstyle backcolor="#FFF1D4" />
+                    <sortedascendingheaderstyle backcolor="#B95C30" />
+                    <sorteddescendingcellstyle backcolor="#F1E5CE" />
+                    <sorteddescendingheaderstyle backcolor="#93451F" />
+                </asp:GridView>
             </div>
 
             <div class="modal fade" id="modalmanutencao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
