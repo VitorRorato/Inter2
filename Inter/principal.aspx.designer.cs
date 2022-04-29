@@ -42,12 +42,12 @@ namespace Inter
         protected global::System.Web.UI.WebControls.Label lblVeiculo;
 
         /// <summary>
-        /// Controle Label1.
+        /// Controle lblManutencao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblManutencao;
     }
 }

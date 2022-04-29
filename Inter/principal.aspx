@@ -21,7 +21,7 @@
                             <span><asp:Label Text="Total de Veiculos: " runat="server" /><asp:Label Id="lblVeiculo" Text="a" runat="server" /></span>
                         </div>
                         <div>
-                            <span><asp:Label Text="Ultima manutenção realizada: " runat="server" /><asp:Label Id="Label1" Text="a" runat="server" /></span>
+                            <span><asp:Label Text="Ultima manutenção realizada: " runat="server" /><asp:Label Id="lblManutencao" Text="a" runat="server" /></span>
                         </div>
                     </div>
                  </div>

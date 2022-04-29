@@ -11,7 +11,17 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            carregarinformacoes();
+        }
 
+        private void carregarinformacoes()
+        {
+            VIACAOARAUJOEntities con = new VIACAOARAUJOEntities();
+            VEICULO v = new VEICULO();
+
+            lblVeiculo.Text = con.VEICULO.Count().ToString();
+
+            
         }
     }
 }
