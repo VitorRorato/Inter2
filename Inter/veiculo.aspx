@@ -112,9 +112,10 @@
             </div>
 
             <div class="col"  style=" OVERFLOW: auto; HEIGHT:35vh; padding:1px; border:1px solid red">
-                <asp:GridView ID="gridManutencao" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="w-100 text-center" Font-Size="10pt" HorizontalAlign="Center" CellSpacing="2" DataKeyNames="ID,KM_ATUAL,KM_PROXIMA_TROCA,FILTRO_AR,FILTRO_COMBUSTIVEL,FILTRO_RACOR,FILTRO_OLEO_MOTOR,QUANTIDADE_OLEO_MOTOR,FK_VEICULO">
+                <asp:GridView ID="gridManutencao" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="w-100 text-center" Font-Size="10pt" HorizontalAlign="Center" CellSpacing="2" DataKeyNames="ID,KM_ATUAL,KM_PROXIMA_TROCA,FILTRO_AR,FILTRO_COMBUSTIVEL,FILTRO_RACOR,FILTRO_OLEO_MOTOR,QUANTIDADE_OLEO_MOTOR,FK_VEICULO" OnSelectedIndexChanged="gridManutencao_SelectedIndexChanged1">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True"></asp:CommandField>
+                        <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
                         <asp:BoundField DataField="KM_ATUAL" HeaderText="Km"></asp:BoundField>
                         <asp:BoundField DataField="KM_PROXIMA_TROCA" HeaderText="Prox. Manutenção"></asp:BoundField>
                         <asp:BoundField DataField="FILTRO_AR" HeaderText="Filtro AR"></asp:BoundField>
@@ -122,7 +123,6 @@
                         <asp:BoundField DataField="FILTRO_RACOR" HeaderText="Filtro Racor"></asp:BoundField>
                         <asp:BoundField DataField="FILTRO_OLEO_MOTOR" HeaderText="Filtro Oleo Motor"></asp:BoundField>
                         <asp:BoundField DataField="QUANTIDADE_OLEO_MOTOR" HeaderText="Qtd(L). Oleo Motor"></asp:BoundField>
-                        <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
                     </Columns>
                     <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
                     <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
@@ -140,7 +140,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalmanutencaolabel">Cadastrar novo Veículo</h5>
+                            <h5 class="modal-title" id="modalmanutencaolabel">Manutenção</h5>
                         </div>
                         <div class="modal-body container">
                             <div class="row">
@@ -179,24 +179,35 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalManutencaolabel">Editar Cadastro Veiculo</h5>
+                            <h5 class="modal-title" id="modalManutencaolabel">Editar Manutenção</h5>
                         </div>
                         <div class="modal-body container">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="p-1 m-1"><asp:Label Text="PLACA" runat="server" /></div>
-                                    <div class="p-1 m-1"><asp:Label Text="PREFIXO" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Proxima Troca" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro de AR" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Combustivel" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Racor" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Oleo Motor" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Quantidade Oleo Motor" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Prefixo do Veículo" runat="server" /></div>
                                 </div>
+
                                 <div class="col-6">
-                                    <div class="p-1"><asp:TextBox Id="TextBox4" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox5" runat="server" /></div>
-                                    <div class="p-1"><asp:TextBox Id="TextBox6" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtKmManutencaoE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtKmProximaManutencaoE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFltroArE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroCombustivelE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroRacorE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroOleoMotorE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtQtdOleoMotorE" runat="server" /></div>
+                                    <div class="p-1"><asp:dropdownlist Id="ddlPrefixoE" runat="server" /></div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:button Id="Button3" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnEditarVeiculo_Click" />
+                            <asp:button Id="btnEditarManutencao" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnEditarManutencao_Click" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                         </div>
                     </div>
