@@ -13,23 +13,32 @@
             </div>    
         </div>
         <div class="row p-3">
-            <div class="col">
                 <div class="container-fluid">
-                    <asp:GridView ID="gridAbastecimento" runat="server" AutoGenerateColumns="False">
-                        <Columns>
-                            <asp:BoundField DataField="DATA_ABASTECIMENTO" HeaderText="Data" />
-                            <asp:BoundField DataField="KM" HeaderText="Km" />
-                            <asp:BoundField DataField="POSTO" HeaderText="Posto" />
-                            <asp:BoundField DataField="LITROS_COMBUSTIVEL" HeaderText="qtd. (Lts)" />
-                            <asp:BoundField DataField="DISTANCIA_PERCORRIDA" HeaderText="Dist. Percorrida" />
-                            <asp:BoundField HeaderText="Consumo Medio (KM/L)" />
-                            <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo" />
-                            <asp:BoundField DataField="TANQUE.NOME" HeaderText="Tanque" />
-                            <asp:BoundField DataField="FUNCIONARIO.NOME" HeaderText="Funcionario" />
-                        </Columns>
-                    </asp:GridView>
+                    <div style=" OVERFLOW: auto; HEIGHT:60vh; padding:1px;">
+                        <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
+                            <AlternatingRowStyle BackColor="#F7F7F7" />
+                            <Columns>
+                                <asp:BoundField DataField="DATA_ABASTECIMENTO"  HeaderText="Data" DataFormatString="{0:dd-MM-yyyy}" />
+                                <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo" />
+                                <asp:BoundField DataField="KM" HeaderText="Km" />
+                                <asp:BoundField DataField="POSTO" HeaderText="Local" />
+                                <asp:BoundField DataField="LITROS_COMBUSTIVEL" HeaderText="Litros" />
+                                <asp:BoundField DataField="DISTANCIA_PERCORRIDA" HeaderText="Distancia Percorrida" />
+                                <asp:BoundField DataField="CONSUMO_MEDIO" HeaderText="Km/L" />
+                                <asp:BoundField DataField="FUNCIONARIO.NOME" HeaderText="Responsavel" />
+                            </Columns>
+                            <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+                            <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+                            <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+                            <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+                            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+                            <SortedAscendingCellStyle BackColor="#F4F4FD" />
+                            <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+                            <SortedDescendingCellStyle BackColor="#D8D8F0" />
+                            <SortedDescendingHeaderStyle BackColor="#3E3277" />
+                        </asp:GridView>
+                    </div>
                 </div>
-            </div>
         </div>
 
 
@@ -81,7 +90,7 @@
                                     <div>
                                         
                                     </div>
-                                    <div class="p-1"><asp:TextBox Type="Date" Id="txtData" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox TextMode="Date" Id="txtData" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKm" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtLocal" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtLitros" runat="server" /></div>
@@ -92,7 +101,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:button Id="btnSalvarAbastecimento" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnSalvvarAbastecimento_Click" />
+                            <asp:button Id="btnSalvarAbastecimento" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnSalvarAbastecimento_Click" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                         </div>
                     </div>

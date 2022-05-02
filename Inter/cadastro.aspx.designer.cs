@@ -42,6 +42,15 @@ namespace Inter
         protected global::System.Web.UI.WebControls.TextBox txtCpf;
 
         /// <summary>
+        /// Controle rfvCpf.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCpf;
+
+        /// <summary>
         /// Controle Label2.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace Inter
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+
+        /// <summary>
+        /// Controle rfvUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUsuario;
 
         /// <summary>
         /// Controle Label3.
@@ -78,6 +96,15 @@ namespace Inter
         protected global::System.Web.UI.WebControls.TextBox txtSenha;
 
         /// <summary>
+        /// Controle rfvSenha1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSenha1;
+
+        /// <summary>
         /// Controle Label4.
         /// </summary>
         /// <remarks>
@@ -94,6 +121,15 @@ namespace Inter
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtConfirmaSenha;
+
+        /// <summary>
+        /// Controle CompareValidator1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
 
         /// <summary>
         /// Controle btnCadastrar.

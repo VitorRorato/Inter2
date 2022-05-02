@@ -18,23 +18,27 @@
                 </br>
                 <div>
                     <div><asp:Label ID="Label1" runat="server" Text="CPF"></asp:Label></div>
-                     <div><asp:TextBox ID="txtCpf" runat="server" CssClass="caixa"></asp:TextBox></div>
+                     <div><asp:TextBox ID="txtCpf" runat="server" CssClass="caixa"></asp:TextBox><asp:RequiredFieldValidator ID="rfvCpf" runat="server" ErrorMessage="*" ControlToValidate="txtCpf" ForeColor="Red" Font-Size="15pt" ValidationGroup="login"></asp:RequiredFieldValidator></div>
                 </div>
                 <div>
                     <div><asp:Label ID="Label2" runat="server" Text="Usuario"></asp:Label></div>
-                     <div><asp:TextBox ID="txtUsuario" runat="server" CssClass="caixa"></asp:TextBox></div>
+                     <div><asp:TextBox ID="txtUsuario" runat="server" CssClass="caixa"></asp:TextBox><asp:RequiredFieldValidator ID="rfvUsuario" runat="server" ErrorMessage="*" ControlToValidate="txtUsuario" ForeColor="Red" Font-Size="15pt" ValidationGroup="login"></asp:RequiredFieldValidator></div>
+                    
                 </div>
                 <div>
                     <div><asp:Label ID="Label3" runat="server" Text="Senha"></asp:Label></div>
-                     <div><asp:TextBox ID="txtSenha" type="password" runat="server" CssClass="caixa"></asp:TextBox></div>
+                     <div><asp:TextBox ID="txtSenha" type="password" runat="server" CssClass="caixa"></asp:TextBox><asp:RequiredFieldValidator ID="rfvSenha1" runat="server" ErrorMessage="*" ControlToValidate="txtSenha" Font-Size="15pt" ForeColor="Red" ValidationGroup="login"></asp:RequiredFieldValidator></div>
+                    
                 </div>
                 <div>
-                    <div><asp:Label ID="Label4" runat="server" Text="Confime a senha"></asp:Label></div>
-                     <div><asp:TextBox ID="txtConfirmaSenha" type="password" runat="server" CssClass="caixa"></asp:TextBox></div>
+                    <div><asp:Label ID="Label4" runat="server" Text="Confirme sua senha"></asp:Label></div>
+                     <div><asp:TextBox ID="txtConfirmaSenha" type="password" runat="server" CssClass="caixa"></asp:TextBox><asp:RequiredFieldValidator runat="server" ErrorMessage="*" ControlToValidate="txtConfirmaSenha" Font-Size="15pt" ForeColor="Red" ValidationGroup="login"></asp:RequiredFieldValidator></div>
+                    <div><asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="senhas não coincidem" ControlToValidate="txtConfirmaSenha" ControlToCompare="txtSenha" ForeColor="Red" ValidationGroup="login"></asp:CompareValidator></div>
+                    
                 </div>
                 </br>
                 <div align="center">
-                    <span><asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" CssClass="botao" OnClick="btnCadastrar_Click"/></span>
+                    <span><asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" CssClass="botao" OnClick="btnCadastrar_Click" ValidationGroup="login"/></span>
                     <span><asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="botao" OnClick="btnVoltar_Click"/></span>
                 </div>
             </div>

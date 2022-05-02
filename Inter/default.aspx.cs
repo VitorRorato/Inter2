@@ -27,6 +27,7 @@ namespace Inter
             {
                 txtUsuario.Focus();
                 return;
+                
             }
             if (string.IsNullOrEmpty(txtSenha.Text))
             {
@@ -47,6 +48,8 @@ namespace Inter
                 Session["usuario"] = login.USUARIO;
                 Response.Redirect("principal.aspx");
             }
+
+
         }
     }
 }

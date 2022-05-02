@@ -95,7 +95,35 @@ namespace Inter
         {
             using(VIACAOARAUJOEntities con =new VIACAOARAUJOEntities())
             {
+                List<ABASTECIMENTO> lista = con.ABASTECIMENTO.Where(
+                    linha=>linha.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue)).ToList();
 
+                ABASTECIMENTO a = new ABASTECIMENTO();
+                double distancia = 0, consumo = 0, litros=0;
+                if (double.TryParse(txtKm.Text, out distancia)!= false)
+                {
+                    distancia = distancia - lista.Last().KM;
+                }
+
+                if (double.TryParse(txtLitros.Text, out litros)!=false)
+                {
+                    consumo = distancia/litros;
+                }
+
+                a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);
+                a.KM = Convert.ToDouble(txtKm.Text);
+                a.POSTO = txtLocal.Text;
+                a.LITROS_COMBUSTIVEL = litros;
+                a.DISTANCIA_PERCORRIDA = distancia;
+                a.CONSUMO_MEDIO = consumo;
+                a.FK_VEICULO = Convert.ToInt32(ddlVeiculo.SelectedValue);
+                a.FK_TANQUE_COMBUSTIVEL = Convert.ToInt32(ddlTanqueAbastecimento.SelectedValue);
+                a.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionario.SelectedValue);
+
+                con.ABASTECIMENTO.Add(a);
+                con.SaveChanges();
+
+                carregarGridAbastecimento();
             }
         }
     }
