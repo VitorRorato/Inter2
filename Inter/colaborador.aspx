@@ -4,12 +4,19 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="conteudo">
         <div class="container-fluid">
-            <div class="row p-2 text-end">
-                        
-                            <div class="p-1"><asp:TextBox ID="txtBusca" PlaceHolder="BUSCAR" runat="server" />
-                                <asp:Button CssClass="btn btn-primary botao" ID="btnBusca" Text="Buscar" runat="server" OnClick="btnBusca_Click" />
-                            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <div><asp:Label Id="lblValidacao" Text="" runat="server" ForeColor="Red" Font-Size="18" /></div>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">
+                    <div class="p-1 text-end"><asp:TextBox ID="txtBusca" PlaceHolder="BUSCAR" runat="server" />
+                        <asp:Button CssClass="btn btn-primary botao" ID="btnBusca" Text="Buscar" runat="server" OnClick="btnBusca_Click" />
                     </div>
+                </div>
+                
+            </div>
             
             <div class="row">
                
@@ -18,6 +25,8 @@
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalColaborador">Novo Colaborador</button></div>
                     <div><asp:Button id="btnEcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Colaborador" OnClick="btnEcluir_Click" /></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar Colaborador</button></div>
+                    
+
 
                         <div class="modal fade" id="modalCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -30,7 +39,7 @@
                               <span><asp:Label Text="Nome: " runat="server" /><asp:TextBox Id="txtCargo" runat="server" /></span>
                           </div>
                           <div class="modal-footer">
-                            <asp:button Id="btnSalvarCargo" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnSalvarCargo_Click"/>
+                            <asp:button Id="btnSalvarCargo" class="btn btn-primary" data-bs-dismiss="none" Text="Salvar" runat="server" OnClick="btnSalvarCargo_Click"/>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                           </div>
                         </div>

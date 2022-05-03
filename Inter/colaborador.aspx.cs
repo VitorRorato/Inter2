@@ -9,9 +9,6 @@ namespace Inter
 {
     public partial class colaborador : System.Web.UI.Page
     {
-
-        VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,116 +20,220 @@ namespace Inter
 
         private void carregarCargo()
         {
-            List<CARGO> lista = new List<CARGO>();
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                List<CARGO> lista = new List<CARGO>();
 
-            lista = conexao.CARGO.ToList();
-            cboCargoColabordor.DataSource = lista;
-            cboCargoColabordor.DataValueField = "ID";
-            cboCargoColabordor.DataTextField = "NOME";
-            cboCargoColabordor.DataBind();
+                lista = conexao.CARGO.ToList();
+                cboCargoColabordor.DataSource = lista;
+                cboCargoColabordor.DataValueField = "ID";
+                cboCargoColabordor.DataTextField = "NOME";
+                cboCargoColabordor.DataBind();
 
-            lista = conexao.CARGO.ToList();
-            ddlCargo.DataSource = lista;
-            ddlCargo.DataValueField = "ID";
-            ddlCargo.DataTextField = "NOME";
-            ddlCargo.DataBind();
+                lista = conexao.CARGO.ToList();
+                ddlCargo.DataSource = lista;
+                ddlCargo.DataValueField = "ID";
+                ddlCargo.DataTextField = "NOME";
+                ddlCargo.DataBind();
+            }
         }
 
         private void carregarGrid()
         {
-            var lista = conexao.FUNCIONARIO.ToList();
-            gridColaborador.DataSource = lista;
-            gridColaborador.DataBind();
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                var lista = conexao.FUNCIONARIO.ToList();
+                gridColaborador.DataSource = lista;
+                gridColaborador.DataBind();
+            }
         }
 
         protected void btnSalvarCargo_Click(object sender, EventArgs e)
         {
-            CARGO cargo = new CARGO();
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                CARGO cargo = new CARGO();
 
-            cargo.NOME = txtCargo.Text.ToUpper();
+                cargo = conexao.CARGO.FirstOrDefault(linha => linha.NOME.Equals(txtCargo.Text));
 
-            conexao.CARGO.Add(cargo);
-            conexao.SaveChanges();
-            Response.Redirect("colaborador.aspx");
+                if (string.IsNullOrEmpty(txtCargo.Text))
+                {
+                    lblValidacao.Text = "Por Favor Preencha o Campo!";
+                    return;
+                }
+                else
+                {
+                    if (cargo != null)
+                    {
+                        lblValidacao.Text = "Cargo ja Cadastrado";
+                        return;
+                    }
 
+                    CARGO c = new CARGO();
+                    c.NOME = txtCargo.Text.ToUpper();
+                    conexao.CARGO.Add(c);
+                    conexao.SaveChanges();
+                    carregarCargo();
+                    txtCargo.Text = string.Empty;
+                }
+            }
         }
 
         protected void btnSalvarColaborador_Click(object sender, EventArgs e)
         {
-            FUNCIONARIO funcionario = new FUNCIONARIO();
 
-            funcionario.NOME = txtNomeColabordor.Text.ToUpper();
-            funcionario.CPF = txtCpfColabordor.Text;
-            funcionario.RG = txtRgColabordor.Text;
-            funcionario.FK_CARGO = Convert.ToInt32(cboCargoColabordor.SelectedValue);
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                if ((txtNomeColabordor.Text == string.Empty) ||
+                    (txtCpfColabordor.Text == string.Empty) ||
+                    (txtRgColabordor.Text == string.Empty))
+                {
+                    lblValidacao.Text = "FAVOR PREENCHER TODOS OS DADOS!";
+                    return;
+                }
+                else
+                {
 
-            conexao.FUNCIONARIO.Add(funcionario);
-            conexao.SaveChanges();
+                    FUNCIONARIO funcionario = new FUNCIONARIO();
 
-            Response.Redirect("colaborador.aspx");
+                    funcionario = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.NOME.Equals(txtNomeColabordor.Text));
+                    if (funcionario != null)
+                    {
+                        lblValidacao.Text = "Colaborador Já Cadastrado!";
+                        return;
+                    }
+                    funcionario = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.CPF.Equals(txtCpfColabordor.Text));
+                    if (funcionario != null)
+                    {
+                        lblValidacao.Text = "CPF Já Cadastrado!";
+                        return;
+                    }
+                    funcionario = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.RG.Equals(txtRgColabordor.Text));
+                    if (funcionario != null)
+                    {
+                        lblValidacao.Text = "RG Já Cadastrado!";
+                        return;
+                    }
+
+                    FUNCIONARIO f = new FUNCIONARIO();
+
+                    f.NOME = txtNomeColabordor.Text.ToUpper();
+                    f.CPF = txtCpfColabordor.Text;
+                    f.RG = txtRgColabordor.Text;
+                    f.FK_CARGO = Convert.ToInt32(cboCargoColabordor.SelectedValue);
+
+                    conexao.FUNCIONARIO.Add(f);
+
+                    conexao.SaveChanges();
+
+                    carregarGrid();
+
+                    Limpar();
+                }
+
+            }
+            
+
+            
         }
 
         protected void btnBusca_Click(object sender, EventArgs e)
         {
-            List<FUNCIONARIO> lista = conexao.FUNCIONARIO.Where(linha => linha.NOME.Contains(txtBusca.Text)).ToList();
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                List<FUNCIONARIO> lista = conexao.FUNCIONARIO.Where(linha => linha.NOME.Contains(txtBusca.Text)).ToList();
 
-            gridColaborador.DataSource = lista;
-            gridColaborador.DataBind();
+                gridColaborador.DataSource = lista;
+                gridColaborador.DataBind();
+            }
         }
 
         protected void gridColaborador_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int idselecionado = Convert.ToInt32(gridColaborador.SelectedValue);
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            {
+                int idselecionado = Convert.ToInt32(gridColaborador.SelectedValue);
 
-            FUNCIONARIO funcionario = conexao.FUNCIONARIO.FirstOrDefault(
-                linha => linha.ID.ToString().Equals(idselecionado.ToString()));
+                FUNCIONARIO funcionario = conexao.FUNCIONARIO.FirstOrDefault(
+                    linha => linha.ID.ToString().Equals(idselecionado.ToString()));
 
-            txtNome.Text = funcionario.NOME;
-            txtRg.Text = funcionario.RG;
-            txtCpf.Text = funcionario.CPF;
-            ddlCargo.SelectedValue = funcionario.FK_CARGO.ToString();
+                txtNome.Text = funcionario.NOME;
+                txtRg.Text = funcionario.RG;
+                txtCpf.Text = funcionario.CPF;
+                ddlCargo.SelectedValue = funcionario.FK_CARGO.ToString();
+            }
         }
 
 
         protected void btnEditar_Click (object sender, EventArgs e)
         {
-            if (gridColaborador.SelectedValue != null)
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
             {
-                FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha=>linha.ID.ToString().Equals(
-                    gridColaborador.SelectedValue.ToString()));
+                if (gridColaborador.SelectedValue != null)
+                {
+                    FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
+                        gridColaborador.SelectedValue.ToString()));
 
-                f.NOME = txtNome.Text.ToUpper();
-                f.CPF = txtCpf.Text;
-                f.RG = txtRg.Text;
-                f.FK_CARGO = Convert.ToInt32(ddlCargo.SelectedValue);
+                    FUNCIONARIO funcionario = new FUNCIONARIO();
 
-                conexao.Entry(f);
+                    if ((txtNome.Text == string.Empty) ||
+                        (txtCpf.Text == string.Empty) ||
+                        (txtRg.Text == string.Empty))
+                    {
+                        lblValidacao.Text = "FAVOR PREENCHER TODOS OS DADOS!";
+                        return;
+                    }
 
-                gridColaborador.SelectedIndex = -1;
+                    f.NOME = txtNome.Text.ToUpper();
+                    f.CPF = txtCpf.Text;
+                    f.RG = txtRg.Text;
+                    f.FK_CARGO = Convert.ToInt32(ddlCargo.SelectedValue);
 
+                    conexao.Entry(f);
+
+                    gridColaborador.SelectedIndex = -1;
+
+                }
+
+                conexao.SaveChanges();
+
+                carregarGrid();
             }
-
-            conexao.SaveChanges();
-
-            carregarGrid();
         }
 
         protected void btnEcluir_Click(object sender, EventArgs e)
         {
-            if (gridColaborador.SelectedValue != null)
+            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
             {
-                FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
-                    gridColaborador.SelectedValue.ToString()));
+                if (gridColaborador.SelectedValue != null)
+                {
+                    FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
+                        gridColaborador.SelectedValue.ToString()));
 
-                conexao.FUNCIONARIO.Remove(f);
+                    conexao.FUNCIONARIO.Remove(f);
 
-                gridColaborador.SelectedIndex = -1;
+                    gridColaborador.SelectedIndex = -1;
 
+                }
+
+                Limpar();
+
+                conexao.SaveChanges();
+
+                carregarGrid();
             }
-
-            conexao.SaveChanges();
-
-            carregarGrid();
         }
+
+        private void Limpar()
+        {
+            txtNome.Text = string.Empty;
+            txtRg.Text = string.Empty;
+            txtCpf.Text = string.Empty;
+
+            txtNomeColabordor.Text = string.Empty;
+            txtRgColabordor.Text = string.Empty;
+            txtCpfColabordor.Text = string.Empty;
+        }
+
     }
 }

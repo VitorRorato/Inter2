@@ -99,15 +99,27 @@ namespace Inter
                     linha=>linha.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue)).ToList();
 
                 ABASTECIMENTO a = new ABASTECIMENTO();
-                double distancia = 0, consumo = 0, litros=0;
-                if (double.TryParse(txtKm.Text, out distancia)!= false)
+
+                double distancia = 0, consumo = 0, litros=0, km=0;
+                
+                if (double.TryParse(txtKm.Text, out distancia)== false)
                 {
-                    distancia = distancia - lista.Last().KM;
+                    
                 }
 
                 if (double.TryParse(txtLitros.Text, out litros)!=false)
                 {
                     consumo = distancia/litros;
+                }
+
+                a = con.ABASTECIMENTO.LastOrDefault(linha => linha.FK_VEICULO.Equals(ddlVeiculo.SelectedValue));
+                if (a != null)
+                {
+                    distancia = distancia - lista.Last().KM;
+                }
+                else
+                {
+                    distancia = 0;
                 }
 
                 a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);

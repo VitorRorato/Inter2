@@ -3,6 +3,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="conteudo p-3">   
+        <div class="row text-center">
+            <div class="col">
+                <div><asp:Label ID="lblValidacao" runat="server" ForeColor="Red" Font-Size="18" /></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-3 text-end">
                 <div class="container-fluid">
@@ -100,6 +105,14 @@
             <hr />
             </br>
         </div>
+
+        <div class="row text-center">
+            <div class="col">
+                <div>
+                    <asp:Label ID="lblValidacaoManutencao" Text="" runat="server" ForeColor="Red" Font-Size="18px"/></div>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-3 text-end">
