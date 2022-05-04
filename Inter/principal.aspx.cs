@@ -21,7 +21,9 @@ namespace Inter
 
             lblVeiculo.Text = con.VEICULO.Count().ToString();
 
-            
+            ABASTECIMENTO a = new ABASTECIMENTO();
+
+            lblabastecimento.Text = con.ABASTECIMENTO.LastOrDefault().ToString() + "" ;
         }
     }
 }

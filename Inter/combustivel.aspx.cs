@@ -95,35 +95,38 @@ namespace Inter
         {
             using(VIACAOARAUJOEntities con =new VIACAOARAUJOEntities())
             {
-                List<ABASTECIMENTO> lista = con.ABASTECIMENTO.Where(
-                    linha=>linha.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue)).ToList();
+                ABASTECIMENTO abast = new ABASTECIMENTO();
 
                 ABASTECIMENTO a = new ABASTECIMENTO();
 
-                double distancia = 0, consumo = 0, litros=0, km=0;
-                
-                if (double.TryParse(txtKm.Text, out distancia)== false)
-                {
-                    
-                }
+                double distancia = 0, consumo = 0, kmatual=0, litros=0, km=0;
 
-                if (double.TryParse(txtLitros.Text, out litros)!=false)
-                {
-                    consumo = distancia/litros;
-                }
+                kmatual = Convert.ToDouble(txtKm.Text);
 
-                a = con.ABASTECIMENTO.LastOrDefault(linha => linha.FK_VEICULO.Equals(ddlVeiculo.SelectedValue));
-                if (a != null)
+                litros = Convert.ToDouble(txtLitros.Text);
+
+                abast = con.ABASTECIMENTO.LastOrDefault(linha => linha.FK_VEICULO.Equals(ddlVeiculo.SelectedValue));
+                if (abast != null)
                 {
-                    distancia = distancia - lista.Last().KM;
+                    km = abast.KM;
+                    distancia = kmatual - km;
                 }
                 else
                 {
                     distancia = 0;
                 }
 
+                if (distancia==0)
+                {
+                    consumo = 0;
+                }
+                else
+                {
+                    consumo = distancia / litros;
+                }
+
                 a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);
-                a.KM = Convert.ToDouble(txtKm.Text);
+                a.KM = kmatual;
                 a.POSTO = txtLocal.Text;
                 a.LITROS_COMBUSTIVEL = litros;
                 a.DISTANCIA_PERCORRIDA = distancia;

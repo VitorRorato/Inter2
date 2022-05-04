@@ -108,6 +108,7 @@ namespace Inter
 
                     carregarGrid();
                     carregarPrefixo();
+                    limpar();
                 }
             }
 
@@ -192,6 +193,8 @@ namespace Inter
                     conexao.SaveChanges();
 
                     carregarGrid();
+
+                    limpar();
                 }
             }
             catch (Exception)
@@ -260,13 +263,18 @@ namespace Inter
                     }
                     else
                     {
+                        if (km<v.KM_ATUAL)
+                        {
+                            lblValidacaoManutencao.Text = "Quilometragem Invalida!";
+                            return;
+                        }
                         v.KM_ATUAL = km;
                         m.KM_ATUAL = km;
                         m.KM_PROXIMA_TROCA = kmProx;
-                        m.FILTRO_AR = txtFiltroAr.Text;
-                        m.FILTRO_COMBUSTIVEL = txtFiltroCombustivel.Text;
-                        m.FILTRO_RACOR = txtFiltroRacor.Text;
-                        m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotor.Text;
+                        m.FILTRO_AR = txtFiltroAr.Text.ToUpper().Replace(" ", "");
+                        m.FILTRO_COMBUSTIVEL = txtFiltroCombustivel.Text.ToUpper().Replace(" ", "");
+                        m.FILTRO_RACOR = txtFiltroRacor.Text.ToUpper().Replace(" ", "");
+                        m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotor.Text.ToUpper().Replace(" ", "");
                         m.QUANTIDADE_OLEO_MOTOR = litros;
                         m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
 
@@ -276,6 +284,10 @@ namespace Inter
 
                         carregarGridManutencao();
                         carregarGrid();
+
+                        limpar();
+
+
                     }
                 }
             }
@@ -330,10 +342,10 @@ namespace Inter
                             v.KM_ATUAL = km;
                             m.KM_ATUAL = km;
                             m.KM_PROXIMA_TROCA = kmProx;
-                            m.FILTRO_AR = txtFltroArE.Text;
-                            m.FILTRO_COMBUSTIVEL = txtFiltroCombustivelE.Text;
-                            m.FILTRO_RACOR = txtFiltroRacorE.Text;
-                            m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotorE.Text;
+                            m.FILTRO_AR = txtFltroArE.Text.ToUpper().Replace(" ","");
+                            m.FILTRO_COMBUSTIVEL = txtFiltroCombustivelE.Text.ToUpper().Replace(" ", "");
+                            m.FILTRO_RACOR = txtFiltroRacorE.Text.ToUpper().Replace(" ", "");
+                            m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotorE.Text.ToUpper().Replace(" ", "");
                             m.QUANTIDADE_OLEO_MOTOR = litros;
                             m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
 
@@ -346,6 +358,8 @@ namespace Inter
 
                             gridManutencao.SelectedIndex = -1;
                             gridVeiculo.SelectedIndex = -1;
+
+                            limpar();
                         }
                     }
                 }
@@ -375,6 +389,28 @@ namespace Inter
                 txtQtdOleoMotorE.Text = m.QUANTIDADE_OLEO_MOTOR.ToString();
                 ddlPrefixoE.SelectedValue = m.FK_VEICULO.ToString();
             }
+        }
+
+        private void limpar()
+        {
+            lblValidacao.Text = string.Empty;
+            lblValidacaoManutencao.Text = string.Empty;
+
+            txtKmManutencao.Text = string.Empty;
+            txtkmProximaManutencao.Text = string.Empty;
+            txtFiltroAr.Text = string.Empty;
+            txtFiltroCombustivel.Text = string.Empty;
+            txtFiltroRacor.Text = string.Empty;
+            txtFiltroOleoMotor.Text = string.Empty;
+            txtQtdOleoMotor.Text = string.Empty;
+
+            txtKmManutencaoE.Text = string.Empty;
+            txtKmProximaManutencaoE.Text = string.Empty;
+            txtFltroArE.Text = string.Empty;
+            txtFiltroCombustivelE.Text = string.Empty;
+            txtFiltroRacorE.Text = string.Empty;
+            txtFiltroOleoMotorE.Text = string.Empty;
+            txtQtdOleoMotorE.Text = string.Empty;
         }
     }
 }
