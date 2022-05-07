@@ -12,6 +12,11 @@
                 </div>
             </div>    
         </div>
+        <div class="row text-center">
+            <div class="col">
+                <div><asp:Label ID="lblValidacao" Text="" runat="server" ForeColor="Red" Font-Size="18px" /></div>
+            </div>
+        </div>
         <div class="row p-3">
                 <div class="container-fluid">
                     <div style=" OVERFLOW: auto; HEIGHT:60vh; padding:1px;">
