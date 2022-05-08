@@ -11,10 +11,10 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            carregarinformacoes();
+            //carregarinformacoes();
         }
 
-        private void carregarinformacoes()
+        /*private void carregarinformacoes()
         {
             VIACAOARAUJOEntities con = new VIACAOARAUJOEntities();
             VEICULO v = new VEICULO();
@@ -24,6 +24,6 @@ namespace Inter
             ABASTECIMENTO a = new ABASTECIMENTO();
 
             lblabastecimento.Text = con.ABASTECIMENTO.LastOrDefault().ToString() + "" ;
-        }
+        }*/
     }
 }

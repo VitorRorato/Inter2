@@ -47,7 +47,6 @@
                              <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="botao fonte" OnClick="btnEntrar_Click" ValidationGroup="login" /> 
                         </div>
                         <div class="centro">
-                            <asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" CssClass="botao fonte" OnClick="btnCadastrar_Click" />
                         </div>
                      </div>
                 </div>

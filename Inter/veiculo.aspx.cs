@@ -11,6 +11,7 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 carregarPrefixo();
@@ -96,6 +97,12 @@ namespace Inter
                         return;
                     }
 
+                    if (km<0)
+                    {
+                        lblValidacao.Text = "Valor Negativo!";
+                        return;
+                    }
+
                     VEICULO veiculo = new VEICULO();
 
                     veiculo.PLACA = txtPlaca.Text.ToUpper();
@@ -105,11 +112,11 @@ namespace Inter
 
                     conexao.VEICULO.Add(veiculo);
                     conexao.SaveChanges();
-
-                    carregarGrid();
-                    carregarPrefixo();
-                    limpar();
                 }
+
+                carregarGrid();
+                carregarPrefixo();
+                limpar();
             }
 
 
@@ -199,7 +206,7 @@ namespace Inter
             }
             catch (Exception)
             {
-                lblValidacao.Text = "Erro ao salvar o veiuclo";
+                lblValidacao.Text = "Erro ao salvar o Veiculo PorFavor Verifique os Dados Informados!";
             }
             
         }
@@ -236,21 +243,7 @@ namespace Inter
                     VEICULO v = conexao.VEICULO.FirstOrDefault(
                         linha => linha.ID.ToString().Equals(ddlPrefixo.SelectedValue.ToString()));
 
-                    if (double.TryParse(txtKmManutencao.Text, out km) == false)
-                    {
-                        lblValidacaoManutencao.Text = "Quilometragem Invalida";
-                        return;
-                    }
-                    if (double.TryParse(txtkmProximaManutencao.Text, out kmProx) == false)
-                    {
-                        txtkmProximaManutencao.Focus();
-                        lblValidacaoManutencao.Text = "Quilometragem Invalida";
-                        return;
-                    }
-                    if (double.TryParse(txtQtdOleoMotor.Text, out litros)==false)
-                    {
-                        lblValidacaoManutencao.Text = "Quantidade de litros Invalida!";
-                    }
+
 
                     if (
                         string.IsNullOrEmpty(txtFiltroAr.Text) &&
@@ -263,11 +256,37 @@ namespace Inter
                     }
                     else
                     {
-                        if (km<v.KM_ATUAL)
+                        if (double.TryParse(txtKmManutencao.Text, out km) == false)
                         {
-                            lblValidacaoManutencao.Text = "Quilometragem Invalida!";
+                            lblValidacaoManutencao.Text = "Quilometragem Invalida";
                             return;
                         }
+                        
+                        if (double.TryParse(txtkmProximaManutencao.Text, out kmProx) == false)
+                        {
+                            txtkmProximaManutencao.Focus();
+                            lblValidacaoManutencao.Text = "Quilometragem Invalida";
+                            return;
+                        }
+                        
+                        if (double.TryParse(txtQtdOleoMotor.Text, out litros) == false)
+                        {
+                            lblValidacaoManutencao.Text = "Quantidade de litros Invalida!";
+                            return;
+                        }
+
+                        if (km < 0 || kmProx < 0 || litros < 0)
+                        {
+                            lblValidacao.Text = "Valores Nulos não são aceitos!";
+                            return;
+                        }
+
+                        if (km<v.KM_ATUAL)
+                        {
+                            lblValidacaoManutencao.Text = "Quilometragem Não pode ser Menor que a Atual!";
+                            return;
+                        }
+
                         v.KM_ATUAL = km;
                         m.KM_ATUAL = km;
                         m.KM_PROXIMA_TROCA = kmProx;
@@ -313,21 +332,7 @@ namespace Inter
                         VEICULO v = conexao.VEICULO.FirstOrDefault(
                             linha => linha.ID.ToString().Equals(ddlPrefixo.SelectedValue.ToString()));
 
-                        if (double.TryParse(txtKmManutencaoE.Text, out km) == false)
-                        {
-                            lblValidacaoManutencao.Text = "Quilometragem Invalida";
-                            return;
-                        }
-                        if (double.TryParse(txtKmProximaManutencaoE.Text, out kmProx) == false)
-                        {
-                            txtkmProximaManutencao.Focus();
-                            lblValidacaoManutencao.Text = "Quilometragem Invalida";
-                            return;
-                        }
-                        if (double.TryParse(txtQtdOleoMotorE.Text, out litros) == false)
-                        {
-                            lblValidacaoManutencao.Text = "Quantidade de litros Invalida!";
-                        }
+
 
                         if (string.IsNullOrEmpty(txtFltroArE.Text) &&
                             string.IsNullOrEmpty(txtFiltroCombustivelE.Text) &&
@@ -339,6 +344,36 @@ namespace Inter
                         }
                         else
                         {
+                            if (double.TryParse(txtKmManutencaoE.Text, out km) == false)
+                            {
+                                lblValidacaoManutencao.Text = "Quilometragem Invalida";
+                                return;
+                            }
+                            
+                            if (double.TryParse(txtKmProximaManutencaoE.Text, out kmProx) == false)
+                            {
+                                txtkmProximaManutencao.Focus();
+                                lblValidacaoManutencao.Text = "Quilometragem Invalida";
+                                return;
+                            }
+                            
+                            if (double.TryParse(txtQtdOleoMotorE.Text, out litros) == false)
+                            {
+                                lblValidacaoManutencao.Text = "Quantidade de litros Invalida!";
+                            }
+                            
+                            if (km < 0 || kmProx < 0 || litros < 0)
+                            {
+                                lblValidacao.Text = "Valores Nulos não são aceitos!";
+                                return;
+                            }
+
+                            if (km < v.KM_ATUAL)
+                            {
+                                lblValidacaoManutencao.Text = "Quilometragem Não pode ser Menor que a Atual!";
+                                return;
+                            }
+
                             v.KM_ATUAL = km;
                             m.KM_ATUAL = km;
                             m.KM_PROXIMA_TROCA = kmProx;
@@ -393,6 +428,14 @@ namespace Inter
 
         private void limpar()
         {
+            txtPrefixo.Text = string.Empty;
+            txtPlaca.Text = string.Empty;
+            txtKm.Text = string.Empty;
+
+            txtPrefixoVeiculo.Text = string.Empty;
+            txtPlacaVeiculo.Text = string.Empty;
+            txtKmVeiculo.Text = string.Empty;
+
             lblValidacao.Text = string.Empty;
             lblValidacaoManutencao.Text = string.Empty;
 

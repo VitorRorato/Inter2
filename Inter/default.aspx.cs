@@ -14,11 +14,6 @@ namespace Inter
            
         }
 
-        protected void btnCadastrar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("cadastro.aspx");
-        }
-
         protected void btnEntrar_Click(object sender, EventArgs e)
         {
             VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities();

@@ -23,11 +23,9 @@
                 <div class="col">
                     <div><button id="modal" type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCargo">Novo Cargo</button></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalColaborador">Novo Colaborador</button></div>
-                    <div><asp:Button id="btnEcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Colaborador" OnClick="btnEcluir_Click" /></div>
+                    <div><asp:Button id="btnEcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Colaborador" OnClick="btnEcluir_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')"/></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar Colaborador</button></div>
                     
-
-
                         <div class="modal fade" id="modalCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -39,6 +37,7 @@
                               <span><asp:Label Text="Nome: " runat="server" /><asp:TextBox Id="txtCargo" runat="server" /></span>
                           </div>
                           <div class="modal-footer">
+                              <asp:Button ID="btnLista" CssClass="btn btn-primary" Text="Lista" runat="server" OnClick="btnLista_Click"/>
                             <asp:button Id="btnSalvarCargo" class="btn btn-primary" data-bs-dismiss="none" Text="Salvar" runat="server" OnClick="btnSalvarCargo_Click"/>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                           </div>
@@ -76,7 +75,7 @@
                             </div>
                         </div>
 
-                         <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -105,6 +104,7 @@
                                 </div>
                             </div>
                         </div>
+
                 </div>
                 
                 <div class="col-8"  style=" OVERFLOW: auto; HEIGHT:60vh; padding:1px;">

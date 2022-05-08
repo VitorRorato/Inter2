@@ -19,7 +19,7 @@
         </div>
         <div class="row p-3">
                 <div class="container-fluid">
-                    <div style=" OVERFLOW: auto; HEIGHT:60vh; padding:1px;">
+                    <div style=" OVERFLOW: auto; HEIGHT:50vh;border:1px solid red; padding:1px;">
                         <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                             <AlternatingRowStyle BackColor="#F7F7F7" />
                             <Columns>

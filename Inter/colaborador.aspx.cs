@@ -13,39 +13,37 @@ namespace Inter
         {
             if (!IsPostBack)
             {
-                carregarCargo();
-                carregarGrid();
+                using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+                {
+                    carregarCargo(conexao);
+                    carregarGrid(conexao);
+                }
             }
         }
 
-        private void carregarCargo()
+        private void carregarCargo(VIACAOARAUJOEntities conexao)
         {
-            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
-            {
-                List<CARGO> lista = new List<CARGO>();
+            List<CARGO> lista = new List<CARGO>();
 
-                lista = conexao.CARGO.ToList();
-                cboCargoColabordor.DataSource = lista;
-                cboCargoColabordor.DataValueField = "ID";
-                cboCargoColabordor.DataTextField = "NOME";
-                cboCargoColabordor.DataBind();
+            lista = conexao.CARGO.ToList();
+            cboCargoColabordor.DataSource = lista;
+            cboCargoColabordor.DataValueField = "ID";
+            cboCargoColabordor.DataTextField = "NOME";
+            cboCargoColabordor.DataBind();
 
-                lista = conexao.CARGO.ToList();
-                ddlCargo.DataSource = lista;
-                ddlCargo.DataValueField = "ID";
-                ddlCargo.DataTextField = "NOME";
-                ddlCargo.DataBind();
-            }
+            lista = conexao.CARGO.ToList();
+            ddlCargo.DataSource = lista;
+            ddlCargo.DataValueField = "ID";
+            ddlCargo.DataTextField = "NOME";
+            ddlCargo.DataBind();
         }
 
-        private void carregarGrid()
+        private void carregarGrid(VIACAOARAUJOEntities conexao)
         {
-            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
-            {
-                var lista = conexao.FUNCIONARIO.ToList();
-                gridColaborador.DataSource = lista;
-                gridColaborador.DataBind();
-            }
+            var lista = conexao.FUNCIONARIO.ToList();
+            gridColaborador.DataSource = lista;
+            gridColaborador.DataBind();
+
         }
 
         protected void btnSalvarCargo_Click(object sender, EventArgs e)
@@ -56,9 +54,9 @@ namespace Inter
 
                 cargo = conexao.CARGO.FirstOrDefault(linha => linha.NOME.Equals(txtCargo.Text));
 
-                if (string.IsNullOrEmpty(txtCargo.Text))
+                if (string.IsNullOrWhiteSpace(txtCargo.Text))
                 {
-                    lblValidacao.Text = "Por Favor Preencha o Campo!";
+                    lblValidacao.Text = "Por Favor Informe o Cargo!";
                     return;
                 }
                 else
@@ -73,7 +71,9 @@ namespace Inter
                     c.NOME = txtCargo.Text.ToUpper();
                     conexao.CARGO.Add(c);
                     conexao.SaveChanges();
-                    carregarCargo();
+
+                    carregarCargo(conexao);
+                    
                     txtCargo.Text = string.Empty;
                 }
             }
@@ -81,12 +81,11 @@ namespace Inter
 
         protected void btnSalvarColaborador_Click(object sender, EventArgs e)
         {
-
             using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
             {
-                if ((txtNomeColabordor.Text == string.Empty) ||
-                    (txtCpfColabordor.Text == string.Empty) ||
-                    (txtRgColabordor.Text == string.Empty))
+                if (string.IsNullOrWhiteSpace(txtNomeColabordor.Text) ||
+                    string.IsNullOrWhiteSpace(txtCpfColabordor.Text) ||
+                    string.IsNullOrWhiteSpace(txtRgColabordor.Text))
                 {
                     lblValidacao.Text = "FAVOR PREENCHER TODOS OS DADOS!";
                     return;
@@ -102,12 +101,14 @@ namespace Inter
                         lblValidacao.Text = "Colaborador Já Cadastrado!";
                         return;
                     }
+
                     funcionario = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.CPF.Equals(txtCpfColabordor.Text));
                     if (funcionario != null)
                     {
                         lblValidacao.Text = "CPF Já Cadastrado!";
                         return;
                     }
+                    
                     funcionario = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.RG.Equals(txtRgColabordor.Text));
                     if (funcionario != null)
                     {
@@ -126,15 +127,11 @@ namespace Inter
 
                     conexao.SaveChanges();
 
-                    carregarGrid();
+                    carregarGrid(conexao);
 
                     Limpar();
                 }
-
             }
-            
-
-            
         }
 
         protected void btnBusca_Click(object sender, EventArgs e)
@@ -171,33 +168,39 @@ namespace Inter
             {
                 if (gridColaborador.SelectedValue != null)
                 {
-                    FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
+                    FUNCIONARIO f = new FUNCIONARIO();
+
+                    f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
                         gridColaborador.SelectedValue.ToString()));
 
-                    FUNCIONARIO funcionario = new FUNCIONARIO();
-
-                    if ((txtNome.Text == string.Empty) ||
-                        (txtCpf.Text == string.Empty) ||
-                        (txtRg.Text == string.Empty))
+                    if (string.IsNullOrWhiteSpace(txtNome.Text) ||
+                    string.IsNullOrWhiteSpace(txtCpf.Text) ||
+                    string.IsNullOrWhiteSpace(txtRg.Text))
                     {
                         lblValidacao.Text = "FAVOR PREENCHER TODOS OS DADOS!";
                         return;
                     }
+                    if (f!=null)
+                    {
+                        f.NOME = txtNome.Text.ToUpper();
+                        f.CPF = txtCpf.Text;
+                        f.RG = txtRg.Text;
+                        f.FK_CARGO = Convert.ToInt32(ddlCargo.SelectedValue);
 
-                    f.NOME = txtNome.Text.ToUpper();
-                    f.CPF = txtCpf.Text;
-                    f.RG = txtRg.Text;
-                    f.FK_CARGO = Convert.ToInt32(ddlCargo.SelectedValue);
+                        conexao.Entry(f);
 
-                    conexao.Entry(f);
+                        gridColaborador.SelectedIndex = -1;
 
-                    gridColaborador.SelectedIndex = -1;
+                        conexao.SaveChanges();
 
+                        carregarGrid(conexao);
+                    }
+                    else
+                    {
+                        lblValidacao.Text="ERRO";
+                    }
                 }
 
-                conexao.SaveChanges();
-
-                carregarGrid();
             }
         }
 
@@ -220,7 +223,7 @@ namespace Inter
 
                 conexao.SaveChanges();
 
-                carregarGrid();
+                carregarGrid(conexao);
             }
         }
 
@@ -235,5 +238,9 @@ namespace Inter
             txtCpfColabordor.Text = string.Empty;
         }
 
+        protected void btnLista_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("lista.aspx");
+        }
     }
 }

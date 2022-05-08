@@ -12,7 +12,7 @@
             <div class="col-3 text-end">
                 <div class="container-fluid">
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalveiculo">Novo Veiculo</button></div>
-                    <div><asp:Button id="btnExcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Veículo" OnClick="btnExcluir_Click" /></div>
+                    <div><asp:Button id="btnExcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Veículo" OnClick="btnExcluir_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')" /></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar Veículo</button></div>
                 </div>
                 
