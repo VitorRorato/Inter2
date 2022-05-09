@@ -206,25 +206,33 @@ namespace Inter
 
         protected void btnEcluir_Click(object sender, EventArgs e)
         {
-            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            try
             {
-                if (gridColaborador.SelectedValue != null)
+                using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
                 {
-                    FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
-                        gridColaborador.SelectedValue.ToString()));
+                    if (gridColaborador.SelectedValue != null)
+                    {
+                        FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
+                            gridColaborador.SelectedValue.ToString()));
 
-                    conexao.FUNCIONARIO.Remove(f);
+                        conexao.FUNCIONARIO.Remove(f);
 
-                    gridColaborador.SelectedIndex = -1;
+                        gridColaborador.SelectedIndex = -1;
 
+                    }
+
+                    Limpar();
+
+                    conexao.SaveChanges();
+
+                    carregarGrid(conexao);
                 }
-
-                Limpar();
-
-                conexao.SaveChanges();
-
-                carregarGrid(conexao);
             }
+            catch (Exception)
+            {
+                lblValidacao.Text = "Erro Inesperado!";
+            }
+            
         }
 
         private void Limpar()

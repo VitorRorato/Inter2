@@ -17,6 +17,18 @@
                 <div><asp:Label ID="lblValidacao" Text="" runat="server" ForeColor="Red" Font-Size="18px" /></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="container p-2">
+                    <div class="text-end">
+                        <asp:DropDownList ID="ddlBusca" height="35px" Font-Size="20px" runat="server"></asp:DropDownList>
+                        <asp:Button ID="btnBusca" Text="Buscar" runat="server" CssClass="btn btn-primary" OnClick="btnBusca_Click" />
+                        <asp:Button ID="btnTodos" Text="Todos" runat="server" CssClass="btn btn-primary" OnClick="btnTodos_Click" />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
         <div class="row p-3">
                 <div class="container-fluid">
                     <div style=" OVERFLOW: auto; HEIGHT:50vh;border:1px solid red; padding:1px;">

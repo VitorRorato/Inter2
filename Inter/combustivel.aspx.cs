@@ -28,7 +28,7 @@ namespace Inter
 
             List<ABASTECIMENTO> lista = con.ABASTECIMENTO.ToList();
 
-            gridAbastecimento.DataSource = lista;
+            gridAbastecimento.DataSource = lista.OrderBy(x => x.DATA_ABASTECIMENTO).Reverse();
             gridAbastecimento.DataBind();
 
         }
@@ -75,6 +75,11 @@ namespace Inter
             ddlVeiculo.DataTextField = "PREFIXO";
             ddlVeiculo.DataBind();
 
+            ddlBusca.DataSource= veiculos;
+            ddlBusca.DataValueField = "ID";
+            ddlBusca.DataTextField = "PREFIXO";
+            ddlBusca.DataBind();
+
         }
 
         private void carregarFuncionario(VIACAOARAUJOEntities con)
@@ -110,7 +115,7 @@ namespace Inter
             {
                 try
                 {
-                double distancia = 0, consumo = 0, kmatual=0, litros=0, km=0;
+                    double distancia = 0, consumo = 0, kmatual = 0, litros = 0, km = 0;
 
                     if (string.IsNullOrWhiteSpace(txtData.Text) &&
                         string.IsNullOrWhiteSpace(txtKm.Text) &&
@@ -124,19 +129,18 @@ namespace Inter
                     {
                         ABASTECIMENTO a = new ABASTECIMENTO();
 
-
                         List<ABASTECIMENTO> lista = con.ABASTECIMENTO.Where(
                             linha => linha.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString())).ToList();
                         int contagem = lista.Count();
 
-                        lista.LastOrDefault();
+                        lista.OrderBy(x=>x.KM).LastOrDefault();
 
                         if (double.TryParse(txtKm.Text, out kmatual) == false)
                         {
                             lblValidacao.Text = "Quilometragem Inválida";
                             return;
                         }
-                        else if (double.TryParse(txtLitros.Text.Replace(".",","), out litros) == false)
+                        else if (double.TryParse(txtLitros.Text.Replace(".", ","), out litros) == false)
                         {
                             lblValidacao.Text = "Informe um valor válido";
                             return;
@@ -147,6 +151,7 @@ namespace Inter
                             lblValidacao.Text = "Valores Negativos não serão aceitos!";
                             return;
                         }
+
 
                         if (contagem != 0)
                         {
@@ -167,9 +172,8 @@ namespace Inter
                             consumo = 0;
                         }
 
-
                         a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);
-                        a.CONSUMO_MEDIO = Math.Round(consumo,2);
+                        a.CONSUMO_MEDIO = Math.Round(consumo, 2);
                         a.DISTANCIA_PERCORRIDA = distancia;
                         a.KM = kmatual;
                         a.POSTO = txtLocal.Text.ToUpper();
@@ -186,9 +190,34 @@ namespace Inter
                 }
                 catch
                 {
-                    lblValidacao.Text = "ERRO";
+                    lblValidacao.Text = "Erro, Favor verificar os dados informados!";
                 }
             }
+        }
+
+        protected void btnBusca_Click(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                List<ABASTECIMENTO> lista = con.ABASTECIMENTO.Where(
+                           linha => linha.FK_VEICULO.ToString().Equals(ddlBusca.SelectedValue.ToString())).ToList();
+
+                gridAbastecimento.DataSource = lista.OrderBy(x => x.DATA_ABASTECIMENTO).Reverse();
+                gridAbastecimento.DataBind();
+            }
+        }
+
+        protected void btnTodos_Click(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                carregarGridAbastecimento(con);
+            }
+        }
+
+        protected void btnRelatorio_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
