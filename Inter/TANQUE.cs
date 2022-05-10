@@ -19,6 +19,7 @@ namespace Inter
         {
             this.ABASTECIMENTO = new HashSet<ABASTECIMENTO>();
             this.QUANTIDADE_TANQUE = new HashSet<QUANTIDADE_TANQUE>();
+            this.COMBUSTIVEL_DISPONIVEL = new HashSet<COMBUSTIVEL_DISPONIVEL>();
         }
     
         public int ID { get; set; }
@@ -29,5 +30,7 @@ namespace Inter
         public virtual ICollection<ABASTECIMENTO> ABASTECIMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QUANTIDADE_TANQUE> QUANTIDADE_TANQUE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMBUSTIVEL_DISPONIVEL> COMBUSTIVEL_DISPONIVEL { get; set; }
     }
 }

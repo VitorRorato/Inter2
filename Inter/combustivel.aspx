@@ -35,6 +35,7 @@
                         <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                             <AlternatingRowStyle BackColor="#F7F7F7" />
                             <Columns>
+                                <asp:CommandField ShowSelectButton="True"></asp:CommandField>
                                 <asp:BoundField DataField="DATA_ABASTECIMENTO"  HeaderText="Data" DataFormatString="{0:dd-MM-yyyy}" />
                                 <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo" />
                                 <asp:BoundField DataField="KM" HeaderText="Km" />
@@ -134,17 +135,19 @@
                         <div class="modal-body container">
                             <div class="row">
                                 <div class="col-6">
+                                    <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Quantidade (Lts)" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Tanque" runat="server" /></div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="p-1"><asp:TextBox Id="TextBox3" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox type="Date" Id="txtDataCombustivel" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtQuantidadeCombustivel" runat="server" /></div>
                                     <div class="p-1"><asp:DropDownList Id="ddlTanque" runat="server" /></div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:button Id="Button2" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" />
+                            <asp:button Id="btnSalvarCombustivel" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnSalvarCombustivel_Click" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                         </div>
                     </div>

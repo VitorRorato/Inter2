@@ -21,6 +21,7 @@
             <div class="row">
                
                 <div class="col">
+                    <div><button id="modal" type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCargo">Usuarios</button></div>
                     <div><button id="modal" type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCargo">Novo Cargo</button></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalColaborador">Novo Colaborador</button></div>
                     <div><asp:Button id="btnEcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Colaborador" OnClick="btnEcluir_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')"/></div>

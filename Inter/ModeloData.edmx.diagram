@@ -20,6 +20,8 @@
         <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_LOGIN" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_MANUTENCAO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_QUANTIDADE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" Width="2.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

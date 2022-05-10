@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VIACAOARAUJOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VIACAOARAUJOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ABASTECIMENTO">
           <Key>
             <PropertyRef Name="ID" />
@@ -26,6 +26,14 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOME" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMBUSTIVEL_DISPONIVEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_TANQUE" Type="int" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="FUNCIONARIO">
           <Key>
@@ -68,7 +76,6 @@
           <Property Name="QUANTIDADE" Type="float" Nullable="false" />
           <Property Name="FK_TANQUE" Type="int" Nullable="false" />
           <Property Name="DATA" Type="date" Nullable="false" />
-          <Property Name="TOTAL" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TANQUE">
           <Key>
@@ -124,6 +131,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TANQUE">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
+          <End Role="COMBUSTIVEL_DISPONIVEL" Type="Self.COMBUSTIVEL_DISPONIVEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMBUSTIVEL_DISPONIVEL">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TANQUE_ABASTECIMENTO">
           <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="0..1" />
           <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
@@ -175,6 +194,7 @@
         <EntityContainer Name="VIACAOARAUJOModelStoreContainer">
           <EntitySet Name="ABASTECIMENTO" EntityType="Self.ABASTECIMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="Self.COMBUSTIVEL_DISPONIVEL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MANUTENCAO" EntityType="Self.MANUTENCAO" Schema="dbo" store:Type="Tables" />
@@ -193,6 +213,10 @@
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="LOGIN" EntitySet="LOGIN" />
           </AssociationSet>
+          <AssociationSet Name="FK_TANQUE" Association="Self.FK_TANQUE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="COMBUSTIVEL_DISPONIVEL" EntitySet="COMBUSTIVEL_DISPONIVEL" />
+          </AssociationSet>
           <AssociationSet Name="FK_TANQUE_ABASTECIMENTO" Association="Self.FK_TANQUE_ABASTECIMENTO">
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
@@ -210,8 +234,7 @@
             <End Role="MANUTENCAO" EntitySet="MANUTENCAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VIACAOARAUJOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -287,7 +310,6 @@
           <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
           <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
           <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TOTAL" Type="Double" Nullable="false" />
           <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE_QUANTIDADE" FromRole="QUANTIDADE_TANQUE" ToRole="TANQUE" />
         </EntityType>
         <EntityType Name="TANQUE">
@@ -299,6 +321,7 @@
           <Property Name="CAPACIDADE" Type="Double" Nullable="false" />
           <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_TANQUE_ABASTECIMENTO" FromRole="TANQUE" ToRole="ABASTECIMENTO" />
           <NavigationProperty Name="QUANTIDADE_TANQUE" Relationship="Self.FK_TANQUE_QUANTIDADE" FromRole="TANQUE" ToRole="QUANTIDADE_TANQUE" />
+          <NavigationProperty Name="COMBUSTIVEL_DISPONIVEL" Relationship="VIACAOARAUJOModel.FK_TANQUE" FromRole="TANQUE" ToRole="COMBUSTIVEL_DISPONIVEL" />
         </EntityType>
         <EntityType Name="VEICULO">
           <Key>
@@ -433,7 +456,33 @@
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
           </AssociationSet>
+          <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" />
+          <AssociationSet Name="FK_TANQUE" Association="VIACAOARAUJOModel.FK_TANQUE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="COMBUSTIVEL_DISPONIVEL" EntitySet="COMBUSTIVEL_DISPONIVEL" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="COMBUSTIVEL_DISPONIVEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
+          <NavigationProperty Name="TANQUE" Relationship="VIACAOARAUJOModel.FK_TANQUE" FromRole="COMBUSTIVEL_DISPONIVEL" ToRole="TANQUE" />
+        </EntityType>
+        <Association Name="FK_TANQUE">
+          <End Type="VIACAOARAUJOModel.TANQUE" Role="TANQUE" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" Role="COMBUSTIVEL_DISPONIVEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMBUSTIVEL_DISPONIVEL">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -507,7 +556,6 @@
                 <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
                 <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
                 <ScalarProperty Name="DATA" ColumnName="DATA" />
-                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -528,6 +576,15 @@
                 <ScalarProperty Name="PREFIXO" ColumnName="PREFIXO" />
                 <ScalarProperty Name="KM_COMPRA" ColumnName="KM_COMPRA" />
                 <ScalarProperty Name="KM_ATUAL" ColumnName="KM_ATUAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMBUSTIVEL_DISPONIVEL">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL">
+              <MappingFragment StoreEntitySet="COMBUSTIVEL_DISPONIVEL">
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

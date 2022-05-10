@@ -12,12 +12,11 @@ namespace Inter
     using System;
     using System.Collections.Generic;
     
-    public partial class QUANTIDADE_TANQUE
+    public partial class COMBUSTIVEL_DISPONIVEL
     {
         public int ID { get; set; }
-        public double QUANTIDADE { get; set; }
         public int FK_TANQUE { get; set; }
-        public System.DateTime DATA { get; set; }
+        public double QUANTIDADE { get; set; }
     
         public virtual TANQUE TANQUE { get; set; }
     }

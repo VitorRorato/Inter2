@@ -159,13 +159,22 @@ namespace Inter
         protected global::System.Web.UI.WebControls.Button btnSalvarAbastecimento;
 
         /// <summary>
-        /// Controle TextBox3.
+        /// Controle txtDataCombustivel.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtDataCombustivel;
+
+        /// <summary>
+        /// Controle txtQuantidadeCombustivel.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuantidadeCombustivel;
 
         /// <summary>
         /// Controle ddlTanque.
@@ -177,12 +186,12 @@ namespace Inter
         protected global::System.Web.UI.WebControls.DropDownList ddlTanque;
 
         /// <summary>
-        /// Controle Button2.
+        /// Controle btnSalvarCombustivel.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button btnSalvarCombustivel;
     }
 }

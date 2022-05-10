@@ -142,6 +142,9 @@
     <Compile Include="combustivel.aspx.designer.cs">
       <DependentUpon>combustivel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="COMBUSTIVEL_DISPONIVEL.cs">
+      <DependentUpon>ModeloData.tt</DependentUpon>
+    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
