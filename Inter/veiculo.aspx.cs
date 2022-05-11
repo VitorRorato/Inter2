@@ -63,6 +63,11 @@ namespace Inter
                 ddlPrefixoE.DataValueField = "ID";
                 ddlPrefixoE.DataTextField = "PREFIXO";
                 ddlPrefixoE.DataBind();
+
+                ddlBusca.DataSource = lista;
+                ddlBusca.DataValueField= "ID";
+                ddlBusca.DataTextField = "PREFIXO";
+                ddlBusca.DataBind();
             }
 
         }
@@ -480,6 +485,23 @@ namespace Inter
             txtFiltroRacorE.Text = string.Empty;
             txtFiltroOleoMotorE.Text = string.Empty;
             txtQtdOleoMotorE.Text = string.Empty;
+        }
+
+        protected void btnTodos_Click(object sender, EventArgs e)
+        {
+            carregarGridManutencao();
+        }
+
+        protected void btnBusca_Click(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                List<MANUTENCAO> lista = con.MANUTENCAO.Where(
+                           linha => linha.FK_VEICULO.ToString().Equals(ddlBusca.SelectedValue.ToString())).ToList();
+
+                gridManutencao.DataSource = lista.OrderBy(x => x.DATA).Reverse();
+                gridManutencao.DataBind();
+            }
         }
     }
 }

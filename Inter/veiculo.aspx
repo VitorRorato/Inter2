@@ -113,6 +113,19 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <div class="container p-2">
+                    <div class="text-end">
+                        <asp:DropDownList ID="ddlBusca" height="35px" Font-Size="20px" runat="server"></asp:DropDownList>
+                        <asp:Button ID="btnBusca" Text="Buscar" runat="server" CssClass="btn btn-primary" OnClick="btnBusca_Click" />
+                        <asp:Button ID="btnTodos" Text="Todos" runat="server" CssClass="btn btn-primary" OnClick="btnTodos_Click" />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-3 text-end">
