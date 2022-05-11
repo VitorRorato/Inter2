@@ -21,12 +21,47 @@
             <div class="row">
                
                 <div class="col">
-                    <div><button id="modal" type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCargo">Usuarios</button></div>
+                    <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalUsuario">Usuarios</button></div>
                     <div><button id="modal" type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCargo">Novo Cargo</button></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalColaborador">Novo Colaborador</button></div>
                     <div><asp:Button id="btnEcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Colaborador" OnClick="btnEcluir_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')"/></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar Colaborador</button></div>
                     
+
+                    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modalUsuariolabel">Novo Login</h5>
+                            
+                          </div>
+
+                          <div class="modal-body">
+                              <div class="row">
+                                  <div class="col">
+                                      <div class="p-1 m-1"><asp:Label Text="Funcionario: " runat="server" /></div>
+                                      <div class="p-1 m-1"><asp:Label Text="Usuario: " runat="server" /></div>
+                                      <div class="p-1 m-1"><asp:Label Text="Senha: " runat="server" /></div>
+                                      <div class="p-1 m-1"><asp:Label Text="Repetir a Senha: " runat="server" /></div>
+                                  </div>
+                                  <div class="col">
+                                      <div class="p-1"><asp:DropDownList ID="ddlFuncionario" runat="server"></asp:DropDownList></div>
+                                      <div class="p-1"><asp:TextBox Id="txtUsuario" runat="server" /></div>
+                                      <div class="p-1"><asp:TextBox Id="txtSenha" runat="server" /></div>
+                                      <div class="p-1"><asp:TextBox Id="txtSenha2" runat="server" /></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <asp:button Id="btnSalvarUsuario" class="btn btn-primary" data-bs-dismiss="none" Text="Salvar" runat="server" OnClick="btnSalvarUsuario_Click"/>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
                         <div class="modal fade" id="modalCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">

@@ -67,3 +67,9 @@ div{
     .grupo:hover {
         background-color: #ababff;
     }
+
+#principal{
+    border:2px solid black;
+    border-radius: 15px;
+
+}

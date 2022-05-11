@@ -17,6 +17,7 @@ namespace Inter
                 {
                     carregarCargo(conexao);
                     carregarGrid(conexao);
+                    carregarFuncionario(conexao);
                 }
             }
         }
@@ -130,6 +131,8 @@ namespace Inter
                     carregarGrid(conexao);
 
                     Limpar();
+
+                    carregarFuncionario(conexao);
                 }
             }
         }
@@ -212,8 +215,8 @@ namespace Inter
                 {
                     if (gridColaborador.SelectedValue != null)
                     {
-                        FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(linha => linha.ID.ToString().Equals(
-                            gridColaborador.SelectedValue.ToString()));
+                        FUNCIONARIO f = conexao.FUNCIONARIO.FirstOrDefault(
+                            linha => linha.ID.ToString().Equals(gridColaborador.SelectedValue.ToString()));
 
                         conexao.FUNCIONARIO.Remove(f);
 
@@ -230,7 +233,7 @@ namespace Inter
             }
             catch (Exception)
             {
-                lblValidacao.Text = "Erro Inesperado!";
+                lblValidacao.Text = "Não é possivel Excluir o registro!";
             }
             
         }
@@ -249,6 +252,54 @@ namespace Inter
         protected void btnLista_Click(object sender, EventArgs e)
         {
             Response.Redirect("lista.aspx");
+        }
+
+        protected void btnSalvarUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    LOGIN login = new LOGIN();
+
+                    if (string.IsNullOrWhiteSpace(txtUsuario.Text))
+                    {
+                        lblValidacao.Text = "Informe o nome de usuario!";
+                        return;
+                    }
+                    else if ((string.IsNullOrWhiteSpace(txtSenha.Text) ||
+                        string.IsNullOrWhiteSpace(txtSenha2.Text)) ||
+                        (txtSenha2.Text != txtSenha.Text))
+                    {
+                        lblValidacao.Text = "Senhas inválidas";
+                        return;
+                    }
+
+                    login.USUARIO = txtUsuario.Text;
+                    login.SENHA = txtSenha2.Text;
+                    login.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionario.SelectedValue);
+
+                    con.LOGIN.Add(login);
+                    con.SaveChanges();
+
+
+                }
+            }
+            catch (Exception)
+            {
+                lblValidacao.Text = "Erro ao salvar o login!";
+            }
+            
+        }
+
+        private void carregarFuncionario(VIACAOARAUJOEntities con)
+        {
+            List<FUNCIONARIO> funcionario = con.FUNCIONARIO.ToList();
+
+            ddlFuncionario.DataSource = funcionario;
+            ddlFuncionario.DataTextField = "NOME";
+            ddlFuncionario.DataValueField = "ID";
+            ddlFuncionario.DataBind();
         }
     }
 }

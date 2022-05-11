@@ -11,19 +11,48 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //carregarinformacoes();
+            if (!IsPostBack)
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    carregarCombustivel(con);
+                    carregarManutencao(con);
+                    Combustivel(con);
+                }
+            }
         }
 
-        /*private void carregarinformacoes()
+        private void carregarCombustivel(VIACAOARAUJOEntities con)
         {
-            VIACAOARAUJOEntities con = new VIACAOARAUJOEntities();
-            VEICULO v = new VEICULO();
+            List<COMBUSTIVEL_DISPONIVEL> lista = con.COMBUSTIVEL_DISPONIVEL.ToList();
+            gridCombustivel.DataSource = lista;
+            gridCombustivel.DataBind();
+        }
 
-            lblVeiculo.Text = con.VEICULO.Count().ToString();
+        private void carregarManutencao(VIACAOARAUJOEntities con)
+        {
+            List<MANUTENCAO> lista = con.MANUTENCAO.ToList();
 
-            ABASTECIMENTO a = new ABASTECIMENTO();
+            int id = lista.Last().ID;
 
-            lblabastecimento.Text = con.ABASTECIMENTO.LastOrDefault().ToString() + "" ;
-        }*/
+            List<MANUTENCAO> resultado = con.MANUTENCAO.Where(
+                linha => linha.ID.ToString().Equals(id.ToString())).ToList(); ;
+
+            gridManutencao.DataSource = resultado;
+            gridManutencao.DataBind();
+        }
+
+        private void Combustivel(VIACAOARAUJOEntities con)
+        {
+            List<ABASTECIMENTO> lista = con.ABASTECIMENTO.ToList();
+
+            int id = lista.Last().ID;
+
+            List<ABASTECIMENTO> res = con.ABASTECIMENTO.Where(
+                linha=>linha.ID.ToString().Equals(id.ToString())).ToList();
+
+            gridAbastecimento.DataSource = res;
+            gridAbastecimento.DataBind();
+        }
     }
 }

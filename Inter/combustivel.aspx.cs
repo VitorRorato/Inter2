@@ -305,5 +305,34 @@ namespace Inter
 
             }
         }
+
+        protected void btnExcluirAbastecimento_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    if (gridAbastecimento.SelectedValue != null)
+                    {
+                        ABASTECIMENTO abast = con.ABASTECIMENTO.FirstOrDefault(
+                            linha => linha.ID.ToString().Equals(gridAbastecimento.SelectedValue.ToString()));
+
+                        con.ABASTECIMENTO.Remove(abast);
+
+                        con.SaveChanges();
+
+                    }
+                    gridAbastecimento.SelectedIndex = -1;
+
+
+                    carregarGridAbastecimento(con);
+
+                }
+            }
+            catch (Exception)
+            {
+                lblValidacao.Text = "Erro Ao excluir O registro";
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalTanque">Cadastrar Tanque</button>
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCombustivel">Adicionar Combustivel</button>
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalAbastecimento">Novo Abastecimento</button>
+                    <asp:Button CssClass="btn btn-primary w-100 m-1" ID="btnExcluirAbastecimento" Text="Excluir Abastecimento" runat="server" OnClick="btnExcluirAbastecimento_Click" />
                 </div>
             </div>    
         </div>
@@ -32,7 +33,7 @@
         <div class="row p-3">
                 <div class="container-fluid">
                     <div style=" OVERFLOW: auto; HEIGHT:50vh;border:1px solid red; padding:1px;">
-                        <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
+                        <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" DataKeyNames="ID">
                             <AlternatingRowStyle BackColor="#F7F7F7" />
                             <Columns>
                                 <asp:CommandField ShowSelectButton="True"></asp:CommandField>

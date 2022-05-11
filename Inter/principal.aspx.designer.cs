@@ -15,39 +15,30 @@ namespace Inter
     {
 
         /// <summary>
-        /// Controle lblcombustivel.
+        /// Controle gridCombustivel.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblcombustivel;
+        protected global::System.Web.UI.WebControls.GridView gridCombustivel;
 
         /// <summary>
-        /// Controle lblabastecimento.
+        /// Controle gridManutencao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblabastecimento;
+        protected global::System.Web.UI.WebControls.GridView gridManutencao;
 
         /// <summary>
-        /// Controle lblVeiculo.
+        /// Controle gridAbastecimento.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVeiculo;
-
-        /// <summary>
-        /// Controle lblManutencao.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblManutencao;
+        protected global::System.Web.UI.WebControls.GridView gridAbastecimento;
     }
 }

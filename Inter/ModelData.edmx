@@ -1,0 +1,615 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VIACAOARAUJOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ABASTECIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DATA_ABASTECIMENTO" Type="date" Nullable="false" />
+          <Property Name="KM" Type="float" Nullable="false" />
+          <Property Name="POSTO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="LITROS_COMBUSTIVEL" Type="float" Nullable="false" />
+          <Property Name="DISTANCIA_PERCORRIDA" Type="float" Nullable="false" />
+          <Property Name="CONSUMO_MEDIO" Type="float" Nullable="false" />
+          <Property Name="FK_VEICULO" Type="int" Nullable="false" />
+          <Property Name="FK_TANQUE_COMBUSTIVEL" Type="int" />
+          <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMBUSTIVEL_DISPONIVEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_TANQUE" Type="int" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CPF" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="RG" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FK_CARGO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOGIN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SENHA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MANUTENCAO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KM_ATUAL" Type="float" Nullable="false" />
+          <Property Name="KM_PROXIMA_TROCA" Type="float" Nullable="false" />
+          <Property Name="FILTRO_AR" Type="varchar" MaxLength="20" />
+          <Property Name="FILTRO_COMBUSTIVEL" Type="varchar" MaxLength="20" />
+          <Property Name="FILTRO_RACOR" Type="varchar" MaxLength="20" />
+          <Property Name="FILTRO_OLEO_MOTOR" Type="varchar" MaxLength="20" />
+          <Property Name="QUANTIDADE_OLEO_MOTOR" Type="float" />
+          <Property Name="FK_VEICULO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QUANTIDADE_TANQUE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="float" Nullable="false" />
+          <Property Name="FK_TANQUE" Type="int" Nullable="false" />
+          <Property Name="DATA" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TANQUE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CAPACIDADE" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VEICULO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PLACA" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="PREFIXO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="KM_COMPRA" Type="float" Nullable="false" />
+          <Property Name="KM_ATUAL" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CARGO_FUNCIONARIO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FUNCIONARIO">
+              <PropertyRef Name="FK_CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FUNCIONARIO_LOGIN">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="LOGIN" Type="Self.LOGIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOGIN">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
+          <End Role="COMBUSTIVEL_DISPONIVEL" Type="Self.COMBUSTIVEL_DISPONIVEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMBUSTIVEL_DISPONIVEL">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE_ABASTECIMENTO">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="0..1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_TANQUE_COMBUSTIVEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE_QUANTIDADE">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
+          <End Role="QUANTIDADE_TANQUE" Type="Self.QUANTIDADE_TANQUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUANTIDADE_TANQUE">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEICULO_ABASTECIMENTO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEICULO_MANUTENCAO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="MANUTENCAO" Type="Self.MANUTENCAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MANUTENCAO">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VIACAOARAUJOModelStoreContainer">
+          <EntitySet Name="ABASTECIMENTO" EntityType="Self.ABASTECIMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="Self.COMBUSTIVEL_DISPONIVEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MANUTENCAO" EntityType="Self.MANUTENCAO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUANTIDADE_TANQUE" EntityType="Self.QUANTIDADE_TANQUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TANQUE" EntityType="Self.TANQUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VEICULO" EntityType="Self.VEICULO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CARGO_FUNCIONARIO" Association="Self.FK_CARGO_FUNCIONARIO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FUNCIONARIO_ABASTECIMENTO" Association="Self.FK_FUNCIONARIO_ABASTECIMENTO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FUNCIONARIO_LOGIN" Association="Self.FK_FUNCIONARIO_LOGIN">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE" Association="Self.FK_TANQUE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="COMBUSTIVEL_DISPONIVEL" EntitySet="COMBUSTIVEL_DISPONIVEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE_ABASTECIMENTO" Association="Self.FK_TANQUE_ABASTECIMENTO">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE_QUANTIDADE" Association="Self.FK_TANQUE_QUANTIDADE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEICULO_ABASTECIMENTO" Association="Self.FK_VEICULO_ABASTECIMENTO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEICULO_MANUTENCAO" Association="Self.FK_VEICULO_MANUTENCAO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="MANUTENCAO" EntitySet="MANUTENCAO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VIACAOARAUJOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ABASTECIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATA_ABASTECIMENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="KM" Type="Double" Nullable="false" />
+          <Property Name="POSTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LITROS_COMBUSTIVEL" Type="Double" Nullable="false" />
+          <Property Name="DISTANCIA_PERCORRIDA" Type="Double" Nullable="false" />
+          <Property Name="CONSUMO_MEDIO" Type="Double" Nullable="false" />
+          <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
+          <Property Name="FK_TANQUE_COMBUSTIVEL" Type="Int32" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_FUNCIONARIO_ABASTECIMENTO" FromRole="ABASTECIMENTO" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE_ABASTECIMENTO" FromRole="ABASTECIMENTO" ToRole="TANQUE" />
+          <NavigationProperty Name="VEICULO" Relationship="Self.FK_VEICULO_ABASTECIMENTO" FromRole="ABASTECIMENTO" ToRole="VEICULO" />
+        </EntityType>
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_CARGO_FUNCIONARIO" FromRole="CARGO" ToRole="FUNCIONARIO" />
+        </EntityType>
+        <EntityType Name="COMBUSTIVEL_DISPONIVEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
+          <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE" FromRole="COMBUSTIVEL_DISPONIVEL" ToRole="TANQUE" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_CARGO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_FUNCIONARIO_ABASTECIMENTO" FromRole="FUNCIONARIO" ToRole="ABASTECIMENTO" />
+          <NavigationProperty Name="CARGO" Relationship="Self.FK_CARGO_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="CARGO" />
+          <NavigationProperty Name="LOGIN" Relationship="Self.FK_FUNCIONARIO_LOGIN" FromRole="FUNCIONARIO" ToRole="LOGIN" />
+        </EntityType>
+        <EntityType Name="LOGIN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SENHA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_FUNCIONARIO_LOGIN" FromRole="LOGIN" ToRole="FUNCIONARIO" />
+        </EntityType>
+        <EntityType Name="MANUTENCAO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KM_ATUAL" Type="Double" Nullable="false" />
+          <Property Name="KM_PROXIMA_TROCA" Type="Double" Nullable="false" />
+          <Property Name="FILTRO_AR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FILTRO_COMBUSTIVEL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FILTRO_RACOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FILTRO_OLEO_MOTOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTIDADE_OLEO_MOTOR" Type="Double" />
+          <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VEICULO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="MANUTENCAO" ToRole="VEICULO" />
+        </EntityType>
+        <EntityType Name="QUANTIDADE_TANQUE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
+          <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE_QUANTIDADE" FromRole="QUANTIDADE_TANQUE" ToRole="TANQUE" />
+        </EntityType>
+        <EntityType Name="TANQUE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CAPACIDADE" Type="Double" Nullable="false" />
+          <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_TANQUE_ABASTECIMENTO" FromRole="TANQUE" ToRole="ABASTECIMENTO" />
+          <NavigationProperty Name="COMBUSTIVEL_DISPONIVEL" Relationship="Self.FK_TANQUE" FromRole="TANQUE" ToRole="COMBUSTIVEL_DISPONIVEL" />
+          <NavigationProperty Name="QUANTIDADE_TANQUE" Relationship="Self.FK_TANQUE_QUANTIDADE" FromRole="TANQUE" ToRole="QUANTIDADE_TANQUE" />
+        </EntityType>
+        <EntityType Name="VEICULO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PLACA" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PREFIXO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KM_COMPRA" Type="Double" Nullable="false" />
+          <Property Name="KM_ATUAL" Type="Double" Nullable="false" />
+          <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_VEICULO_ABASTECIMENTO" FromRole="VEICULO" ToRole="ABASTECIMENTO" />
+          <NavigationProperty Name="MANUTENCAO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="VEICULO" ToRole="MANUTENCAO" />
+        </EntityType>
+        <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE_ABASTECIMENTO">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="0..1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_TANQUE_COMBUSTIVEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEICULO_ABASTECIMENTO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ABASTECIMENTO">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARGO_FUNCIONARIO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FUNCIONARIO">
+              <PropertyRef Name="FK_CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
+          <End Role="COMBUSTIVEL_DISPONIVEL" Type="Self.COMBUSTIVEL_DISPONIVEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMBUSTIVEL_DISPONIVEL">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FUNCIONARIO_LOGIN">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="LOGIN" Type="Self.LOGIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOGIN">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEICULO_MANUTENCAO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="MANUTENCAO" Type="Self.MANUTENCAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MANUTENCAO">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANQUE_QUANTIDADE">
+          <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
+          <End Role="QUANTIDADE_TANQUE" Type="Self.QUANTIDADE_TANQUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANQUE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUANTIDADE_TANQUE">
+              <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VIACAOARAUJOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ABASTECIMENTO" EntityType="Self.ABASTECIMENTO" />
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" />
+          <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="Self.COMBUSTIVEL_DISPONIVEL" />
+          <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" />
+          <EntitySet Name="LOGIN" EntityType="Self.LOGIN" />
+          <EntitySet Name="MANUTENCAO" EntityType="Self.MANUTENCAO" />
+          <EntitySet Name="QUANTIDADE_TANQUE" EntityType="Self.QUANTIDADE_TANQUE" />
+          <EntitySet Name="TANQUE" EntityType="Self.TANQUE" />
+          <EntitySet Name="VEICULO" EntityType="Self.VEICULO" />
+          <AssociationSet Name="FK_FUNCIONARIO_ABASTECIMENTO" Association="Self.FK_FUNCIONARIO_ABASTECIMENTO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE_ABASTECIMENTO" Association="Self.FK_TANQUE_ABASTECIMENTO">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEICULO_ABASTECIMENTO" Association="Self.FK_VEICULO_ABASTECIMENTO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARGO_FUNCIONARIO" Association="Self.FK_CARGO_FUNCIONARIO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE" Association="Self.FK_TANQUE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="COMBUSTIVEL_DISPONIVEL" EntitySet="COMBUSTIVEL_DISPONIVEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FUNCIONARIO_LOGIN" Association="Self.FK_FUNCIONARIO_LOGIN">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEICULO_MANUTENCAO" Association="Self.FK_VEICULO_MANUTENCAO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="MANUTENCAO" EntitySet="MANUTENCAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANQUE_QUANTIDADE" Association="Self.FK_TANQUE_QUANTIDADE">
+            <End Role="TANQUE" EntitySet="TANQUE" />
+            <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VIACAOARAUJOModelStoreContainer" CdmEntityContainer="VIACAOARAUJOEntities">
+          <EntitySetMapping Name="ABASTECIMENTO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.ABASTECIMENTO">
+              <MappingFragment StoreEntitySet="ABASTECIMENTO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATA_ABASTECIMENTO" ColumnName="DATA_ABASTECIMENTO" />
+                <ScalarProperty Name="KM" ColumnName="KM" />
+                <ScalarProperty Name="POSTO" ColumnName="POSTO" />
+                <ScalarProperty Name="LITROS_COMBUSTIVEL" ColumnName="LITROS_COMBUSTIVEL" />
+                <ScalarProperty Name="DISTANCIA_PERCORRIDA" ColumnName="DISTANCIA_PERCORRIDA" />
+                <ScalarProperty Name="CONSUMO_MEDIO" ColumnName="CONSUMO_MEDIO" />
+                <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
+                <ScalarProperty Name="FK_TANQUE_COMBUSTIVEL" ColumnName="FK_TANQUE_COMBUSTIVEL" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARGO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.CARGO">
+              <MappingFragment StoreEntitySet="CARGO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMBUSTIVEL_DISPONIVEL">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL">
+              <MappingFragment StoreEntitySet="COMBUSTIVEL_DISPONIVEL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCIONARIO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.FUNCIONARIO">
+              <MappingFragment StoreEntitySet="FUNCIONARIO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="FK_CARGO" ColumnName="FK_CARGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOGIN">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.LOGIN">
+              <MappingFragment StoreEntitySet="LOGIN">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="SENHA" ColumnName="SENHA" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MANUTENCAO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.MANUTENCAO">
+              <MappingFragment StoreEntitySet="MANUTENCAO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KM_ATUAL" ColumnName="KM_ATUAL" />
+                <ScalarProperty Name="KM_PROXIMA_TROCA" ColumnName="KM_PROXIMA_TROCA" />
+                <ScalarProperty Name="FILTRO_AR" ColumnName="FILTRO_AR" />
+                <ScalarProperty Name="FILTRO_COMBUSTIVEL" ColumnName="FILTRO_COMBUSTIVEL" />
+                <ScalarProperty Name="FILTRO_RACOR" ColumnName="FILTRO_RACOR" />
+                <ScalarProperty Name="FILTRO_OLEO_MOTOR" ColumnName="FILTRO_OLEO_MOTOR" />
+                <ScalarProperty Name="QUANTIDADE_OLEO_MOTOR" ColumnName="QUANTIDADE_OLEO_MOTOR" />
+                <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUANTIDADE_TANQUE">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.QUANTIDADE_TANQUE">
+              <MappingFragment StoreEntitySet="QUANTIDADE_TANQUE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TANQUE">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.TANQUE">
+              <MappingFragment StoreEntitySet="TANQUE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="CAPACIDADE" ColumnName="CAPACIDADE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEICULO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.VEICULO">
+              <MappingFragment StoreEntitySet="VEICULO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PLACA" ColumnName="PLACA" />
+                <ScalarProperty Name="PREFIXO" ColumnName="PREFIXO" />
+                <ScalarProperty Name="KM_COMPRA" ColumnName="KM_COMPRA" />
+                <ScalarProperty Name="KM_ATUAL" ColumnName="KM_ATUAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
