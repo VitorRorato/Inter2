@@ -47,8 +47,8 @@
                                   <div class="col">
                                       <div class="p-1"><asp:DropDownList ID="ddlFuncionario" runat="server"></asp:DropDownList></div>
                                       <div class="p-1"><asp:TextBox Id="txtUsuario" runat="server" /></div>
-                                      <div class="p-1"><asp:TextBox Id="txtSenha" runat="server" /></div>
-                                      <div class="p-1"><asp:TextBox Id="txtSenha2" runat="server" /></div>
+                                      <div class="p-1"><asp:TextBox type="password" Id="txtSenha" runat="server" /></div>
+                                      <div class="p-1"><asp:TextBox type="password" Id="txtSenha2" runat="server" /></div>
                                   </div>
                               </div>
                           </div>
