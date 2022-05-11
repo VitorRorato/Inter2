@@ -38,6 +38,7 @@
                         <div class="text-center">
                             <asp:GridView ID="gridManutencao" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                             <Columns>
+                                <asp:BoundField DataField="DATA" HeaderText="Data" DataFormatString="{0:dd/MM/yyyy}" ></asp:BoundField>
                                 <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
                                 <asp:BoundField DataField="KM_ATUAL" HeaderText="Km"></asp:BoundField>
                                 <asp:BoundField DataField="KM_PROXIMA_TROCA" HeaderText="Prox. Manutenção"></asp:BoundField>

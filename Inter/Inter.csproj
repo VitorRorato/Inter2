@@ -216,6 +216,9 @@
     <Compile Include="QUANTIDADE_TANQUE.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModeloData.tt</DependentUpon>
+    </Compile>
     <Compile Include="TANQUE.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>

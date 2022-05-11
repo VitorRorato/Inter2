@@ -22,6 +22,7 @@
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_QUANTIDADE" ManuallyRouted="false" />
         <EntityTypeShape EntityType="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" Width="2.5" PointX="5.25" PointY="1" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

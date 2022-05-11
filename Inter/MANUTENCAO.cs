@@ -23,6 +23,7 @@ namespace Inter
         public string FILTRO_OLEO_MOTOR { get; set; }
         public Nullable<double> QUANTIDADE_OLEO_MOTOR { get; set; }
         public int FK_VEICULO { get; set; }
+        public System.DateTime DATA { get; set; }
     
         public virtual VEICULO VEICULO { get; set; }
     }

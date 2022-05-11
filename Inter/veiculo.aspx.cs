@@ -15,6 +15,8 @@ namespace Inter
             {
                 if (!IsPostBack)
                 {
+                    txtQtdOleoMotor.Text = "0";
+                    txtQtdOleoMotorE.Text = "0";
                     carregarPrefixo();
                     carregarGrid();
                     carregarGridManutencao();
@@ -31,8 +33,8 @@ namespace Inter
         {
             using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
             {
-                var lista = conexao.MANUTENCAO.ToList();
-                gridManutencao.DataSource = lista;
+                List<MANUTENCAO> lista = conexao.MANUTENCAO.ToList();
+                gridManutencao.DataSource = lista.OrderBy(x => x.DATA).Reverse();
                 gridManutencao.DataBind();
             }
         }
@@ -41,7 +43,7 @@ namespace Inter
         {
             using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
             {
-                var lista = conexao.VEICULO.ToList();
+                var lista = conexao.VEICULO.ToList().OrderBy(x => x.PREFIXO);
                 gridVeiculo.DataSource = lista;
                 gridVeiculo.DataBind();
             }
@@ -67,65 +69,72 @@ namespace Inter
 
         protected void btnSalvarVeiculo_Click(object sender, EventArgs e)
         {
-            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            try
             {
-                double km=0;
-
-                if (string.IsNullOrEmpty(txtPlaca.Text) ||
-                    (string.IsNullOrEmpty(txtPrefixo.Text)) ||
-                    (string.IsNullOrEmpty(txtKm.Text)))
+                using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
                 {
-                    lblValidacao.Text = "Favor Preencher todos os Campos solicitados";
-                    return;
+                    double km = 0;
+
+                    if (string.IsNullOrEmpty(txtPlaca.Text) ||
+                        (string.IsNullOrEmpty(txtPrefixo.Text)) ||
+                        (string.IsNullOrEmpty(txtKm.Text)))
+                    {
+                        lblValidacao.Text = "Favor Preencher todos os Campos solicitados";
+                        return;
+                    }
+
+                    else
+                    {
+                        VEICULO vei = new VEICULO();
+
+                        vei = conexao.VEICULO.FirstOrDefault(linha => linha.PLACA.Equals(txtPlaca.Text));
+
+                        if (vei != null)
+                        {
+                            lblValidacao.Text = "Placa ja Cadastrada!";
+                            return;
+                        }
+
+                        vei = conexao.VEICULO.FirstOrDefault(linha => linha.PREFIXO.Equals(txtPrefixo.Text));
+
+                        if (vei != null)
+                        {
+                            lblValidacao.Text = "Prefixo ja Cadastrado!";
+                            return;
+                        }
+
+                        if (double.TryParse(txtKm.Text, out km) == false)
+                        {
+                            lblValidacao.Text = "Valor Incorreto, Porfavor informe uma quilometragem valida!";
+                            return;
+                        }
+
+                        if (km < 0)
+                        {
+                            lblValidacao.Text = "Valor Negativo!";
+                            return;
+                        }
+
+                        VEICULO veiculo = new VEICULO();
+
+                        veiculo.PLACA = txtPlaca.Text.ToUpper();
+                        veiculo.PREFIXO = txtPrefixo.Text.ToUpper();
+                        veiculo.KM_COMPRA = km;
+                        veiculo.KM_ATUAL = km;
+
+                        conexao.VEICULO.Add(veiculo);
+                        conexao.SaveChanges();
+                    }
+
+                    carregarGrid();
+                    carregarPrefixo();
+                    limpar();
                 }
-                else
-                {
-                    VEICULO vei = new VEICULO();
-
-                    vei = conexao.VEICULO.FirstOrDefault(linha => linha.PLACA.Equals(txtPlaca.Text));
-
-                    if (vei != null)
-                    {
-                        lblValidacao.Text = "Placa ja Cadastrada!";
-                        return;
-                    }
-
-                    vei = conexao.VEICULO.FirstOrDefault(linha => linha.PREFIXO.Equals(txtPrefixo.Text));
-
-                    if (vei != null)
-                    {
-                        lblValidacao.Text = "Prefixo ja Cadastrado!";
-                        return;
-                    }
-
-                    if (double.TryParse(txtKm.Text, out km) == false)
-                    {
-                        lblValidacao.Text = "Valor Incorreto, Porfavor informe uma quilometragem valida!";
-                        return;
-                    }
-
-                    if (km<0)
-                    {
-                        lblValidacao.Text = "Valor Negativo!";
-                        return;
-                    }
-
-                    VEICULO veiculo = new VEICULO();
-
-                    veiculo.PLACA = txtPlaca.Text.ToUpper();
-                    veiculo.PREFIXO = txtPrefixo.Text.ToUpper();
-                    veiculo.KM_COMPRA = km;
-                    veiculo.KM_ATUAL = km;
-
-                    conexao.VEICULO.Add(veiculo);
-                    conexao.SaveChanges();
-                }
-
-                carregarGrid();
-                carregarPrefixo();
-                limpar();
             }
-
+            catch (Exception)
+            {
+                lblValidacao.Text = "Erro ao salvar veiculo!";
+            }
 
         }
 
@@ -220,22 +229,30 @@ namespace Inter
 
         protected void btnExcluirManutencao_Click(object sender, EventArgs e)
         {
-            using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+            try
             {
-                if (gridManutencao.SelectedValue != null)
+                using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
                 {
-                    MANUTENCAO m = conexao.MANUTENCAO.FirstOrDefault(
-                        linha => linha.ID.ToString().Equals(gridManutencao.SelectedValue.ToString()));
+                    if (gridManutencao.SelectedValue != null)
+                    {
+                        MANUTENCAO m = conexao.MANUTENCAO.FirstOrDefault(
+                            linha => linha.ID.ToString().Equals(gridManutencao.SelectedValue.ToString()));
 
-                    conexao.MANUTENCAO.Remove(m);
+                        conexao.MANUTENCAO.Remove(m);
+                    }
+
+                    gridManutencao.SelectedIndex = -1;
+
+                    conexao.SaveChanges();
+
+                    carregarGridManutencao();
                 }
-
-                gridManutencao.SelectedIndex = -1;
-
-                conexao.SaveChanges();
-
-                carregarGridManutencao();
             }
+            catch (Exception)
+            {
+                lblValidacaoManutencao.Text = "Não foi possivel excluir a manutenção!";
+            }
+            
         }
 
         protected void btnSalvarManutencao_Click(object sender, EventArgs e)
@@ -252,11 +269,11 @@ namespace Inter
 
 
 
-                    if (
-                        string.IsNullOrEmpty(txtFiltroAr.Text) &&
-                        string.IsNullOrEmpty(txtFiltroCombustivel.Text) &&
-                        string.IsNullOrEmpty(txtFiltroRacor.Text) &&
-                        string.IsNullOrEmpty(txtFiltroOleoMotor.Text))
+                    if (string.IsNullOrWhiteSpace(txtFiltroAr.Text) &&
+                        string.IsNullOrWhiteSpace(txtFiltroCombustivel.Text) &&
+                        string.IsNullOrWhiteSpace(txtFiltroRacor.Text) &&
+                        string.IsNullOrWhiteSpace(txtFiltroOleoMotor.Text) &&
+                        string.IsNullOrWhiteSpace(txtDataManutencao.Text))
                     {
                         lblValidacaoManutencao.Text = "Favor Preencher todos os Campos solicitados";
                         return;
@@ -271,11 +288,10 @@ namespace Inter
                         
                         if (double.TryParse(txtkmProximaManutencao.Text, out kmProx) == false)
                         {
-                            txtkmProximaManutencao.Focus();
                             lblValidacaoManutencao.Text = "Quilometragem Invalida";
                             return;
                         }
-                        
+
                         if (double.TryParse(txtQtdOleoMotor.Text, out litros) == false)
                         {
                             lblValidacaoManutencao.Text = "Quantidade de litros Invalida!";
@@ -303,6 +319,7 @@ namespace Inter
                         m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotor.Text.ToUpper().Replace(" ", "");
                         m.QUANTIDADE_OLEO_MOTOR = litros;
                         m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
+                        m.DATA = Convert.ToDateTime(txtDataManutencao.Text);
 
                         conexao.MANUTENCAO.Add(m);
                         conexao.Entry(v);
@@ -344,7 +361,8 @@ namespace Inter
                         if (string.IsNullOrEmpty(txtFltroArE.Text) &&
                             string.IsNullOrEmpty(txtFiltroCombustivelE.Text) &&
                             string.IsNullOrEmpty(txtFiltroRacorE.Text) &&
-                            string.IsNullOrEmpty(txtFiltroOleoMotorE.Text))
+                            string.IsNullOrEmpty(txtFiltroOleoMotorE.Text) &&
+                             string.IsNullOrWhiteSpace(txtDataManutencaoE.Text))
                         {
                             lblValidacaoManutencao.Text = "Favor Preencher todos os Campos solicitados";
                             return;
@@ -390,6 +408,7 @@ namespace Inter
                             m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotorE.Text.ToUpper().Replace(" ", "");
                             m.QUANTIDADE_OLEO_MOTOR = litros;
                             m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
+                            m.DATA = Convert.ToDateTime(txtDataManutencaoE.Text);
 
                             conexao.Entry(m);
                             conexao.Entry(v);

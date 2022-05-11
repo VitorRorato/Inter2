@@ -54,7 +54,7 @@
                                     <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="p-1"><asp:TextBox Id="txtPlaca" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtPlaca" runat="server" MaxLength="7" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtPrefixo" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKm" runat="server" /></div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="p-1"><asp:TextBox Id="txtPlacaVeiculo" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtPlacaVeiculo" runat="server" MaxLength="7" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtPrefixoVeiculo" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKmVeiculo" runat="server" /></div>
                                 </div>
@@ -128,6 +128,7 @@
                 <asp:GridView ID="gridManutencao" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="w-100 text-center" Font-Size="10pt" HorizontalAlign="Center" CellSpacing="2" DataKeyNames="ID,KM_ATUAL,KM_PROXIMA_TROCA,FILTRO_AR,FILTRO_COMBUSTIVEL,FILTRO_RACOR,FILTRO_OLEO_MOTOR,QUANTIDADE_OLEO_MOTOR,FK_VEICULO" OnSelectedIndexChanged="gridManutencao_SelectedIndexChanged1">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True"></asp:CommandField>
+                        <asp:BoundField DataField="DATA" HeaderText="Data" DataFormatString="{0:dd-MM-yyyy}" ></asp:BoundField>
                         <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
                         <asp:BoundField DataField="KM_ATUAL" HeaderText="Km"></asp:BoundField>
                         <asp:BoundField DataField="KM_PROXIMA_TROCA" HeaderText="Prox. Manutenção"></asp:BoundField>
@@ -158,6 +159,7 @@
                         <div class="modal-body container">
                             <div class="row">
                                 <div class="col-6">
+                                    <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Proxima Troca" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro de AR" runat="server" /></div>
@@ -169,6 +171,7 @@
                                 </div>
 
                                 <div class="col-6">
+                                    <div class="p-1"><asp:TextBox type="date" Id="txtDataManutencao" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKmManutencao" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtkmProximaManutencao" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFiltroAr" runat="server" /></div>
@@ -197,6 +200,7 @@
                         <div class="modal-body container">
                             <div class="row">
                                 <div class="col-6">
+                                    <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Proxima Troca" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro de AR" runat="server" /></div>
@@ -208,6 +212,7 @@
                                 </div>
 
                                 <div class="col-6">
+                                    <div class="p-1"><asp:TextBox type="date" Id="txtDataManutencaoE" runat="server"  /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKmManutencaoE" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtKmProximaManutencaoE" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFltroArE" runat="server" /></div>

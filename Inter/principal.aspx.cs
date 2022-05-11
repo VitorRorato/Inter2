@@ -39,7 +39,7 @@ namespace Inter
 
         private void carregarManutencao(VIACAOARAUJOEntities con)
         {
-            List<MANUTENCAO> lista = con.MANUTENCAO.ToList();
+            List<MANUTENCAO> lista = con.MANUTENCAO.OrderBy(x=>x.DATA).ToList();
 
             int id = lista.Last().ID;
 
@@ -52,7 +52,7 @@ namespace Inter
 
         private void Combustivel(VIACAOARAUJOEntities con)
         {
-            List<ABASTECIMENTO> lista = con.ABASTECIMENTO.ToList();
+            List<ABASTECIMENTO> lista = con.ABASTECIMENTO.OrderBy(x => x.DATA_ABASTECIMENTO).ToList();
 
             int id = lista.Last().ID;
 
