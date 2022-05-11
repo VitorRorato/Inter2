@@ -11,13 +11,20 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            if (!IsPostBack)
+            try
             {
-                carregarPrefixo();
-                carregarGrid();
-                carregarGridManutencao();
+                if (!IsPostBack)
+                {
+                    carregarPrefixo();
+                    carregarGrid();
+                    carregarGridManutencao();
+                }
             }
+            catch (Exception)
+            {
+                
+            }
+
         }
 
         private void carregarGridManutencao()

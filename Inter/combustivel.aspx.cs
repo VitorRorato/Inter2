@@ -11,16 +11,24 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                if (!IsPostBack)
                 {
-                    carregarTanque(con);
-                    carregarVeiculo(con);
-                    carregarFuncionario(con);
-                    carregarGridAbastecimento(con);
+                    using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                    {
+                        carregarTanque(con);
+                        carregarVeiculo(con);
+                        carregarFuncionario(con);
+                        carregarGridAbastecimento(con);
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void carregarGridAbastecimento(VIACAOARAUJOEntities con)

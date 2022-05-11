@@ -11,15 +11,23 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+                if (!IsPostBack)
                 {
-                    carregarCargo(conexao);
-                    carregarGrid(conexao);
-                    carregarFuncionario(conexao);
+                    using (VIACAOARAUJOEntities conexao = new VIACAOARAUJOEntities())
+                    {
+                        carregarCargo(conexao);
+                        carregarGrid(conexao);
+                        carregarFuncionario(conexao);
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void carregarCargo(VIACAOARAUJOEntities conexao)
