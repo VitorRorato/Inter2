@@ -275,7 +275,7 @@ namespace Inter
                         return;
                     }
 
-                    login.USUARIO = txtUsuario.Text;
+                    login.USUARIO = txtUsuario.Text.ToUpper();
                     login.SENHA = txtSenha2.Text;
                     login.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionario.SelectedValue);
 
