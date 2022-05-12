@@ -190,6 +190,17 @@ namespace Inter
                             consumo = 0;
                         }
 
+                        List<COMBUSTIVEL_DISPONIVEL> disponivel = con.COMBUSTIVEL_DISPONIVEL.Where(
+                            x => x.FK_TANQUE.ToString().Equals(ddlTanqueAbastecimento.SelectedValue.ToString())).ToList();
+
+                        double disp = disponivel.First().QUANTIDADE;
+
+                        if (disp < litros)
+                        {
+                            lblValidacao.Text = "Não ha combustivel suficiente";
+                            return;
+                        }
+
                         string l = txtLocal.Text.ToUpper();
 
                         a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);
