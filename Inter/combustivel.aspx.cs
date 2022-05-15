@@ -11,8 +11,8 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 if (!IsPostBack)
                 {
                     using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
@@ -23,11 +23,11 @@ namespace Inter
                         carregarGridAbastecimento(con);
                     }
                 }
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
 
-            }
+            //}
 
         }
 
@@ -121,9 +121,10 @@ namespace Inter
 
         protected void btnSalvarAbastecimento_Click(object sender, EventArgs e)
         {
-            using(VIACAOARAUJOEntities con =new VIACAOARAUJOEntities())
+
+            try
             {
-                try
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
                 {
                     double distancia = 0, consumo = 0, kmatual = 0, litros = 0, km = 0;
 
@@ -146,7 +147,7 @@ namespace Inter
 
                         List<ABASTECIMENTO> lista = con.ABASTECIMENTO.Where(
                             linha => linha.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString())).ToList();
-                        
+
                         int contagem = lista.Count();
 
                         int cont = combustivel.Count();
@@ -190,17 +191,6 @@ namespace Inter
                             consumo = 0;
                         }
 
-                        List<COMBUSTIVEL_DISPONIVEL> disponivel = con.COMBUSTIVEL_DISPONIVEL.Where(
-                            x => x.FK_TANQUE.ToString().Equals(ddlTanqueAbastecimento.SelectedValue.ToString())).ToList();
-
-                        double disp = disponivel.First().QUANTIDADE;
-
-                        if (disp < litros)
-                        {
-                            lblValidacao.Text = "Não ha combustivel suficiente";
-                            return;
-                        }
-
                         string l = txtLocal.Text.ToUpper();
 
                         a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtData.Text);
@@ -213,8 +203,21 @@ namespace Inter
                         a.FK_TANQUE_COMBUSTIVEL = Convert.ToInt32(ddlTanqueAbastecimento.SelectedValue);
                         a.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionario.SelectedValue);
 
-                        if (l == "GARAGEM" && cont!=0)
+                        //a.VEICULO = con.VEICULO.Where(linha => linha.ID.ToString().Equals(ddlVeiculo.SelectedValue.ToString())).First();
+
+                        if (l == "GARAGEM" && cont != 0)
                         {
+                            List<COMBUSTIVEL_DISPONIVEL> disponivel = con.COMBUSTIVEL_DISPONIVEL.Where(
+                                x => x.FK_TANQUE.ToString().Equals(ddlTanqueAbastecimento.SelectedValue.ToString())).ToList();
+
+                            double disp = disponivel.First().QUANTIDADE;
+
+                            if (disp < litros)
+                            {
+                                lblValidacao.Text = "Não há combustivel suficiente!";
+                                return;
+                            }
+
                             comb = con.COMBUSTIVEL_DISPONIVEL.FirstOrDefault(
                                 linha => linha.FK_TANQUE.ToString().Equals(ddlTanqueAbastecimento.SelectedValue.ToString()));
 
@@ -232,12 +235,14 @@ namespace Inter
                         }
 
                         carregarGridAbastecimento(con);
+                        carregarGridAbastecimento(con);
+
                     }
                 }
-                catch
-                {
-                    lblValidacao.Text = "Erro, Favor verificar os dados informados!";
-                }
+            }
+            catch
+            {
+                lblValidacao.Text = "Erro, Favor verificar os dados informados!";
             }
         }
 
@@ -263,66 +268,74 @@ namespace Inter
 
         protected void btnSalvarCombustivel_Click(object sender, EventArgs e)
         {
-            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            try
             {
-                double quantidade = 0;
-
-                int cont = 0;
-
-                QUANTIDADE_TANQUE qtd = new QUANTIDADE_TANQUE();
-
-                COMBUSTIVEL_DISPONIVEL comb = new COMBUSTIVEL_DISPONIVEL();
-
-                List<COMBUSTIVEL_DISPONIVEL> lista = con.COMBUSTIVEL_DISPONIVEL.Where(
-                    linha => linha.FK_TANQUE.ToString().Equals(ddlTanque.SelectedValue.ToString())).ToList();
-
-                cont = lista.Count();
-
-                if (string.IsNullOrWhiteSpace(txtDataCombustivel.Text) &&
-                    string.IsNullOrWhiteSpace(txtQuantidadeCombustivel.Text))
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
                 {
-                    lblValidacao.Text = "Favor preencher todos os campos!";
-                    return;
-                }
-                else if (double.TryParse(txtQuantidadeCombustivel.Text, out quantidade) == false)
-                {
-                    lblValidacao.Text = "Informe um valor válido!";
-                    return;
-                }
-                else if (quantidade <= 0)
-                {
-                    lblValidacao.Text = "Valor zero ou nulo não é permitido!";
-                    return;
-                }
+                    double quantidade = 0;
 
-                qtd.DATA = Convert.ToDateTime(txtDataCombustivel.Text);
-                qtd.QUANTIDADE = quantidade;
-                qtd.FK_TANQUE = Convert.ToInt32(ddlTanque.SelectedValue);
+                    int cont = 0;
 
-                con.QUANTIDADE_TANQUE.Add(qtd);
-                con.SaveChanges();
+                    QUANTIDADE_TANQUE qtd = new QUANTIDADE_TANQUE();
 
-                if (cont<=0)
-                {
-                    comb.FK_TANQUE= Convert.ToInt32(ddlTanque.SelectedValue);
-                    comb.QUANTIDADE= quantidade;
+                    COMBUSTIVEL_DISPONIVEL comb = new COMBUSTIVEL_DISPONIVEL();
 
-                    con.COMBUSTIVEL_DISPONIVEL.Add(comb);
+                    List<COMBUSTIVEL_DISPONIVEL> lista = con.COMBUSTIVEL_DISPONIVEL.Where(
+                        linha => linha.FK_TANQUE.ToString().Equals(ddlTanque.SelectedValue.ToString())).ToList();
+
+                    cont = lista.Count();
+
+                    if (string.IsNullOrWhiteSpace(txtDataCombustivel.Text) &&
+                        string.IsNullOrWhiteSpace(txtQuantidadeCombustivel.Text))
+                    {
+                        lblValidacao.Text = "Favor preencher todos os campos!";
+                        return;
+                    }
+                    else if (double.TryParse(txtQuantidadeCombustivel.Text, out quantidade) == false)
+                    {
+                        lblValidacao.Text = "Informe um valor válido!";
+                        return;
+                    }
+                    else if (quantidade <= 0)
+                    {
+                        lblValidacao.Text = "Valor zero ou nulo não é permitido!";
+                        return;
+                    }
+
+                    qtd.DATA = Convert.ToDateTime(txtDataCombustivel.Text);
+                    qtd.QUANTIDADE = quantidade;
+                    qtd.FK_TANQUE = Convert.ToInt32(ddlTanque.SelectedValue);
+
+                    con.QUANTIDADE_TANQUE.Add(qtd);
                     con.SaveChanges();
+
+                    if (cont <= 0)
+                    {
+                        comb.FK_TANQUE = Convert.ToInt32(ddlTanque.SelectedValue);
+                        comb.QUANTIDADE = quantidade;
+
+                        con.COMBUSTIVEL_DISPONIVEL.Add(comb);
+                        con.SaveChanges();
+                    }
+                    else
+                    {
+
+                        comb = con.COMBUSTIVEL_DISPONIVEL.FirstOrDefault(linha => linha.FK_TANQUE.ToString().Equals(
+                             ddlTanque.SelectedValue.ToString()));
+
+                        comb.QUANTIDADE = quantidade + lista.Last().QUANTIDADE;
+
+                        con.Entry(comb);
+                        con.SaveChanges();
+                    }
+
                 }
-                else
-                {
-
-                    comb = con.COMBUSTIVEL_DISPONIVEL.FirstOrDefault(linha => linha.FK_TANQUE.ToString().Equals(
-                         ddlTanque.SelectedValue.ToString()));
-
-                    comb.QUANTIDADE = quantidade + lista.Last().QUANTIDADE;
-
-                    con.Entry(comb);
-                    con.SaveChanges();
-                }
-
             }
+            catch (Exception)
+            {
+                lblValidacao.Text = "Erro ao salvar o abastecimento verifique os dados e tente novamente!";
+            }
+            
         }
 
         protected void btnExcluirAbastecimento_Click(object sender, EventArgs e)

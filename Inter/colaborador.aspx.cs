@@ -50,7 +50,7 @@ namespace Inter
         private void carregarGrid(VIACAOARAUJOEntities conexao)
         {
             var lista = conexao.FUNCIONARIO.ToList();
-            gridColaborador.DataSource = lista;
+            gridColaborador.DataSource = lista.OrderBy(x=>x.NOME);
             gridColaborador.DataBind();
 
         }
