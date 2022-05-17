@@ -11,8 +11,33 @@
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalAbastecimento">Novo Abastecimento</button>
                     <asp:Button CssClass="btn btn-primary w-100 m-1" ID="btnExcluirAbastecimento" Text="Excluir Abastecimento" runat="server" OnClick="btnExcluirAbastecimento_Click" />
                 </div>
+            </div>
+            <div class="col-5">
+
+            </div>
+            <div class="col">
+                <div class="container">
+                    <div style="OVERFLOW: auto; HEIGHT:20vh; padding:1px;">
+                <asp:GridView ID="gridTanque" Width="100%" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+                    <Columns>
+                         <asp:BoundField DataField="DATA" HeaderText="Data" DataFormatString="{0:dd/MM/yyyy}"></asp:BoundField>
+                         <asp:BoundField DataField="QUANTIDADE" HeaderText="Quantidade"></asp:BoundField>
+                         <asp:BoundField DataField="TANQUE.NOME" HeaderText="Tanque"></asp:BoundField>
+                    </Columns>
+                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                    <RowStyle BackColor="White" ForeColor="#330099" />
+                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                </asp:GridView>
+                </div>
+                </div>
+            </div>
             </div>    
-        </div>
         <div class="row text-center">
             <div class="col">
                 <div><asp:Label ID="lblValidacao" Text="" runat="server" ForeColor="Red" Font-Size="18px" /></div>

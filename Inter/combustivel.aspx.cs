@@ -13,22 +13,31 @@ namespace Inter
         {
             //try
             //{
-                if (!IsPostBack)
+            if (!IsPostBack)
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
                 {
-                    using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
-                    {
-                        carregarTanque(con);
-                        carregarVeiculo(con);
-                        carregarFuncionario(con);
-                        carregarGridAbastecimento(con);
-                    }
+                    carregarTanque(con);
+                    carregarVeiculo(con);
+                    carregarFuncionario(con);
+                    carregarGridAbastecimento(con);
+                    carregarGridTanque(con);
                 }
+            }
             //}
             //catch (Exception)
             //{
 
             //}
 
+        }
+
+        private void carregarGridTanque(VIACAOARAUJOEntities con)
+        {
+            List<QUANTIDADE_TANQUE> lista = con.QUANTIDADE_TANQUE.ToList();
+
+            gridTanque.DataSource = lista.OrderBy(x => x.DATA).Reverse();
+            gridTanque.DataBind();
         }
 
         private void carregarGridAbastecimento(VIACAOARAUJOEntities con)
