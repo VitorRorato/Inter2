@@ -27,6 +27,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOME" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="75" Nullable="false" />
+        </EntityType>
         <EntityType Name="COMBUSTIVEL_DISPONIVEL">
           <Key>
             <PropertyRef Name="ID" />
@@ -34,6 +41,17 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_TANQUE" Type="int" Nullable="false" />
           <Property Name="QUANTIDADE" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CNPJ" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="CIDADE" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ESTADO" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="CONTATO" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="FUNCIONARIO">
           <Key>
@@ -69,6 +87,48 @@
           <Property Name="QUANTIDADE_OLEO_MOTOR" Type="float" />
           <Property Name="FK_VEICULO" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_CATEGORIA" Type="int" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="int" Nullable="false" />
+          <Property Name="APLICACAO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PRODUTO_ENTRADA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_PRODUTO" Type="int" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="int" Nullable="false" />
+          <Property Name="DATA" Type="date" Nullable="false" />
+          <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
+          <Property Name="FK_FORNECEDOR" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PRODUTO_FORNECEDOR">
+          <Key>
+            <PropertyRef Name="FK_PRODUTO" />
+            <PropertyRef Name="FK_FORNECEDOR" />
+          </Key>
+          <Property Name="FK_PRODUTO" Type="int" Nullable="false" />
+          <Property Name="FK_FORNECEDOR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUTO_SAIDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_PRODUTO" Type="int" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="int" Nullable="false" />
+          <Property Name="DATA" Type="date" Nullable="false" />
+          <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
+          <Property Name="FK_VEICULO" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="QUANTIDADE_TANQUE">
           <Key>
             <PropertyRef Name="ID" />
@@ -77,6 +137,16 @@
           <Property Name="QUANTIDADE" Type="float" Nullable="false" />
           <Property Name="FK_TANQUE" Type="int" Nullable="false" />
           <Property Name="DATA" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TANQUE">
           <Key>
@@ -108,6 +178,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CATEGORIA_FK">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="FK_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_ENTRADA">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FORNECEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_PRODUTO_FK">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="FK_FORNECEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
           <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
           <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
@@ -129,6 +259,54 @@
             </Principal>
             <Dependent Role="LOGIN">
               <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_FORNECEDOR_FK">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_VEICULO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_VEICULO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -195,16 +373,48 @@
         <EntityContainer Name="VIACAOARAUJOModelStoreContainer">
           <EntitySet Name="ABASTECIMENTO" EntityType="Self.ABASTECIMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="Self.COMBUSTIVEL_DISPONIVEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORNECEDOR" EntityType="Self.FORNECEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MANUTENCAO" EntityType="Self.MANUTENCAO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_ENTRADA" EntityType="Self.PRODUTO_ENTRADA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_SAIDA" EntityType="Self.PRODUTO_SAIDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QUANTIDADE_TANQUE" EntityType="Self.QUANTIDADE_TANQUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANQUE" EntityType="Self.TANQUE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VEICULO" EntityType="Self.VEICULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_FORNECEDOR" EntityType="Self.PRODUTO_FORNECEDOR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PRODUTO_FORNECEDOR].[FK_PRODUTO] AS [FK_PRODUTO], 
+    [PRODUTO_FORNECEDOR].[FK_FORNECEDOR] AS [FK_FORNECEDOR]
+    FROM [dbo].[PRODUTO_FORNECEDOR] AS [PRODUTO_FORNECEDOR]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_CARGO_FUNCIONARIO" Association="Self.FK_CARGO_FUNCIONARIO">
             <End Role="CARGO" EntitySet="CARGO" />
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_FK" Association="Self.FK_CATEGORIA_FK">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_FUNCIONARIO" Association="Self.FK_ENTRADA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_PRODUTO" Association="Self.FK_ENTRADA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ENTRADA" Association="Self.FK_FORNECEDOR_ENTRADA">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_PRODUTO_FK" Association="Self.FK_FORNECEDOR_PRODUTO_FK">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
           </AssociationSet>
           <AssociationSet Name="FK_FUNCIONARIO_ABASTECIMENTO" Association="Self.FK_FUNCIONARIO_ABASTECIMENTO">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
@@ -213,6 +423,22 @@
           <AssociationSet Name="FK_FUNCIONARIO_LOGIN" Association="Self.FK_FUNCIONARIO_LOGIN">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_FK" Association="Self.FK_PRODUTO_FORNECEDOR_FK">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_FUNCIONARIO" Association="Self.FK_SAIDA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_PRODUTO" Association="Self.FK_SAIDA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_VEICULO" Association="Self.FK_SAIDA_VEICULO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
           </AssociationSet>
           <AssociationSet Name="FK_TANQUE" Association="Self.FK_TANQUE">
             <End Role="TANQUE" EntitySet="TANQUE" />
@@ -286,6 +512,8 @@
           <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_FUNCIONARIO_ABASTECIMENTO" FromRole="FUNCIONARIO" ToRole="ABASTECIMENTO" />
           <NavigationProperty Name="CARGO" Relationship="Self.FK_CARGO_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="CARGO" />
           <NavigationProperty Name="LOGIN" Relationship="Self.FK_FUNCIONARIO_LOGIN" FromRole="FUNCIONARIO" ToRole="LOGIN" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_ENTRADA" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_SAIDA" />
         </EntityType>
         <EntityType Name="LOGIN">
           <Key>
@@ -345,6 +573,7 @@
           <Property Name="KM_ATUAL" Type="Double" Nullable="false" />
           <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_VEICULO_ABASTECIMENTO" FromRole="VEICULO" ToRole="ABASTECIMENTO" />
           <NavigationProperty Name="MANUTENCAO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="VEICULO" ToRole="MANUTENCAO" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_VEICULO" FromRole="VEICULO" ToRole="PRODUTO_SAIDA" />
         </EntityType>
         <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
           <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
@@ -484,7 +713,206 @@
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
           </AssociationSet>
+          <EntitySet Name="CATEGORIA" EntityType="VIACAOARAUJOModel.CATEGORIA" />
+          <EntitySet Name="FORNECEDOR" EntityType="VIACAOARAUJOModel.FORNECEDOR" />
+          <EntitySet Name="PRODUTO" EntityType="VIACAOARAUJOModel.PRODUTO" />
+          <EntitySet Name="PRODUTO_ENTRADA" EntityType="VIACAOARAUJOModel.PRODUTO_ENTRADA" />
+          <EntitySet Name="PRODUTO_SAIDA" EntityType="VIACAOARAUJOModel.PRODUTO_SAIDA" />
+          <EntitySet Name="sysdiagrams" EntityType="VIACAOARAUJOModel.sysdiagrams" />
+          <AssociationSet Name="FK_CATEGORIA_FK" Association="VIACAOARAUJOModel.FK_CATEGORIA_FK">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_FUNCIONARIO" Association="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_FUNCIONARIO" Association="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_PRODUTO" Association="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_PRODUTO" Association="VIACAOARAUJOModel.FK_SAIDA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_VEICULO" Association="VIACAOARAUJOModel.FK_SAIDA_VEICULO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUTO_FORNECEDOR" Association="VIACAOARAUJOModel.PRODUTO_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ENTRADA" Association="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_CATEGORIA_FK" FromRole="CATEGORIA" ToRole="PRODUTO" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+          <Property Name="CIDADE" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CONTATO" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PRODUTO" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" FromRole="FORNECEDOR" ToRole="PRODUTO_ENTRADA" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_CATEGORIA" Type="Int32" Nullable="false" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="APLICACAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="VIACAOARAUJOModel.FK_CATEGORIA_FK" FromRole="PRODUTO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_ENTRADA" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_SAIDA" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" FromRole="PRODUTO" ToRole="FORNECEDOR" />
+        </EntityType>
+        <EntityType Name="PRODUTO_ENTRADA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" FromRole="PRODUTO_ENTRADA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" FromRole="PRODUTO_ENTRADA" ToRole="PRODUTO" />
+          <Property Name="FK_FORNECEDOR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" FromRole="PRODUTO_ENTRADA" ToRole="FORNECEDOR" />
+        </EntityType>
+        <EntityType Name="PRODUTO_SAIDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" FromRole="PRODUTO_SAIDA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" FromRole="PRODUTO_SAIDA" ToRole="PRODUTO" />
+          <NavigationProperty Name="VEICULO" Relationship="VIACAOARAUJOModel.FK_SAIDA_VEICULO" FromRole="PRODUTO_SAIDA" ToRole="VEICULO" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_CATEGORIA_FK">
+          <End Type="VIACAOARAUJOModel.CATEGORIA" Role="CATEGORIA" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="FK_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_FUNCIONARIO">
+          <End Type="VIACAOARAUJOModel.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_FUNCIONARIO">
+          <End Type="VIACAOARAUJOModel.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_PRODUTO">
+          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_PRODUTO">
+          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_VEICULO">
+          <End Type="VIACAOARAUJOModel.VEICULO" Role="VEICULO" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUTO_FORNECEDOR">
+          <End Type="VIACAOARAUJOModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="*" />
+          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_FORNECEDOR_ENTRADA">
+          <End Type="VIACAOARAUJOModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="1" />
+          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FORNECEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -591,6 +1019,80 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORNECEDOR">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.FORNECEDOR">
+              <MappingFragment StoreEntitySet="FORNECEDOR">
+                <ScalarProperty Name="CONTATO" ColumnName="CONTATO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="CIDADE" ColumnName="CIDADE" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO">
+              <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="APLICACAO" ColumnName="APLICACAO" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="FK_CATEGORIA" ColumnName="FK_CATEGORIA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_ENTRADA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_ENTRADA">
+              <MappingFragment StoreEntitySet="PRODUTO_ENTRADA">
+                <ScalarProperty Name="FK_FORNECEDOR" ColumnName="FK_FORNECEDOR" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_SAIDA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_SAIDA">
+              <MappingFragment StoreEntitySet="PRODUTO_SAIDA">
+                <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PRODUTO_FORNECEDOR" TypeName="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" StoreEntitySet="PRODUTO_FORNECEDOR">
+            <EndProperty Name="PRODUTO">
+              <ScalarProperty Name="ID" ColumnName="FK_PRODUTO" />
+            </EndProperty>
+            <EndProperty Name="FORNECEDOR">
+              <ScalarProperty Name="ID" ColumnName="FK_FORNECEDOR" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

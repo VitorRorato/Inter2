@@ -34,5 +34,11 @@ namespace Inter
         public virtual DbSet<QUANTIDADE_TANQUE> QUANTIDADE_TANQUE { get; set; }
         public virtual DbSet<TANQUE> TANQUE { get; set; }
         public virtual DbSet<VEICULO> VEICULO { get; set; }
+        public virtual DbSet<CATEGORIA> CATEGORIA { get; set; }
+        public virtual DbSet<FORNECEDOR> FORNECEDOR { get; set; }
+        public virtual DbSet<PRODUTO> PRODUTO { get; set; }
+        public virtual DbSet<PRODUTO_ENTRADA> PRODUTO_ENTRADA { get; set; }
+        public virtual DbSet<PRODUTO_SAIDA> PRODUTO_SAIDA { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

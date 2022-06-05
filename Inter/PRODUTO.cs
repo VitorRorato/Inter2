@@ -12,31 +12,28 @@ namespace Inter
     using System;
     using System.Collections.Generic;
     
-    public partial class FUNCIONARIO
+    public partial class PRODUTO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FUNCIONARIO()
+        public PRODUTO()
         {
-            this.ABASTECIMENTO = new HashSet<ABASTECIMENTO>();
-            this.LOGIN = new HashSet<LOGIN>();
             this.PRODUTO_ENTRADA = new HashSet<PRODUTO_ENTRADA>();
             this.PRODUTO_SAIDA = new HashSet<PRODUTO_SAIDA>();
+            this.FORNECEDOR = new HashSet<FORNECEDOR>();
         }
     
         public int ID { get; set; }
-        public string NOME { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-        public int FK_CARGO { get; set; }
+        public int FK_CATEGORIA { get; set; }
+        public string CODIGO { get; set; }
+        public int QUANTIDADE { get; set; }
+        public string APLICACAO { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ABASTECIMENTO> ABASTECIMENTO { get; set; }
-        public virtual CARGO CARGO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LOGIN> LOGIN { get; set; }
+        public virtual CATEGORIA CATEGORIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ENTRADA> PRODUTO_ENTRADA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_SAIDA> PRODUTO_SAIDA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORNECEDOR> FORNECEDOR { get; set; }
     }
 }

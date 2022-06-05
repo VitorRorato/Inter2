@@ -19,6 +19,7 @@ namespace Inter
         {
             this.ABASTECIMENTO = new HashSet<ABASTECIMENTO>();
             this.MANUTENCAO = new HashSet<MANUTENCAO>();
+            this.PRODUTO_SAIDA = new HashSet<PRODUTO_SAIDA>();
         }
     
         public int ID { get; set; }
@@ -31,5 +32,7 @@ namespace Inter
         public virtual ICollection<ABASTECIMENTO> ABASTECIMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MANUTENCAO> MANUTENCAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUTO_SAIDA> PRODUTO_SAIDA { get; set; }
     }
 }

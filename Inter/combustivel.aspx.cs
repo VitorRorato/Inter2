@@ -94,6 +94,11 @@ namespace Inter
             ddlVeiculo.DataTextField = "PREFIXO";
             ddlVeiculo.DataBind();
 
+            ddlVeiculoEditar.DataSource = veiculos;
+            ddlVeiculoEditar.DataValueField = "ID";
+            ddlVeiculoEditar.DataTextField = "PREFIXO";
+            ddlVeiculoEditar.DataBind();
+
             ddlBusca.DataSource= veiculos;
             ddlBusca.DataValueField = "ID";
             ddlBusca.DataTextField = "PREFIXO";
@@ -110,6 +115,11 @@ namespace Inter
             ddlFuncionario.DataValueField = "ID";
             ddlFuncionario.DataBind();
 
+            ddlFuncionarioEditar.DataSource = funcionario;
+            ddlFuncionarioEditar.DataTextField = "NOME";
+            ddlFuncionarioEditar.DataValueField = "ID";
+            ddlFuncionarioEditar.DataBind();
+
         }
 
         private void carregarTanque(VIACAOARAUJOEntities con)
@@ -120,6 +130,11 @@ namespace Inter
             ddlTanque.DataValueField = "ID";
             ddlTanque.DataTextField = "NOME";
             ddlTanque.DataBind();
+
+            ddlTanqueEditar.DataSource = tanqueList;
+            ddlTanqueEditar.DataValueField = "ID";
+            ddlTanqueEditar.DataTextField = "NOME";
+            ddlTanqueEditar.DataBind();
 
             ddlTanqueAbastecimento.DataSource = tanqueList;
             ddlTanqueAbastecimento.DataValueField = "ID";
@@ -373,6 +388,80 @@ namespace Inter
             catch (Exception)
             {
                 lblValidacao.Text = "Erro Ao excluir O registro";
+            }
+        }
+
+        protected void gridAbastecimento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                if (gridAbastecimento.SelectedValue != null)
+                {
+                    int id = Convert.ToInt32(gridAbastecimento.SelectedValue);
+
+                    ABASTECIMENTO a = con.ABASTECIMENTO.FirstOrDefault(x => x.ID.ToString().Equals(id.ToString()));
+
+                    txtDataEditar.Text =a.DATA_ABASTECIMENTO.ToString();
+                    txtKmEditar.Text = a.KM.ToString();
+                    txtLitrosEditar.Text = a.LITROS_COMBUSTIVEL.ToString();
+                    txtLocalEditar.Text = a.POSTO.ToString();
+                    ddlFuncionarioEditar.SelectedValue = a.FK_FUNCIONARIO.ToString();
+                    ddlTanqueEditar.SelectedValue = a.FK_TANQUE_COMBUSTIVEL.ToString();
+                    ddlVeiculoEditar.SelectedValue = a.FK_VEICULO.ToString();
+                    txtDistancia.Text = a.DISTANCIA_PERCORRIDA.ToString();
+                    txtKmL.Text=a.CONSUMO_MEDIO.ToString();
+
+                }
+            }
+        }
+
+        protected void btnEditarAbastecimento_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    if (string.IsNullOrWhiteSpace(txtDataEditar.Text) &&
+                        string.IsNullOrWhiteSpace(txtKmEditar.Text) &&
+                        string.IsNullOrWhiteSpace(txtLocalEditar.Text) &&
+                        string.IsNullOrWhiteSpace(txtLitrosEditar.Text))
+                    {
+                        lblValidacao.Text = "Favor preencher todos os campos!";
+                        return;
+                    }
+                    else
+                    {
+                        ABASTECIMENTO a = con.ABASTECIMENTO.FirstOrDefault(x => x.ID.ToString().Equals(gridAbastecimento.SelectedValue.ToString()));
+
+                        a.DATA_ABASTECIMENTO = Convert.ToDateTime(txtDataEditar.Text.ToUpper());
+                        a.CONSUMO_MEDIO = Convert.ToDouble(txtKmL.Text.ToUpper());
+                        a.DISTANCIA_PERCORRIDA = Convert.ToDouble(txtDistancia.Text);
+                        a.KM = Convert.ToDouble(txtKmEditar.Text.ToUpper());
+                        a.POSTO = txtLocalEditar.Text.ToUpper();
+                        a.LITROS_COMBUSTIVEL = Convert.ToDouble(txtLitrosEditar.Text.ToUpper());
+                        a.FK_VEICULO = Convert.ToInt32(ddlVeiculoEditar.SelectedValue);
+                        a.FK_TANQUE_COMBUSTIVEL = Convert.ToInt32(ddlTanqueEditar.SelectedValue);
+                        a.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionarioEditar.SelectedValue);
+
+                        con.Entry(a);
+                        con.SaveChanges();
+
+                        carregarGridAbastecimento(con);
+                        carregarGridAbastecimento(con);
+
+                        txtDataEditar.Text = string.Empty;
+                        txtKmL.Text = string.Empty;
+                        txtDistancia.Text = string.Empty;
+                        txtKmEditar.Text = string.Empty;
+                        txtLocalEditar.Text = string.Empty;
+                        txtLitrosEditar.Text = string.Empty;
+                    } 
+                } 
+            }
+            catch (Exception ex)
+            {
+
+                lblValidacao.Text = "Erro, Favor verificar os dados informados!";
             }
         }
     }

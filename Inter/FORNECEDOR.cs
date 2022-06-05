@@ -12,31 +12,25 @@ namespace Inter
     using System;
     using System.Collections.Generic;
     
-    public partial class FUNCIONARIO
+    public partial class FORNECEDOR
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FUNCIONARIO()
+        public FORNECEDOR()
         {
-            this.ABASTECIMENTO = new HashSet<ABASTECIMENTO>();
-            this.LOGIN = new HashSet<LOGIN>();
+            this.PRODUTO = new HashSet<PRODUTO>();
             this.PRODUTO_ENTRADA = new HashSet<PRODUTO_ENTRADA>();
-            this.PRODUTO_SAIDA = new HashSet<PRODUTO_SAIDA>();
         }
     
         public int ID { get; set; }
         public string NOME { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-        public int FK_CARGO { get; set; }
+        public string CNPJ { get; set; }
+        public string CIDADE { get; set; }
+        public string ESTADO { get; set; }
+        public string CONTATO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ABASTECIMENTO> ABASTECIMENTO { get; set; }
-        public virtual CARGO CARGO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LOGIN> LOGIN { get; set; }
+        public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ENTRADA> PRODUTO_ENTRADA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUTO_SAIDA> PRODUTO_SAIDA { get; set; }
     }
 }

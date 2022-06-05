@@ -9,6 +9,7 @@
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalTanque">Cadastrar Tanque</button>
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalCombustivel">Adicionar Combustivel</button>
                     <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalAbastecimento">Novo Abastecimento</button>
+                    <button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditarAbastecimento">Editar Abastecimento</button>
                     <asp:Button CssClass="btn btn-primary w-100 m-1" ID="btnExcluirAbastecimento" Text="Excluir Abastecimento" runat="server" OnClick="btnExcluirAbastecimento_Click" />
                 </div>
             </div>
@@ -58,7 +59,7 @@
         <div class="row p-3">
                 <div class="container-fluid">
                     <div style=" OVERFLOW: auto; HEIGHT:50vh;border:1px solid red; padding:1px;">
-                        <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" DataKeyNames="ID">
+                        <asp:GridView CssClass="text-center" ID="gridAbastecimento" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" DataKeyNames="ID" OnSelectedIndexChanged="gridAbastecimento_SelectedIndexChanged">
                             <AlternatingRowStyle BackColor="#F7F7F7" />
                             <Columns>
                                 <asp:CommandField ShowSelectButton="True"></asp:CommandField>
@@ -141,11 +142,55 @@
                                     <div class="p-1"><asp:DropDownList ID="ddlVeiculo" runat="server"></asp:DropDownList></div>
                                     <div class="p-1"><asp:DropDownList ID="ddlTanqueAbastecimento" runat="server"></asp:DropDownList></div>
                                     <div class="p-1"><asp:DropDownList ID="ddlFuncionario" runat="server"></asp:DropDownList></div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <asp:button Id="btnSalvarAbastecimento" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnSalvarAbastecimento_Click" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="modal fade" id="modalEditarAbastecimento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEditarAbastecimentolabel">Editar Abastecimento</h5>
+                        </div>
+                        <div class="modal-body container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="KM" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Local" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Litros" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Veiculo" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Tanque" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Funcionario" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Distancia" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Km/L" runat="server" /></div>
+                                </div>
+                                <div class="col-6">
+                                    <div>
+                                        
+                                    </div>
+                                    <div class="p-1"><asp:TextBox TextMode="Date" Id="txtDataEditar" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtKmEditar" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtLocalEditar" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtLitrosEditar" runat="server" /></div>
+                                    <div class="p-1"><asp:DropDownList ID="ddlVeiculoEditar" runat="server"></asp:DropDownList></div>
+                                    <div class="p-1"><asp:DropDownList ID="ddlTanqueEditar" runat="server"></asp:DropDownList></div>
+                                    <div class="p-1"><asp:DropDownList ID="ddlFuncionarioEditar" runat="server"></asp:DropDownList></div>
+                                    <div class="p-1"><asp:TextBox Id="txtDistancia" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtKmL" runat="server" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <asp:button Id="btnEditarAbastecimento" class="btn btn-primary" data-bs-dismiss="modal" Text="Salvar" runat="server" OnClick="btnEditarAbastecimento_Click" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                         </div>
                     </div>

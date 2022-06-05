@@ -16,15 +16,6 @@ namespace Inter
             else
                 lblUsuario.Text = "Olá " + Session["usuario"].ToString().ToUpper() + " !";
 
-            /*if (Session["usuario"] != null)
-            {
-                string usuariologado = (string)Session["usuariologado"];
-                lblUsuario.Text=usuariologado;
-            }
-            else
-            {
-                Response.Redirect("default.aspx");
-            }*/
 
         }
 

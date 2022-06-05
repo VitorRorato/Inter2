@@ -22,6 +22,27 @@
         <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_LOGIN" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_MANUTENCAO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_QUANTIDADE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.CATEGORIA" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.FORNECEDOR" Width="1.5" PointX="8.375" PointY="3.375" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO" Width="1.5" PointX="10.625" PointY="3.125" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_ENTRADA" Width="1.5" PointX="12.875" PointY="2.25" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_SAIDA" Width="1.5" PointX="12.875" PointY="6.25" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="7.25" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_CATEGORIA_FK" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_VEICULO" />
+        <AssociationConnector Association="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" ManuallyRouted="true" >
+          <ConnectorPoint PointX="9.875" PointY="5.4368233891476017" />
+          <ConnectorPoint PointX="10.1225" PointY="5.4368233891476017" />
+          <ConnectorPoint PointX="10.1225" PointY="6.6555733006719571" />
+          <ConnectorPoint PointX="10.3775" PointY="6.6555733006719571" />
+          <ConnectorPoint PointX="10.3775" PointY="5.4368233891476017" />
+          <ConnectorPoint PointX="10.625" PointY="5.4368233891476017" />
+        </AssociationConnector>
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
