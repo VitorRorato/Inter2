@@ -68,6 +68,8 @@
           <Property Name="FILTRO_OLEO_MOTOR" Type="varchar" MaxLength="20" />
           <Property Name="QUANTIDADE_OLEO_MOTOR" Type="float" />
           <Property Name="FK_VEICULO" Type="int" Nullable="false" />
+          <Property Name="FILTRO_OLEO_1" Type="varchar" MaxLength="20" />
+          <Property Name="FILTRO_OLEO_2" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="QUANTIDADE_TANQUE">
           <Key>
@@ -314,6 +316,8 @@
           <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="VEICULO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="MANUTENCAO" ToRole="VEICULO" />
           <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FILTRO_OLEO_1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FILTRO_OLEO_2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="QUANTIDADE_TANQUE">
           <Key>
@@ -561,6 +565,8 @@
           <EntitySetMapping Name="MANUTENCAO">
             <EntityTypeMapping TypeName="VIACAOARAUJOModel.MANUTENCAO">
               <MappingFragment StoreEntitySet="MANUTENCAO">
+                <ScalarProperty Name="FILTRO_OLEO_2" ColumnName="FILTRO_OLEO_2" />
+                <ScalarProperty Name="FILTRO_OLEO_1" ColumnName="FILTRO_OLEO_1" />
                 <ScalarProperty Name="DATA" ColumnName="DATA" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="KM_ATUAL" ColumnName="KM_ATUAL" />

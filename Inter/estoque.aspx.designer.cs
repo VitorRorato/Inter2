@@ -303,24 +303,6 @@ namespace Inter
         protected global::System.Web.UI.WebControls.GridView gridEstoque;
 
         /// <summary>
-        /// Controle txtBuscaData.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBuscaData;
-
-        /// <summary>
-        /// Controle btnBuscaData.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscaData;
-
-        /// <summary>
         /// Controle gridEntrada.
         /// </summary>
         /// <remarks>

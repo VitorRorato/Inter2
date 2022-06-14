@@ -100,13 +100,13 @@
             <div class="row">
                 <div class="col-2 p-2 m-2">
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalFornecedor">Novo Fornecedor</button></div>
-                    <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar Fornecedor</button></div>
+                    <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditarFornecedor">Editar Fornecedor</button></div>
                     <div><asp:Button id="btnExcluir" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Fornecedor" OnClick="btnExcluir_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')"/></div>
                     
                 </div>
                 <div class="col p-2 m-2 text-center">
                     <div class="col"  style=" OVERFLOW: auto; HEIGHT:80vh; padding:1px; border:1px solid red">
-                        <asp:GridView ID="gridFornecedor" runat="server" CssClass="w-100" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ID">
+                        <asp:GridView ID="gridFornecedor" runat="server" CssClass="w-100" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ID" OnSelectedIndexChanged="gridFornecedor_SelectedIndexChanged">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ShowSelectButton="True" />

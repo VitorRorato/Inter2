@@ -231,6 +231,24 @@ namespace Inter
         protected global::System.Web.UI.WebControls.TextBox txtFiltroOleoMotor;
 
         /// <summary>
+        /// Controle txtFiltroAdicional1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAdicional1;
+
+        /// <summary>
+        /// Controle txtFiltroAdicional2.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAdicional2;
+
+        /// <summary>
         /// Controle txtQtdOleoMotor.
         /// </summary>
         /// <remarks>
@@ -319,6 +337,24 @@ namespace Inter
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFiltroOleoMotorE;
+
+        /// <summary>
+        /// Controle txtFiltroAdicional1E.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAdicional1E;
+
+        /// <summary>
+        /// Controle txtFiltroAdicional2E.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAdicional2E;
 
         /// <summary>
         /// Controle txtQtdOleoMotorE.

@@ -110,7 +110,7 @@ namespace Inter
 
         private void CarregarEstoque(VIACAOARAUJOEntities con)
         {
-            List<PRODUTO> prod = con.PRODUTO.ToList();
+            List<PRODUTO> prod = con.PRODUTO.Where(x=>x.QUANTIDADE>0).ToList();
 
             gridEstoque.DataSource = prod.OrderBy(x => x.QUANTIDADE);
             gridEstoque.DataBind();
@@ -367,6 +367,13 @@ namespace Inter
 
                     total = prod.QUANTIDADE;
 
+
+                    if (total<=0)
+                    {
+                        lblValidacao.Text = "Não possui esse intem no estoque";
+                        return;
+                    }
+
                     total = total - qtd;
 
                     prod.QUANTIDADE = total;
@@ -415,6 +422,8 @@ namespace Inter
                         CarregarEstoque(con);
 
                         lblValidacao.Text = string.Empty;
+
+                        gridEstoque.SelectedIndex=-1;
                     }
                     else
                     {

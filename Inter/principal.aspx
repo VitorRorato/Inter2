@@ -5,49 +5,91 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="conteudo">
-        <div class="container p-3">
+        <div class="container-fluid p-3">
             <div style="border:2px solid gray; border-radius:25px;"  class ="row">
+                <div class="row text-center">
+                    <div class="col p-2 m-2">
+                        <div><asp:TextBox ID="txtCheck" placeholder="Checar" runat="server"></asp:TextBox> 
+                        <asp:DropDownList ID="ddlVeiculo" runat="server"></asp:DropDownList>
+                        <asp:Button ID="btnCheck" CssClass="btn btn-primary" Text="Checar" runat="server" OnClick="btnCheck_Click" /></div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <div><asp:Label ID="lblCheckCombustivel" Text="" runat="server" /></div>
+                        <div><asp:Label ID="lblCheckOleo" Text="" runat="server" /></div>
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="col">
                         <div class="p-2 m-3">
                         <h5>COMBUSTIVEL DISPONIVEL PARA ABASTECIMENTO</h5>
-                        <div class="text-center">
-                        <asp:GridView ID="gridCombustivel" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
-                        <AlternatingRowStyle BackColor="White" />
-                        <Columns>
-                        <asp:BoundField DataField="TANQUE.NOME" HeaderText="Tanque" />
-                        <asp:BoundField DataField="QUANTIDADE" HeaderText="Disponivel (Lts)" />
-                        </Columns>
-                        <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
-                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
-                        <SortedAscendingCellStyle BackColor="#FDF5AC" />
-                        <SortedAscendingHeaderStyle BackColor="#4D0000" />
-                        <SortedDescendingCellStyle BackColor="#FCF6C0" />
-                        <SortedDescendingHeaderStyle BackColor="#820000" />
-                        </asp:GridView>
+                            <div class="text-center">
+                            <asp:GridView ID="gridCombustivel" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                            <asp:BoundField DataField="TANQUE.NOME" HeaderText="Tanque" />
+                            <asp:BoundField DataField="QUANTIDADE" HeaderText="Disponivel (Lts)" />
+                            </Columns>
+                            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                            <SortedDescendingHeaderStyle BackColor="#820000" />
+                            </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="p-2 m-3">
+                        <h5>ITENS EM FALTA</h5>
+                        <div style="overflow:auto; height:15vh;" class="text-center">
+                            <asp:GridView ID="gridEstoque" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                <AlternatingRowStyle BackColor="White" />
+                                <Columns>
+                                    <asp:BoundField DataField="CODIGO" HeaderText="Item" />
+                                    <asp:BoundField DataField="CATEGORIA.NOME" HeaderText="Categoria" />
+                                    <asp:BoundField DataField="QUANTIDADE" HeaderText="Quantidade" />
+                                </Columns>
+                                <EditRowStyle BackColor="#7C6F57" />
+                                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#E3EAEB" />
+                                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                <SortedDescendingHeaderStyle BackColor="#15524A" />
+                            </asp:GridView>
                         </div>
                         </div>
                     </div>
                 </div>
+                
                 
                 <div class="row">
                     <div class="col">
                         <div class="p-2 m-3">
                             <h5>ULTIMA MANUTENÇÃO REALIZADA</h5>
                         <div class="text-center">
-                            <asp:GridView ID="gridManutencao" runat="server" Width="100%" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
+                            <asp:GridView ID="gridManutencao" runat="server" CssClass="w-100" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                             <Columns>
                                 <asp:BoundField DataField="DATA" HeaderText="Data" DataFormatString="{0:dd/MM/yyyy}" ></asp:BoundField>
                                 <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
-                                <asp:BoundField DataField="KM_ATUAL" HeaderText="Km"></asp:BoundField>
-                                <asp:BoundField DataField="KM_PROXIMA_TROCA" HeaderText="Prox. Manutenção"></asp:BoundField>
                                 <asp:BoundField DataField="FILTRO_AR" HeaderText="Filtro AR"></asp:BoundField>
                                 <asp:BoundField DataField="FILTRO_COMBUSTIVEL" HeaderText="Filtro Combustivel"></asp:BoundField>
                                 <asp:BoundField DataField="FILTRO_RACOR" HeaderText="Filtro Racor"></asp:BoundField>
                                 <asp:BoundField DataField="FILTRO_OLEO_MOTOR" HeaderText="Filtro Oleo Motor"></asp:BoundField>
+                                <asp:BoundField DataField="FILTRO_OLEO_1" HeaderText="Filtro Adicional"></asp:BoundField>
+                                <asp:BoundField DataField="FILTRO_OLEO_2" HeaderText="Filtro Adicional"></asp:BoundField>
                                 <asp:BoundField DataField="QUANTIDADE_OLEO_MOTOR" HeaderText="Qtd(L). Oleo Motor"></asp:BoundField>
                             </Columns>
                             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />

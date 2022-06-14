@@ -59,6 +59,12 @@ namespace Inter
 
                     CArregarFornecedor(con);
                 }
+
+                txtNomeEditar.Text = string.Empty;
+                txtCnpjEditar.Text = string.Empty;
+                txtCidadeEditar.Text = string.Empty;
+                txtEstadoEditar.Text = string.Empty;
+                txtContatoEditar.Text = string.Empty;
             }
             catch (Exception)
             {
@@ -121,6 +127,8 @@ namespace Inter
                         CArregarFornecedor(con);
 
                         lblValidacao.Text = string.Empty;
+
+                        gridFornecedor.SelectedIndex = -1;
                     }
                     else
                     {
@@ -153,6 +161,26 @@ namespace Inter
 
                     gridFornecedor.DataSource = lista.OrderBy(x => x.NOME);
                     gridFornecedor.DataBind();
+                }
+            }
+        }
+
+        protected void gridFornecedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (gridFornecedor.SelectedValue!=null)
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    int id = Convert.ToInt32(gridFornecedor.SelectedValue);
+
+                    FORNECEDOR f = con.FORNECEDOR.FirstOrDefault(
+                        linha => linha.ID.ToString().Equals(id.ToString()));
+
+                    txtNomeEditar.Text = f.NOME;
+                    txtCnpjEditar.Text = f.CNPJ;
+                    txtCidadeEditar.Text = f.CIDADE;
+                    txtEstadoEditar.Text = f.ESTADO;
+                    txtContatoEditar.Text = f.CONTATO;
                 }
             }
         }

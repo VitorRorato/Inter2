@@ -325,6 +325,8 @@ namespace Inter
                         m.QUANTIDADE_OLEO_MOTOR = litros;
                         m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
                         m.DATA = Convert.ToDateTime(txtDataManutencao.Text);
+                        m.FILTRO_OLEO_1 = txtFiltroAdicional1.Text.ToUpper();
+                        m.FILTRO_OLEO_2 = txtFiltroAdicional2.Text.ToUpper();
 
                         conexao.MANUTENCAO.Add(m);
                         conexao.Entry(v);
@@ -357,10 +359,7 @@ namespace Inter
                     {
                         double km = 0, kmProx = 0, litros=0;
 
-                        MANUTENCAO m = new MANUTENCAO();
-                        VEICULO v = conexao.VEICULO.FirstOrDefault(
-                            linha => linha.ID.ToString().Equals(ddlPrefixo.SelectedValue.ToString()));
-
+                        MANUTENCAO m = conexao.MANUTENCAO.FirstOrDefault(linha => linha.ID.ToString().Equals(gridManutencao.SelectedValue.ToString()));
 
 
                         if (string.IsNullOrEmpty(txtFltroArE.Text) &&
@@ -398,13 +397,6 @@ namespace Inter
                                 return;
                             }
 
-                            if (km < v.KM_ATUAL)
-                            {
-                                lblValidacaoManutencao.Text = "Quilometragem Não pode ser Menor que a Atual!";
-                                return;
-                            }
-
-                            v.KM_ATUAL = km;
                             m.KM_ATUAL = km;
                             m.KM_PROXIMA_TROCA = kmProx;
                             m.FILTRO_AR = txtFltroArE.Text.ToUpper().Replace(" ","");
@@ -412,11 +404,12 @@ namespace Inter
                             m.FILTRO_RACOR = txtFiltroRacorE.Text.ToUpper().Replace(" ", "");
                             m.FILTRO_OLEO_MOTOR = txtFiltroOleoMotorE.Text.ToUpper().Replace(" ", "");
                             m.QUANTIDADE_OLEO_MOTOR = litros;
-                            m.FK_VEICULO = Convert.ToInt32(ddlPrefixo.SelectedValue);
+                            m.FK_VEICULO = Convert.ToInt32(ddlPrefixoE.SelectedValue);
                             m.DATA = Convert.ToDateTime(txtDataManutencaoE.Text);
+                            m.FILTRO_OLEO_1 = txtFiltroAdicional1E.Text.ToUpper();
+                            m.FILTRO_OLEO_2 = txtFiltroAdicional2E.Text.ToUpper();
 
                             conexao.Entry(m);
-                            conexao.Entry(v);
                             conexao.SaveChanges();
 
                             carregarGridManutencao();
@@ -430,9 +423,9 @@ namespace Inter
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblValidacaoManutencao.Text = "Erro ao Salvar os Dados!";
+                lblValidacaoManutencao.Text = "Erro ao Salvar os Dados!"+ex;
             }
             
         }
@@ -445,7 +438,7 @@ namespace Inter
 
                 MANUTENCAO m = conexao.MANUTENCAO.FirstOrDefault(
                     linha => linha.ID.ToString().Equals(idSelecionado.ToString()));
-
+                txtDataManutencaoE.Text = m.DATA.ToShortDateString();
                 txtKmManutencaoE.Text = m.KM_ATUAL.ToString();
                 txtKmProximaManutencaoE.Text = m.KM_PROXIMA_TROCA.ToString();
                 txtFltroArE.Text = m.FILTRO_AR.ToString();

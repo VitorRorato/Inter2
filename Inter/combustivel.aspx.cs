@@ -455,6 +455,8 @@ namespace Inter
                         txtKmEditar.Text = string.Empty;
                         txtLocalEditar.Text = string.Empty;
                         txtLitrosEditar.Text = string.Empty;
+
+                        gridAbastecimento.SelectedIndex = -1;
                     } 
                 } 
             }

@@ -156,7 +156,7 @@
                             <asp:BoundField DataField="NOME" HeaderText="Nome" >
                             <HeaderStyle Width="750px" />
                             </asp:BoundField>
-                            <asp:BoundField DataField="CPF" HeaderText="CPF" DataFormatString="{0:000\000\000-00}">
+                            <asp:BoundField DataField="CPF" HeaderText="CPF" DataFormatString="{0:000.000.000-00}" >
                             <HeaderStyle Width="150px" />
                             </asp:BoundField>
                             <asp:BoundField DataField="RG" HeaderText="RG" >

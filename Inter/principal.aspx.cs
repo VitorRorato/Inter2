@@ -20,6 +20,8 @@ namespace Inter
                         carregarCombustivel(con);
                         carregarManutencao(con);
                         Combustivel(con);
+                        carregarEstoque(con);
+                        carregarVeiculo(con);
                     }
                 }
             }
@@ -29,6 +31,14 @@ namespace Inter
             }
 
         }
+
+        private void carregarEstoque(VIACAOARAUJOEntities con)
+        {
+            List<PRODUTO> lista = con.PRODUTO.Where(x => x.QUANTIDADE.Equals(0)).ToList();
+            gridEstoque.DataSource = lista.OrderBy(x => x.CODIGO);
+            gridEstoque.DataBind();
+
+        }        
 
         private void carregarCombustivel(VIACAOARAUJOEntities con)
         {
@@ -50,6 +60,16 @@ namespace Inter
             gridManutencao.DataBind();
         }
 
+        private void carregarVeiculo(VIACAOARAUJOEntities con)
+        {
+            List<VEICULO> lista = con.VEICULO.ToList();
+
+            ddlVeiculo.DataSource = lista;
+            ddlVeiculo.DataValueField = "ID";
+            ddlVeiculo.DataTextField = "PREFIXO";
+            ddlVeiculo.DataBind();
+        }
+
         private void Combustivel(VIACAOARAUJOEntities con)
         {
             List<ABASTECIMENTO> lista = con.ABASTECIMENTO.OrderBy(x => x.DATA_ABASTECIMENTO).ToList();
@@ -63,5 +83,57 @@ namespace Inter
             gridAbastecimento.DataBind();
         }
 
+        protected void btnCheck_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+                {
+                    double kmCombustivel = 0, kmOleo = 0, kmAtual = 0, km = 0;
+                 
+                    List<MANUTENCAO> comb = con.MANUTENCAO.Where(x => x.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString()) && 
+                        x.FILTRO_COMBUSTIVEL != "-".ToString()).OrderBy(x=>x.DATA).ToList();
+
+
+                    List<MANUTENCAO> oleo = con.MANUTENCAO.Where(x => x.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString()) &&
+                        x.FILTRO_OLEO_MOTOR != "-".ToString()).ToList();
+
+                    if (double.TryParse(txtCheck.Text, out kmAtual) == false)
+                    {
+                        lblCheckCombustivel.Text = "Quilometragem invalida!";
+                        return;
+                    }
+
+                    kmCombustivel = comb.Last().KM_ATUAL - kmAtual;
+                    kmOleo = oleo.Last().KM_ATUAL - kmAtual;
+
+
+                    if (kmOleo >= 0)
+                    {
+                        lblCheckOleo.Text = "Troca de Oleo e filtro Motor: Restam " + kmOleo.ToString() + " KM para proxima Troca";
+                    }
+                    else
+                    {
+                        kmOleo = kmOleo * (-1);
+                        lblCheckOleo.Text = "Troca de Oleo e filtro Motor: Manutenção Vencida com " + kmOleo.ToString() + " KM";
+                    }
+
+                    if (kmCombustivel >= 0)
+                    {
+                        lblCheckCombustivel.Text = "Troca de filtros Combustivel: Restam: " + kmCombustivel.ToString() + " KM para proxima Troca";
+                    }
+                    else
+                    {
+                        kmCombustivel = kmCombustivel * (-1);
+                        lblCheckCombustivel.Text = "Troca de filtros Combustivel: Manutenção Vencida com " + kmCombustivel.ToString() + " KM";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+              
+            }
+        }
     }
 }

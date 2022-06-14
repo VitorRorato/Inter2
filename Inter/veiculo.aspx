@@ -131,7 +131,7 @@
             <div class="col-3 text-end">
                 <div class="container-fluid">
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalmanutencao">Inserir Manutenção</button></div>
-                    <div><asp:Button id="btnEcluirManutencao" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Manutenção" OnClick="btnExcluirManutencao_Click" /></div>
+                    <div><asp:Button id="btnEcluirManutencao" cssclass="btn btn-primary w-100 m-1" runat="server" Text="Excluir Manutenção" OnClick="btnExcluirManutencao_Click" OnClientClick="return confirm('Deseja realmente remover este registro ?')"/></div>
                     <div><button type="button" class="btn btn-primary w-100 m-1" data-bs-toggle="modal" data-bs-target="#modalEditarManutencao">Editar Manutenção</button></div>
                 </div>
                 
@@ -149,6 +149,8 @@
                         <asp:BoundField DataField="FILTRO_COMBUSTIVEL" HeaderText="Filtro Combustivel"></asp:BoundField>
                         <asp:BoundField DataField="FILTRO_RACOR" HeaderText="Filtro Racor"></asp:BoundField>
                         <asp:BoundField DataField="FILTRO_OLEO_MOTOR" HeaderText="Filtro Oleo Motor"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_OLEO_1" HeaderText="Filtro Adicional"></asp:BoundField>
+                        <asp:BoundField DataField="FILTRO_OLEO_2" HeaderText="Filtro Adicional"></asp:BoundField>
                         <asp:BoundField DataField="QUANTIDADE_OLEO_MOTOR" HeaderText="Qtd(L). Oleo Motor"></asp:BoundField>
                     </Columns>
                     <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
@@ -179,6 +181,8 @@
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Combustivel" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Racor" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Oleo Motor" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Adicional" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Adicional" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Quantidade Oleo Motor" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Prefixo do Veículo" runat="server" /></div>
                                 </div>
@@ -191,6 +195,8 @@
                                     <div class="p-1"><asp:TextBox Id="txtFiltroCombustivel" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFiltroRacor" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFiltroOleoMotor" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroAdicional1" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroAdicional2" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtQtdOleoMotor" runat="server" /></div>
                                     <div class="p-1"><asp:dropdownlist Id="ddlPrefixo" runat="server" /></div>
                                 </div>
@@ -220,6 +226,8 @@
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Combustivel" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Racor" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Filtro Oleo Motor" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Adicional" runat="server" /></div>
+                                    <div class="p-1 m-1"><asp:Label Text="Filtro Adicional" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Quantidade Oleo Motor" runat="server" /></div>
                                     <div class="p-1 m-1"><asp:Label Text="Prefixo do Veículo" runat="server" /></div>
                                 </div>
@@ -232,6 +240,8 @@
                                     <div class="p-1"><asp:TextBox Id="txtFiltroCombustivelE" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFiltroRacorE" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtFiltroOleoMotorE" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroAdicional1E" runat="server" /></div>
+                                    <div class="p-1"><asp:TextBox Id="txtFiltroAdicional2E" runat="server" /></div>
                                     <div class="p-1"><asp:TextBox Id="txtQtdOleoMotorE" runat="server" /></div>
                                     <div class="p-1"><asp:dropdownlist Id="ddlPrefixoE" runat="server" /></div>
                                 </div>

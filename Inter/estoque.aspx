@@ -209,22 +209,7 @@
 
         </div>
         
-        <hr style="color:black;" />
-
-            <div class="row p-2">
-                <div class="col">
-                    <div class="p-1 text-end">
-                        <asp:DropDownList runat="server">
-                            <asp:ListItem Text="Ambos" />
-                            <asp:ListItem Text="Entrada" />
-                            <asp:ListItem Text="Saida" />
-                        </asp:DropDownList>
-                        <asp:TextBox ID="txtBuscaData" Type="Date" runat="server" />
-                        <asp:Button CssClass="btn btn-primary botao" ID="btnBuscaData" Text="Buscar" runat="server" />
-                    </div>
-                </div>
-                
-            </div>
+        <hr style="color:black;" 
 
         <div class="container-fluid">
             <div class="row">
