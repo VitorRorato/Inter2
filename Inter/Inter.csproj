@@ -119,6 +119,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModeloData.cs</LastGenOutput>
     </Content>
+    <Content Include="pneus.aspx" />
     <Content Include="principal.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -234,6 +235,13 @@
     </Compile>
     <Compile Include="pagina.Master.designer.cs">
       <DependentUpon>pagina.Master</DependentUpon>
+    </Compile>
+    <Compile Include="pneus.aspx.cs">
+      <DependentUpon>pneus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pneus.aspx.designer.cs">
+      <DependentUpon>pneus.aspx</DependentUpon>
     </Compile>
     <Compile Include="principal.aspx.cs">
       <DependentUpon>principal.aspx</DependentUpon>

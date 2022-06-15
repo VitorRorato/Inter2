@@ -149,6 +149,12 @@ namespace Inter
                 {
                     CATEGORIA cat = new CATEGORIA();
 
+                    if (string.IsNullOrWhiteSpace(txtCategoria.Text))
+                    {
+                        lblValidacao.Text = "Informe o nome da categoria.";
+                        return;
+                    }
+
                     cat.NOME = txtCategoria.Text.ToUpper();
 
                     con.CATEGORIA.Add(cat);
@@ -163,7 +169,7 @@ namespace Inter
             }
             catch (Exception)
             {
-
+                lblValidacao.Text = "Erro ao salvar categoria";
             }
         }
 
@@ -370,11 +376,17 @@ namespace Inter
 
                     if (total<=0)
                     {
-                        lblValidacao.Text = "Não possui esse intem no estoque";
+                        lblValidacao.Text = "Não possui esse item no estoque";
                         return;
                     }
 
                     total = total - qtd;
+
+                    if (total<0)
+                    {
+                        lblValidacao.Text = "Não possui esse item no estoque";
+                        return;
+                    }
 
                     prod.QUANTIDADE = total;
 

@@ -22,6 +22,7 @@
                     <a class="navegacao p-2 m-3" href="combustivel.aspx">Combustivel</a>
                     <a class="navegacao p-2 m-3" href="estoque.aspx">Estoque</a>
                     <a class="navegacao p-2 m-3" href="fornecedor.aspx">Fornecedor</a>
+                    <a class="navegacao p-2 m-3" href="pneus.aspx">Pneu</a>
                 </div>
 
                 <div>
