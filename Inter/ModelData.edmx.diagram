@@ -4,45 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4c619a4dd56f4ef881ed22a55e81351e" Name="Diagram1">
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.ABASTECIMENTO" Width="1.5" PointX="4.875" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.CARGO" Width="1.5" PointX="0.625" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.FUNCIONARIO" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.LOGIN" Width="1.5" PointX="3" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.MANUTENCAO" Width="1.5" PointX="4.875" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.QUANTIDADE_TANQUE" Width="1.5" PointX="4.875" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.TANQUE" Width="1.5" PointX="6" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.VEICULO" Width="1.5" PointX="1.25" PointY="9.125" IsExpanded="true" />
+      <Diagram DiagramId="52ac739be01642018bbc436756a71e3c" Name="Diagram1">
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.ABASTECIMENTO" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.CARGO" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.CATEGORIA" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.FORNECEDOR" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.FUNCIONARIO" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.LOGIN" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.MANUTENCAO" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_ENTRADA" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_SAIDA" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.QUANTIDADE_TANQUE" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.TANQUE" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.VEICULO" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_ABASTECIMENTO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_ABASTECIMENTO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_ABASTECIMENTO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_CARGO_FUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_CATEGORIA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_FUNCIONARIO_LOGIN" ManuallyRouted="false" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO_MANUTENCAO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_VEICULO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_VEICULO" ManuallyRouted="false" />
         <AssociationConnector Association="VIACAOARAUJOModel.FK_TANQUE_QUANTIDADE" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.CATEGORIA" Width="1.5" PointX="8.375" PointY="0.75" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.FORNECEDOR" Width="1.5" PointX="8.375" PointY="3.375" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO" Width="1.5" PointX="10.625" PointY="3.125" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_ENTRADA" Width="1.5" PointX="12.875" PointY="2.25" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.PRODUTO_SAIDA" Width="1.5" PointX="12.875" PointY="6.25" />
-        <EntityTypeShape EntityType="VIACAOARAUJOModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="7.25" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_CATEGORIA_FK" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" />
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_SAIDA_VEICULO" />
-        <AssociationConnector Association="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" ManuallyRouted="true" >
-          <ConnectorPoint PointX="9.875" PointY="5.4368233891476017" />
-          <ConnectorPoint PointX="10.1225" PointY="5.4368233891476017" />
-          <ConnectorPoint PointX="10.1225" PointY="6.6555733006719571" />
-          <ConnectorPoint PointX="10.3775" PointY="6.6555733006719571" />
-          <ConnectorPoint PointX="10.3775" PointY="5.4368233891476017" />
-          <ConnectorPoint PointX="10.625" PointY="5.4368233891476017" />
-        </AssociationConnector>
-        <AssociationConnector Association="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" />
+        <EntityTypeShape EntityType="VIACAOARAUJOModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

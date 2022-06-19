@@ -19,7 +19,6 @@ namespace Inter
         {
             this.PRODUTO_ENTRADA = new HashSet<PRODUTO_ENTRADA>();
             this.PRODUTO_SAIDA = new HashSet<PRODUTO_SAIDA>();
-            this.FORNECEDOR = new HashSet<FORNECEDOR>();
         }
     
         public int ID { get; set; }
@@ -33,7 +32,5 @@ namespace Inter
         public virtual ICollection<PRODUTO_ENTRADA> PRODUTO_ENTRADA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_SAIDA> PRODUTO_SAIDA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FORNECEDOR> FORNECEDOR { get; set; }
     }
 }

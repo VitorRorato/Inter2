@@ -11,10 +11,10 @@
                 <div class="modal-body text-center">
                     <div class="row">
                         <div class="col text-center">
-                            <div><asp:textbox cssClass="m-1 p-1 w-100" placeholder="Fabricante" runat="server" /></div>
-                            <div><asp:textbox cssClass="m-1 p-1 w-100" placeholder="Medidas" runat="server" /></div>
-                            <div><asp:textbox cssClass="m-1 p-1 w-100" placeholder="DOT" runat="server" /></div>
-                            <div><asp:textbox cssClass="m-1 p-1 w-100" placeholder="Fabricante" runat="server" /></div>
+                            <div><asp:textbox cssClass="m-1 p-1 w-100 text-center" placeholder="Fabricante" runat="server" /></div>
+                            <div><asp:textbox cssClass="m-1 p-1 w-100 text-center" placeholder="Medidas" runat="server" /></div>
+                            <div><asp:textbox cssClass="m-1 p-1 w-100 text-center" placeholder="DOT" runat="server" /></div>
+                            <div><asp:textbox cssClass="m-1 p-1 w-100 text-center" placeholder="Fabricante" runat="server" /></div>
                         </div>
                     </div>
                 </div>

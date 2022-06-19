@@ -99,11 +99,13 @@
     <Content Include="estilo.css" />
     <Content Include="estoque.aspx" />
     <Content Include="fornecedor.aspx" />
+    <Content Include="freio.aspx" />
     <Content Include="img\icone.png" />
     <Content Include="img\tanquecombustivel.png" />
     <Content Include="img\mundo.png" />
     <Content Include="lista.aspx" />
     <Content Include="listacategoria.aspx" />
+    <Content Include="manutencaogeral.aspx" />
     <Content Include="ModelData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelData.edmx</DependentUpon>
@@ -114,11 +116,6 @@
       <DependentUpon>ModelData.edmx</DependentUpon>
       <LastGenOutput>ModelData.cs</LastGenOutput>
     </Content>
-    <Content Include="ModeloData.tt">
-      <DependentUpon>ModeloData.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModeloData.cs</LastGenOutput>
-    </Content>
     <Content Include="pneus.aspx" />
     <Content Include="principal.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -127,6 +124,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="trocadeoleo.aspx" />
     <Content Include="veiculo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -181,6 +179,13 @@
     <Compile Include="FORNECEDOR.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
+    <Compile Include="freio.aspx.cs">
+      <DependentUpon>freio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="freio.aspx.designer.cs">
+      <DependentUpon>freio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FUNCIONARIO.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
@@ -204,6 +209,13 @@
     <Compile Include="MANUTENCAO.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
+    <Compile Include="manutencaogeral.aspx.cs">
+      <DependentUpon>manutencaogeral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manutencaogeral.aspx.designer.cs">
+      <DependentUpon>manutencaogeral.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ModelData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -218,16 +230,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelData.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloData.cs">
-      <DependentUpon>ModeloData.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="ModeloData.Designer.cs">
-      <DependentUpon>ModeloData.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="pagina.Master.cs">
       <DependentUpon>pagina.Master</DependentUpon>
@@ -269,6 +271,13 @@
     <Compile Include="TANQUE.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
+    <Compile Include="trocadeoleo.aspx.cs">
+      <DependentUpon>trocadeoleo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="trocadeoleo.aspx.designer.cs">
+      <DependentUpon>trocadeoleo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="veiculo.aspx.cs">
       <DependentUpon>veiculo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -300,10 +309,6 @@
     <EntityDeploy Include="ModelData.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelData.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <EntityDeploy Include="ModeloData.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModeloData.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="ModelData.edmx.diagram">
       <DependentUpon>ModelData.edmx</DependentUpon>

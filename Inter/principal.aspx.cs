@@ -98,44 +98,70 @@ namespace Inter
                     }
 
                     List<MANUTENCAO> comb = con.MANUTENCAO.Where(x => x.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString()) && 
-                        x.FILTRO_COMBUSTIVEL != null).OrderBy(x=>x.DATA).ToList();
+                        x.FILTRO_COMBUSTIVEL != string.Empty).OrderBy(x=>x.DATA).ToList();
 
 
                     List<MANUTENCAO> oleo = con.MANUTENCAO.Where(x => x.FK_VEICULO.ToString().Equals(ddlVeiculo.SelectedValue.ToString()) &&
-                        x.FILTRO_OLEO_MOTOR != null).OrderBy(x=>x.DATA).ToList();
+                        x.FILTRO_OLEO_MOTOR != string.Empty).OrderBy(x=>x.DATA).ToList();
 
                     if (comb.Count() > 0)
                     {
-                        kmCombustivel = comb.Last().KM_PROXIMA_TROCA - kmAtual;
+                        kmCombustivel = kmAtual - comb.Last().KM_ATUAL;
 
-                        if (kmCombustivel >= 0)
+                        if (comb.Last().KM_PROXIMA_TROCA<=kmAtual)
                         {
-                            lblCheckCombustivel.Text = "Troca de filtros Combustivel: Restam: " + kmCombustivel.ToString() + " KM para proxima Troca";
+                            lblCheckCombustivel.Text = "FILTRO COMBUSTIVEL ESTA COM: " + kmCombustivel.ToString() + " KM RODADOS - VENCIDO";
                         }
-                        else
+                        else 
                         {
-                            kmCombustivel = kmCombustivel * (-1);
-                            lblCheckCombustivel.Text = "Troca de filtro Combustivel: Manutenção Vencida com " + kmCombustivel.ToString() + " KM";
+                            lblCheckCombustivel.Text = "FILTRO COMBUSTIVEL ESTA COM: " + kmCombustivel.ToString() + " KM RODADOS";
                         }
+
+
+                        //if (kmCombustivel > 0)
+                        //{
+                        //    lblCheckCombustivel.Text = "TROCA DE FILTRO COMBUSTIVEL RESTAM " + kmCombustivel.ToString() + " KM PARA PROXIMA TROCA";
+                        //}
+                        //else
+                        //{
+                        //    kmCombustivel = kmCombustivel * (-1);
+                        //    lblCheckCombustivel.Text = "TROCA DE FILTRO COMBUSTIVEL VENCIDA COM " + kmCombustivel.ToString() + " KM";
+                        //}
+                    }
+                    else
+                    {
+                        lblCheckCombustivel.Text = string.Empty;
                     }
                     
 
                     if (oleo.Count > 0)
                     {
-                        kmOleo = oleo.Last().KM_PROXIMA_TROCA - kmAtual;
+                        kmOleo =kmAtual - oleo.Last().KM_ATUAL;
 
-
-                        if (kmOleo >= 0)
+                        if (kmAtual>oleo.Last().KM_PROXIMA_TROCA)
                         {
-                            lblCheckOleo.Text = "Troca de Oleo e filtro Motor: Restam " + kmOleo.ToString() + " KM para proxima Troca";
+                            lblCheckOleo.Text = "OLEO MOTOR ESTA COM: " + kmOleo.ToString() + " KM RODADOS - VENCIDO";
                         }
                         else
                         {
-                            kmOleo = kmOleo * (-1);
-                            lblCheckOleo.Text = "Troca de Oleo e filtro Motor: Manutenção Vencida com " + kmOleo.ToString() + " KM";
+                            lblCheckOleo.Text = "OLEO MOTOR ESTA COM: " + kmOleo.ToString() + " KM RODADOS";
+
                         }
+                        
+                        //if (kmOleo > 0)
+                        //{
+                        //    lblCheckOleo.Text = "TROCA DE OLEO E FILTRO MOTOR RESTAM " + kmOleo.ToString() + " KM PARA PROXIMA TROCA";
+                        //}
+                        //else
+                        //{
+                        //    kmOleo = kmOleo * (-1);
+                        //    lblCheckOleo.Text = "TROCA DE OLEO E FILTRO MOTOR VENCIDA COM " + kmOleo.ToString() + " KM";
+                        //}
                     }
-                    
+                    else
+                    {
+                        lblCheckOleo.Text = string.Empty;
+                    }
                 }
             }
             catch (Exception)

@@ -9,15 +9,17 @@
             <div style="border:2px solid gray; border-radius:25px;"  class ="row">
                 <div class="row text-center">
                     <div class="col p-2 m-2">
-                        <div><asp:TextBox ID="txtCheck" placeholder="Checar" runat="server"></asp:TextBox> 
+                        <div><asp:TextBox ID="txtCheck" cssclass="text-center" width="10%" placeholder="Checar" runat="server"></asp:TextBox> 
                         <asp:DropDownList ID="ddlVeiculo" runat="server"></asp:DropDownList>
                         <asp:Button ID="btnCheck" CssClass="btn btn-primary" Text="Checar" runat="server" OnClick="btnCheck_Click" /></div>
                     </div>
                 </div>
                 <div class="row text-center">
-                    <div class="col">
-                        <div><asp:Label ID="lblCheckCombustivel" Text="" runat="server" /></div>
-                        <div><asp:Label ID="lblCheckOleo" Text="" runat="server" /></div>
+                    <div style="border:1px solid black; border-radius:12px;" class="offset-2 col-8">
+                        <div class="">
+                            <div><asp:Label ID="lblCheckCombustivel" Text="" runat="server" Font-size="20px" ForeColor="MediumBlue" /></div>
+                            <div><asp:Label ID="lblCheckOleo" Text="" runat="server" Font-size="20px" ForeColor="MediumBlue" /></div>
+                        </div>
                     </div>
                 </div>
 

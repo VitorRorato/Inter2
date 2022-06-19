@@ -134,6 +134,16 @@ namespace Inter
             ddlBuscaCategoria.DataTextField = "NOME";
             ddlBuscaCategoria.DataValueField = "ID";
             ddlBuscaCategoria.DataBind();
+
+            ddlCategoriaEntrada.DataSource = lista;
+            ddlCategoriaEntrada.DataTextField = "NOME";
+            ddlCategoriaEntrada.DataValueField = "ID";
+            ddlCategoriaEntrada.DataBind();
+
+            ddlCategoriaSaida.DataSource = lista;
+            ddlCategoriaSaida.DataTextField = "NOME";
+            ddlCategoriaSaida.DataValueField = "ID";
+            ddlCategoriaSaida.DataBind();
         }
 
         protected void btnLista_Click(object sender, EventArgs e)
@@ -338,7 +348,7 @@ namespace Inter
         {
             try
             {
-                int qtd = 0, total;
+                int qtd = 0, total, km=0;
 
 
 
@@ -361,6 +371,12 @@ namespace Inter
                 if (ddlProdutoSaida == null)
                 {
                     lblValidacao.Text = "Nenhum Item selecionado";
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txtKmSaida.Text) ||
+                    int.TryParse(txtKmSaida.Text, out qtd) == false)
+                {
+                    lblValidacao.Text = "Quantidade Inválida!";
                     return;
                 }
 
@@ -395,6 +411,7 @@ namespace Inter
                     saida.FK_PRODUTO = Convert.ToInt32(ddlProdutoSaida.SelectedValue);
                     saida.FK_FUNCIONARIO = Convert.ToInt32(ddlFuncionarioSaida.SelectedValue);
                     saida.FK_VEICULO = Convert.ToInt32(ddlVeiculoSaida.SelectedValue);
+                    saida.KM = km;
 
                     con.Entry(prod);
 
@@ -500,5 +517,28 @@ namespace Inter
             }
         }
 
+        protected void ddlCategoriaEntrada_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                List<PRODUTO> lista = con.PRODUTO.Where(x => x.FK_CATEGORIA.ToString().Equals(ddlCategoriaEntrada.SelectedValue.ToString())).ToList();
+                ddlProdutoEntrada.DataSource = lista;
+                ddlProdutoEntrada.DataTextField = "CODIGO";
+                ddlProdutoEntrada.DataValueField = "ID";
+                ddlProdutoEntrada.DataBind();
+            }
+        }
+
+        protected void ddlCategoriaSaida_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (VIACAOARAUJOEntities con = new VIACAOARAUJOEntities())
+            {
+                List<PRODUTO> lista = con.PRODUTO.Where(x => x.FK_CATEGORIA.ToString().Equals(ddlCategoriaSaida.SelectedValue.ToString())).ToList();
+                ddlProdutoSaida.DataSource = lista;
+                ddlProdutoSaida.DataTextField = "CODIGO";
+                ddlProdutoSaida.DataValueField = "ID";
+                ddlProdutoSaida.DataBind();
+            }
+        }
     }
 }

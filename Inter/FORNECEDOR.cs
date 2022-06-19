@@ -17,7 +17,6 @@ namespace Inter
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FORNECEDOR()
         {
-            this.PRODUTO = new HashSet<PRODUTO>();
             this.PRODUTO_ENTRADA = new HashSet<PRODUTO_ENTRADA>();
         }
     
@@ -28,8 +27,6 @@ namespace Inter
         public string ESTADO { get; set; }
         public string CONTATO { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ENTRADA> PRODUTO_ENTRADA { get; set; }
     }

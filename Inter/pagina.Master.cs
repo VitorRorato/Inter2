@@ -11,10 +11,10 @@ namespace Inter
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["usuario"] == null)
-            //    Response.Redirect("default.aspx");
-            //else
-            //    lblUsuario.Text = "Olá " + Session["usuario"].ToString().ToUpper() + " !";
+            if (Session["usuario"] == null)
+                Response.Redirect("default.aspx");
+            else
+                lblUsuario.Text = "Olá " + Session["usuario"].ToString().ToUpper() + " !";
 
 
         }

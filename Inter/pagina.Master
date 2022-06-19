@@ -17,12 +17,22 @@
             <div class="container-fluid">
                 <div class="nav-item">
                     <a class="navegacao p-2 m-3" href="principal.aspx">Inicio</a>
+                    <span class="dropdown">
+                      <button class="navegacao dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Manutenção
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="">
+                        <li><a class="dropdown-item" href="veiculo.aspx">Veiculos</a></li>
+                        <li><a class="dropdown-item" href="pneus.aspx">Pneu</a></li>
+                        <li><a class="dropdown-item" href="trocadeoleo.aspx">Troca de Óleo</a></li>
+                        <li><a class="dropdown-item" href="freio.aspx">Freio</a></li>
+                        <li><a class="dropdown-item" href="manutencaogeral.aspx">Outra</a></li>
+                      </ul>
+                    </span>
                     <a class="navegacao p-2 m-3" href="colaborador.aspx">Colaborador</a>
-                    <a class="navegacao p-2 m-3" href="veiculo.aspx">Veiculo</a>
                     <a class="navegacao p-2 m-3" href="combustivel.aspx">Combustivel</a>
                     <a class="navegacao p-2 m-3" href="estoque.aspx">Estoque</a>
                     <a class="navegacao p-2 m-3" href="fornecedor.aspx">Fornecedor</a>
-                    <a class="navegacao p-2 m-3" href="pneus.aspx">Pneu</a>
                 </div>
 
                 <div>

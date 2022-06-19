@@ -21,8 +21,8 @@ namespace Inter
         public int FK_FUNCIONARIO { get; set; }
         public int FK_FORNECEDOR { get; set; }
     
+        public virtual FORNECEDOR FORNECEDOR { get; set; }
         public virtual FUNCIONARIO FUNCIONARIO { get; set; }
         public virtual PRODUTO PRODUTO { get; set; }
-        public virtual FORNECEDOR FORNECEDOR { get; set; }
     }
 }

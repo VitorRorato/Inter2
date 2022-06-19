@@ -110,16 +110,6 @@
           <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
           <Property Name="FK_FORNECEDOR" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="PRODUTO_FORNECEDOR">
-          <Key>
-            <PropertyRef Name="FK_PRODUTO" />
-            <PropertyRef Name="FK_FORNECEDOR" />
-          </Key>
-          <Property Name="FK_PRODUTO" Type="int" Nullable="false" />
-          <Property Name="FK_FORNECEDOR" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="PRODUTO_SAIDA">
           <Key>
             <PropertyRef Name="ID" />
@@ -130,6 +120,7 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="DATA" Type="date" Nullable="false" />
           <Property Name="FK_FUNCIONARIO" Type="int" Nullable="false" />
           <Property Name="FK_VEICULO" Type="int" Nullable="false" />
+          <Property Name="KM" Type="float" />
         </EntityType>
         <EntityType Name="QUANTIDADE_TANQUE">
           <Key>
@@ -228,18 +219,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FORNECEDOR_PRODUTO_FK">
-          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
-          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORNECEDOR">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_FORNECEDOR">
-              <PropertyRef Name="FK_FORNECEDOR" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
           <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
           <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
@@ -261,18 +240,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Principal>
             <Dependent Role="LOGIN">
               <PropertyRef Name="FK_FUNCIONARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODUTO_FORNECEDOR_FK">
-          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
-          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUTO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_FORNECEDOR">
-              <PropertyRef Name="FK_PRODUTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -348,18 +315,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VEICULO">
-          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
-          <End Role="MANUTENCAO" Type="Self.MANUTENCAO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VEICULO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MANUTENCAO">
-              <PropertyRef Name="FK_VEICULO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VEICULO_ABASTECIMENTO">
           <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
           <End Role="ABASTECIMENTO" Type="Self.ABASTECIMENTO" Multiplicity="*" />
@@ -388,12 +343,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANQUE" EntityType="Self.TANQUE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VEICULO" EntityType="Self.VEICULO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PRODUTO_FORNECEDOR" EntityType="Self.PRODUTO_FORNECEDOR" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PRODUTO_FORNECEDOR].[FK_PRODUTO] AS [FK_PRODUTO], 
-    [PRODUTO_FORNECEDOR].[FK_FORNECEDOR] AS [FK_FORNECEDOR]
-    FROM [dbo].[PRODUTO_FORNECEDOR] AS [PRODUTO_FORNECEDOR]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_CARGO_FUNCIONARIO" Association="Self.FK_CARGO_FUNCIONARIO">
             <End Role="CARGO" EntitySet="CARGO" />
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
@@ -414,10 +363,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
             <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
           </AssociationSet>
-          <AssociationSet Name="FK_FORNECEDOR_PRODUTO_FK" Association="Self.FK_FORNECEDOR_PRODUTO_FK">
-            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
-            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
-          </AssociationSet>
           <AssociationSet Name="FK_FUNCIONARIO_ABASTECIMENTO" Association="Self.FK_FUNCIONARIO_ABASTECIMENTO">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="ABASTECIMENTO" EntitySet="ABASTECIMENTO" />
@@ -425,10 +370,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <AssociationSet Name="FK_FUNCIONARIO_LOGIN" Association="Self.FK_FUNCIONARIO_LOGIN">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="LOGIN" EntitySet="LOGIN" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_FK" Association="Self.FK_PRODUTO_FORNECEDOR_FK">
-            <End Role="PRODUTO" EntitySet="PRODUTO" />
-            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
           </AssociationSet>
           <AssociationSet Name="FK_SAIDA_FUNCIONARIO" Association="Self.FK_SAIDA_FUNCIONARIO">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
@@ -453,10 +394,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <AssociationSet Name="FK_TANQUE_QUANTIDADE" Association="Self.FK_TANQUE_QUANTIDADE">
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VEICULO" Association="Self.FK_VEICULO">
-            <End Role="VEICULO" EntitySet="VEICULO" />
-            <End Role="MANUTENCAO" EntitySet="MANUTENCAO" />
           </AssociationSet>
           <AssociationSet Name="FK_VEICULO_ABASTECIMENTO" Association="Self.FK_VEICULO_ABASTECIMENTO">
             <End Role="VEICULO" EntitySet="VEICULO" />
@@ -493,6 +430,14 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="NOME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_CARGO_FUNCIONARIO" FromRole="CARGO" ToRole="FUNCIONARIO" />
         </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PRODUTO" Relationship="Self.FK_CATEGORIA_FK" FromRole="CATEGORIA" ToRole="PRODUTO" />
+        </EntityType>
         <EntityType Name="COMBUSTIVEL_DISPONIVEL">
           <Key>
             <PropertyRef Name="ID" />
@@ -501,6 +446,18 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="FK_TANQUE" Type="Int32" Nullable="false" />
           <Property Name="QUANTIDADE" Type="Double" Nullable="false" />
           <NavigationProperty Name="TANQUE" Relationship="Self.FK_TANQUE" FromRole="COMBUSTIVEL_DISPONIVEL" ToRole="TANQUE" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CIDADE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CONTATO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="Self.FK_FORNECEDOR_ENTRADA" FromRole="FORNECEDOR" ToRole="PRODUTO_ENTRADA" />
         </EntityType>
         <EntityType Name="FUNCIONARIO">
           <Key>
@@ -513,9 +470,9 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="FK_CARGO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_FUNCIONARIO_ABASTECIMENTO" FromRole="FUNCIONARIO" ToRole="ABASTECIMENTO" />
           <NavigationProperty Name="CARGO" Relationship="Self.FK_CARGO_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="CARGO" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="Self.FK_ENTRADA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_ENTRADA" />
           <NavigationProperty Name="LOGIN" Relationship="Self.FK_FUNCIONARIO_LOGIN" FromRole="FUNCIONARIO" ToRole="LOGIN" />
-          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_ENTRADA" />
-          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_SAIDA" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="Self.FK_SAIDA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="PRODUTO_SAIDA" />
         </EntityType>
         <EntityType Name="LOGIN">
           <Key>
@@ -532,6 +489,7 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="KM_ATUAL" Type="Double" Nullable="false" />
           <Property Name="KM_PROXIMA_TROCA" Type="Double" Nullable="false" />
           <Property Name="FILTRO_AR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -540,10 +498,51 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="FILTRO_OLEO_MOTOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="QUANTIDADE_OLEO_MOTOR" Type="Double" />
           <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VEICULO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="MANUTENCAO" ToRole="VEICULO" />
-          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FILTRO_OLEO_1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FILTRO_OLEO_2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VEICULO" Relationship="Self.FK_VEICULO" FromRole="MANUTENCAO" ToRole="VEICULO" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_CATEGORIA" Type="Int32" Nullable="false" />
+          <Property Name="CODIGO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="APLICACAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_CATEGORIA_FK" FromRole="PRODUTO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="Self.FK_ENTRADA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_ENTRADA" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="Self.FK_SAIDA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_SAIDA" />
+        </EntityType>
+        <EntityType Name="PRODUTO_ENTRADA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <Property Name="FK_FORNECEDOR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="Self.FK_FORNECEDOR_ENTRADA" FromRole="PRODUTO_ENTRADA" ToRole="FORNECEDOR" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_ENTRADA_FUNCIONARIO" FromRole="PRODUTO_ENTRADA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="Self.FK_ENTRADA_PRODUTO" FromRole="PRODUTO_ENTRADA" ToRole="PRODUTO" />
+        </EntityType>
+        <EntityType Name="PRODUTO_SAIDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
+          <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_SAIDA_FUNCIONARIO" FromRole="PRODUTO_SAIDA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="Self.FK_SAIDA_PRODUTO" FromRole="PRODUTO_SAIDA" ToRole="PRODUTO" />
+          <NavigationProperty Name="VEICULO" Relationship="Self.FK_SAIDA_VEICULO" FromRole="PRODUTO_SAIDA" ToRole="VEICULO" />
+          <Property Name="KM" Type="Double" />
         </EntityType>
         <EntityType Name="QUANTIDADE_TANQUE">
           <Key>
@@ -576,8 +575,8 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="KM_COMPRA" Type="Double" Nullable="false" />
           <Property Name="KM_ATUAL" Type="Double" Nullable="false" />
           <NavigationProperty Name="ABASTECIMENTO" Relationship="Self.FK_VEICULO_ABASTECIMENTO" FromRole="VEICULO" ToRole="ABASTECIMENTO" />
-          <NavigationProperty Name="MANUTENCAO" Relationship="Self.FK_VEICULO_MANUTENCAO" FromRole="VEICULO" ToRole="MANUTENCAO" />
-          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_VEICULO" FromRole="VEICULO" ToRole="PRODUTO_SAIDA" />
+          <NavigationProperty Name="MANUTENCAO" Relationship="Self.FK_VEICULO" FromRole="VEICULO" ToRole="MANUTENCAO" />
+          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="Self.FK_SAIDA_VEICULO" FromRole="VEICULO" ToRole="PRODUTO_SAIDA" />
         </EntityType>
         <Association Name="FK_FUNCIONARIO_ABASTECIMENTO">
           <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
@@ -627,6 +626,18 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CATEGORIA_FK">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="FK_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TANQUE">
           <End Role="TANQUE" Type="Self.TANQUE" Multiplicity="1" />
           <End Role="COMBUSTIVEL_DISPONIVEL" Type="Self.COMBUSTIVEL_DISPONIVEL" Multiplicity="*" />
@@ -636,6 +647,30 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Principal>
             <Dependent Role="COMBUSTIVEL_DISPONIVEL">
               <PropertyRef Name="FK_TANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_ENTRADA">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FORNECEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -651,7 +686,19 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VEICULO_MANUTENCAO">
+        <Association Name="FK_SAIDA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEICULO">
           <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
           <End Role="MANUTENCAO" Type="Self.MANUTENCAO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -659,6 +706,42 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="MANUTENCAO">
+              <PropertyRef Name="FK_VEICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRADA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_ENTRADA" Type="Self.PRODUTO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ENTRADA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
+              <PropertyRef Name="FK_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SAIDA_VEICULO">
+          <End Role="VEICULO" Type="Self.VEICULO" Multiplicity="1" />
+          <End Role="PRODUTO_SAIDA" Type="Self.PRODUTO_SAIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEICULO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_SAIDA">
               <PropertyRef Name="FK_VEICULO" />
             </Dependent>
           </ReferentialConstraint>
@@ -678,10 +761,15 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
         <EntityContainer Name="VIACAOARAUJOEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ABASTECIMENTO" EntityType="Self.ABASTECIMENTO" />
           <EntitySet Name="CARGO" EntityType="Self.CARGO" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
           <EntitySet Name="COMBUSTIVEL_DISPONIVEL" EntityType="Self.COMBUSTIVEL_DISPONIVEL" />
+          <EntitySet Name="FORNECEDOR" EntityType="Self.FORNECEDOR" />
           <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" />
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" />
           <EntitySet Name="MANUTENCAO" EntityType="Self.MANUTENCAO" />
+          <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" />
+          <EntitySet Name="PRODUTO_ENTRADA" EntityType="Self.PRODUTO_ENTRADA" />
+          <EntitySet Name="PRODUTO_SAIDA" EntityType="Self.PRODUTO_SAIDA" />
           <EntitySet Name="QUANTIDADE_TANQUE" EntityType="Self.QUANTIDADE_TANQUE" />
           <EntitySet Name="TANQUE" EntityType="Self.TANQUE" />
           <EntitySet Name="VEICULO" EntityType="Self.VEICULO" />
@@ -701,124 +789,52 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
             <End Role="CARGO" EntitySet="CARGO" />
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_FK" Association="Self.FK_CATEGORIA_FK">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_TANQUE" Association="Self.FK_TANQUE">
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="COMBUSTIVEL_DISPONIVEL" EntitySet="COMBUSTIVEL_DISPONIVEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ENTRADA" Association="Self.FK_FORNECEDOR_ENTRADA">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_FUNCIONARIO" Association="Self.FK_ENTRADA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
           </AssociationSet>
           <AssociationSet Name="FK_FUNCIONARIO_LOGIN" Association="Self.FK_FUNCIONARIO_LOGIN">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="LOGIN" EntitySet="LOGIN" />
           </AssociationSet>
-          <AssociationSet Name="FK_VEICULO_MANUTENCAO" Association="Self.FK_VEICULO_MANUTENCAO">
+          <AssociationSet Name="FK_SAIDA_FUNCIONARIO" Association="Self.FK_SAIDA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEICULO" Association="Self.FK_VEICULO">
             <End Role="VEICULO" EntitySet="VEICULO" />
             <End Role="MANUTENCAO" EntitySet="MANUTENCAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRADA_PRODUTO" Association="Self.FK_ENTRADA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_PRODUTO" Association="Self.FK_SAIDA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SAIDA_VEICULO" Association="Self.FK_SAIDA_VEICULO">
+            <End Role="VEICULO" EntitySet="VEICULO" />
+            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
           </AssociationSet>
           <AssociationSet Name="FK_TANQUE_QUANTIDADE" Association="Self.FK_TANQUE_QUANTIDADE">
             <End Role="TANQUE" EntitySet="TANQUE" />
             <End Role="QUANTIDADE_TANQUE" EntitySet="QUANTIDADE_TANQUE" />
           </AssociationSet>
-          <EntitySet Name="CATEGORIA" EntityType="VIACAOARAUJOModel.CATEGORIA" />
-          <EntitySet Name="FORNECEDOR" EntityType="VIACAOARAUJOModel.FORNECEDOR" />
-          <EntitySet Name="PRODUTO" EntityType="VIACAOARAUJOModel.PRODUTO" />
-          <EntitySet Name="PRODUTO_ENTRADA" EntityType="VIACAOARAUJOModel.PRODUTO_ENTRADA" />
-          <EntitySet Name="PRODUTO_SAIDA" EntityType="VIACAOARAUJOModel.PRODUTO_SAIDA" />
           <EntitySet Name="sysdiagrams" EntityType="VIACAOARAUJOModel.sysdiagrams" />
-          <AssociationSet Name="FK_CATEGORIA_FK" Association="VIACAOARAUJOModel.FK_CATEGORIA_FK">
-            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
-            <End Role="PRODUTO" EntitySet="PRODUTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENTRADA_FUNCIONARIO" Association="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO">
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SAIDA_FUNCIONARIO" Association="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO">
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENTRADA_PRODUTO" Association="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO">
-            <End Role="PRODUTO" EntitySet="PRODUTO" />
-            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SAIDA_PRODUTO" Association="VIACAOARAUJOModel.FK_SAIDA_PRODUTO">
-            <End Role="PRODUTO" EntitySet="PRODUTO" />
-            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SAIDA_VEICULO" Association="VIACAOARAUJOModel.FK_SAIDA_VEICULO">
-            <End Role="VEICULO" EntitySet="VEICULO" />
-            <End Role="PRODUTO_SAIDA" EntitySet="PRODUTO_SAIDA" />
-          </AssociationSet>
-          <AssociationSet Name="PRODUTO_FORNECEDOR" Association="VIACAOARAUJOModel.PRODUTO_FORNECEDOR">
-            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
-            <End Role="PRODUTO" EntitySet="PRODUTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FORNECEDOR_ENTRADA" Association="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA">
-            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
-            <End Role="PRODUTO_ENTRADA" EntitySet="PRODUTO_ENTRADA" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="CATEGORIA">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOME" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_CATEGORIA_FK" FromRole="CATEGORIA" ToRole="PRODUTO" />
-        </EntityType>
-        <EntityType Name="FORNECEDOR">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
-          <Property Name="CIDADE" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="CONTATO" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PRODUTO" />
-          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" FromRole="FORNECEDOR" ToRole="PRODUTO_ENTRADA" />
-        </EntityType>
-        <EntityType Name="PRODUTO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_CATEGORIA" Type="Int32" Nullable="false" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
-          <Property Name="APLICACAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CATEGORIA" Relationship="VIACAOARAUJOModel.FK_CATEGORIA_FK" FromRole="PRODUTO" ToRole="CATEGORIA" />
-          <NavigationProperty Name="PRODUTO_ENTRADA" Relationship="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_ENTRADA" />
-          <NavigationProperty Name="PRODUTO_SAIDA" Relationship="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_SAIDA" />
-          <NavigationProperty Name="FORNECEDOR" Relationship="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" FromRole="PRODUTO" ToRole="FORNECEDOR" />
-        </EntityType>
-        <EntityType Name="PRODUTO_ENTRADA">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
-          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
-          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="VIACAOARAUJOModel.FK_ENTRADA_FUNCIONARIO" FromRole="PRODUTO_ENTRADA" ToRole="FUNCIONARIO" />
-          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_ENTRADA_PRODUTO" FromRole="PRODUTO_ENTRADA" ToRole="PRODUTO" />
-          <Property Name="FK_FORNECEDOR" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FORNECEDOR" Relationship="VIACAOARAUJOModel.FK_FORNECEDOR_ENTRADA" FromRole="PRODUTO_ENTRADA" ToRole="FORNECEDOR" />
-        </EntityType>
-        <EntityType Name="PRODUTO_SAIDA">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_PRODUTO" Type="Int32" Nullable="false" />
-          <Property Name="QUANTIDADE" Type="Int32" Nullable="false" />
-          <Property Name="DATA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FK_FUNCIONARIO" Type="Int32" Nullable="false" />
-          <Property Name="FK_VEICULO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="VIACAOARAUJOModel.FK_SAIDA_FUNCIONARIO" FromRole="PRODUTO_SAIDA" ToRole="FUNCIONARIO" />
-          <NavigationProperty Name="PRODUTO" Relationship="VIACAOARAUJOModel.FK_SAIDA_PRODUTO" FromRole="PRODUTO_SAIDA" ToRole="PRODUTO" />
-          <NavigationProperty Name="VEICULO" Relationship="VIACAOARAUJOModel.FK_SAIDA_VEICULO" FromRole="PRODUTO_SAIDA" ToRole="VEICULO" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -829,94 +845,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_CATEGORIA_FK">
-          <End Type="VIACAOARAUJOModel.CATEGORIA" Role="CATEGORIA" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CATEGORIA">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO">
-              <PropertyRef Name="FK_CATEGORIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENTRADA_FUNCIONARIO">
-          <End Type="VIACAOARAUJOModel.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FUNCIONARIO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_ENTRADA">
-              <PropertyRef Name="FK_FUNCIONARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SAIDA_FUNCIONARIO">
-          <End Type="VIACAOARAUJOModel.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FUNCIONARIO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_SAIDA">
-              <PropertyRef Name="FK_FUNCIONARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENTRADA_PRODUTO">
-          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUTO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_ENTRADA">
-              <PropertyRef Name="FK_PRODUTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SAIDA_PRODUTO">
-          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUTO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_SAIDA">
-              <PropertyRef Name="FK_PRODUTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SAIDA_VEICULO">
-          <End Type="VIACAOARAUJOModel.VEICULO" Role="VEICULO" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_SAIDA" Role="PRODUTO_SAIDA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VEICULO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_SAIDA">
-              <PropertyRef Name="FK_VEICULO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PRODUTO_FORNECEDOR">
-          <End Type="VIACAOARAUJOModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="*" />
-          <End Type="VIACAOARAUJOModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_FORNECEDOR_ENTRADA">
-          <End Type="VIACAOARAUJOModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="1" />
-          <End Type="VIACAOARAUJOModel.PRODUTO_ENTRADA" Role="PRODUTO_ENTRADA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORNECEDOR">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PRODUTO_ENTRADA">
-              <PropertyRef Name="FK_FORNECEDOR" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -947,12 +875,32 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="COMBUSTIVEL_DISPONIVEL">
             <EntityTypeMapping TypeName="VIACAOARAUJOModel.COMBUSTIVEL_DISPONIVEL">
               <MappingFragment StoreEntitySet="COMBUSTIVEL_DISPONIVEL">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FK_TANQUE" ColumnName="FK_TANQUE" />
                 <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORNECEDOR">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.FORNECEDOR">
+              <MappingFragment StoreEntitySet="FORNECEDOR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="CIDADE" ColumnName="CIDADE" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="CONTATO" ColumnName="CONTATO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -980,10 +928,8 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
           <EntitySetMapping Name="MANUTENCAO">
             <EntityTypeMapping TypeName="VIACAOARAUJOModel.MANUTENCAO">
               <MappingFragment StoreEntitySet="MANUTENCAO">
-                <ScalarProperty Name="FILTRO_OLEO_2" ColumnName="FILTRO_OLEO_2" />
-                <ScalarProperty Name="FILTRO_OLEO_1" ColumnName="FILTRO_OLEO_1" />
-                <ScalarProperty Name="DATA" ColumnName="DATA" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
                 <ScalarProperty Name="KM_ATUAL" ColumnName="KM_ATUAL" />
                 <ScalarProperty Name="KM_PROXIMA_TROCA" ColumnName="KM_PROXIMA_TROCA" />
                 <ScalarProperty Name="FILTRO_AR" ColumnName="FILTRO_AR" />
@@ -991,6 +937,44 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
                 <ScalarProperty Name="FILTRO_RACOR" ColumnName="FILTRO_RACOR" />
                 <ScalarProperty Name="FILTRO_OLEO_MOTOR" ColumnName="FILTRO_OLEO_MOTOR" />
                 <ScalarProperty Name="QUANTIDADE_OLEO_MOTOR" ColumnName="QUANTIDADE_OLEO_MOTOR" />
+                <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
+                <ScalarProperty Name="FILTRO_OLEO_1" ColumnName="FILTRO_OLEO_1" />
+                <ScalarProperty Name="FILTRO_OLEO_2" ColumnName="FILTRO_OLEO_2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO">
+              <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_CATEGORIA" ColumnName="FK_CATEGORIA" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="APLICACAO" ColumnName="APLICACAO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_ENTRADA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_ENTRADA">
+              <MappingFragment StoreEntitySet="PRODUTO_ENTRADA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
+                <ScalarProperty Name="FK_FORNECEDOR" ColumnName="FK_FORNECEDOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_SAIDA">
+            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_SAIDA">
+              <MappingFragment StoreEntitySet="PRODUTO_SAIDA">
+                <ScalarProperty Name="KM" ColumnName="KM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
+                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
                 <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1025,61 +1009,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CATEGORIA">
-            <EntityTypeMapping TypeName="VIACAOARAUJOModel.CATEGORIA">
-              <MappingFragment StoreEntitySet="CATEGORIA">
-                <ScalarProperty Name="NOME" ColumnName="NOME" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FORNECEDOR">
-            <EntityTypeMapping TypeName="VIACAOARAUJOModel.FORNECEDOR">
-              <MappingFragment StoreEntitySet="FORNECEDOR">
-                <ScalarProperty Name="CONTATO" ColumnName="CONTATO" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="CIDADE" ColumnName="CIDADE" />
-                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
-                <ScalarProperty Name="NOME" ColumnName="NOME" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUTO">
-            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO">
-              <MappingFragment StoreEntitySet="PRODUTO">
-                <ScalarProperty Name="APLICACAO" ColumnName="APLICACAO" />
-                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="FK_CATEGORIA" ColumnName="FK_CATEGORIA" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUTO_ENTRADA">
-            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_ENTRADA">
-              <MappingFragment StoreEntitySet="PRODUTO_ENTRADA">
-                <ScalarProperty Name="FK_FORNECEDOR" ColumnName="FK_FORNECEDOR" />
-                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
-                <ScalarProperty Name="DATA" ColumnName="DATA" />
-                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
-                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUTO_SAIDA">
-            <EntityTypeMapping TypeName="VIACAOARAUJOModel.PRODUTO_SAIDA">
-              <MappingFragment StoreEntitySet="PRODUTO_SAIDA">
-                <ScalarProperty Name="FK_VEICULO" ColumnName="FK_VEICULO" />
-                <ScalarProperty Name="FK_FUNCIONARIO" ColumnName="FK_FUNCIONARIO" />
-                <ScalarProperty Name="DATA" ColumnName="DATA" />
-                <ScalarProperty Name="QUANTIDADE" ColumnName="QUANTIDADE" />
-                <ScalarProperty Name="FK_PRODUTO" ColumnName="FK_PRODUTO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="VIACAOARAUJOModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1091,14 +1020,6 @@ warning 6002: The table/view 'VIACAOARAUJO.dbo.PRODUTO_FORNECEDOR' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="PRODUTO_FORNECEDOR" TypeName="VIACAOARAUJOModel.PRODUTO_FORNECEDOR" StoreEntitySet="PRODUTO_FORNECEDOR">
-            <EndProperty Name="PRODUTO">
-              <ScalarProperty Name="ID" ColumnName="FK_PRODUTO" />
-            </EndProperty>
-            <EndProperty Name="FORNECEDOR">
-              <ScalarProperty Name="ID" ColumnName="FK_FORNECEDOR" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

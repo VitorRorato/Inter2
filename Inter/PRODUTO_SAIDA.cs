@@ -20,6 +20,7 @@ namespace Inter
         public System.DateTime DATA { get; set; }
         public int FK_FUNCIONARIO { get; set; }
         public int FK_VEICULO { get; set; }
+        public Nullable<double> KM { get; set; }
     
         public virtual FUNCIONARIO FUNCIONARIO { get; set; }
         public virtual PRODUTO PRODUTO { get; set; }

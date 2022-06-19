@@ -63,6 +63,7 @@
                 <div class="modal-body text-center">
                     <div class="row">
                         <div class="col">
+                            <div class="p-1 m-1"><asp:Label Text="Categoria" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Codigo" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Quantidade" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
@@ -70,6 +71,7 @@
                             <div class="p-1 m-1"><asp:Label Text="Fornecedor" runat="server" /></div>
                         </div>
                         <div class="col-8">
+                            <div class="p-1"><asp:DropDownList CssClass="w-100 text-center"  ID="ddlCategoriaEntrada" OnSelectedIndexChanged="ddlCategoriaEntrada_SelectedIndexChanged" runat="server" AutoPostBack="True"></asp:DropDownList></div>
                             <div class="p-1"><asp:DropDownList CssClass="w-100 text-center" Id="ddlProdutoEntrada" runat="server"></asp:DropDownList></div>
                             <div class="p-1"><asp:TextBox CssClass="w-100 text-center" Id="txtQuantidadeEntrada" runat="server" /></div>
                             <div class="p-1"><asp:TextBox CssClass="w-100 text-center" type="Date" Id="txtDataEtrada" runat="server" /></div>
@@ -121,7 +123,7 @@
         </div>
     </div>
 
-     <div class="modal fade" id="modalSaida" tabindex="-1" aria-labelledby="" aria-hidden="true">
+     <div class="modal fade" id="modalSaida" tabindex="-1" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,18 +132,22 @@
                 <div class="modal-body text-center">
                     <div class="row">
                         <div class="col">
+                            <div class="p-1 m-1"><asp:Label Text="Categoria" runat="server" /></div> 
                             <div class="p-1 m-1"><asp:Label Text="Codigo" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Quantidade" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Data" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Funcionario" runat="server" /></div>
                             <div class="p-1 m-1"><asp:Label Text="Veiculo" runat="server" /></div>
+                            <div class="p-1 m-1"><asp:Label Text="Quilometragem" runat="server" /></div>
                         </div>
                         <div class="col-8">
+                            <div class="p-1"><asp:DropDownList CssClass="w-100 text-center" ID="ddlCategoriaSaida" runat="server" OnSelectedIndexChanged="ddlCategoriaSaida_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList></div>
                             <div class="p-1"><asp:DropDownList CssClass="w-100 text-center" Id="ddlProdutoSaida" runat="server"></asp:DropDownList></div>
                             <div class="p-1"><asp:TextBox CssClass="w-100 text-center" Id="txtQuantidadeSaida" runat="server" /></div>
                             <div class="p-1"><asp:TextBox CssClass="w-100 text-center" type="Date" Id="txtDataSaida" runat="server" /></div>
                             <div class="p-1"><asp:DropDownList CssClass="w-100 text-center" Id="ddlFuncionarioSaida" runat="server"></asp:DropDownList></div>
                             <div class="p-1"><asp:DropDownList CssClass="w-100 text-center" Id="ddlVeiculoSaida" runat="server"></asp:DropDownList></div>
+                            <div class="p-1"><asp:TextBox CssClass="w-100 text-center" Id="txtKmSaida" runat="server" /></div>
                         </div>
                     </div>
                 </div>
@@ -246,6 +252,7 @@
                             <asp:BoundField DataField="PRODUTO.CODIGO" HeaderText="Item"></asp:BoundField>
                             <asp:BoundField DataField="QUANTIDADE" HeaderText="Quantidade"></asp:BoundField>
                             <asp:BoundField DataField="VEICULO.PREFIXO" HeaderText="Veiculo"></asp:BoundField>
+                            <asp:BoundField DataField="KM" HeaderText="Quilometragem" />
                         </Columns>
 
                         <FooterStyle BackColor="Tan"></FooterStyle>
